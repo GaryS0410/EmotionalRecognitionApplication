@@ -1,0 +1,9 @@
+# Virtual Environment
+/venv
+
+# PyCache
+**/__pycache__
+app/__pycache__
+
+# Instance Folder and Database File
+/instance

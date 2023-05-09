@@ -1,0 +1,2 @@
+# Emotional Recognition Project
+This is the remote repository for my 4th year honours project for the award of BSc Computing (G401) from Glasgow Caledonian University. This is a new repository for the project due to the mass amount of refactoring and trying to structure the application into a better state.
