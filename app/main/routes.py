@@ -4,4 +4,4 @@ from app.main import bp
 
 @bp.route('/', methods = ['GET', 'POST'])
 def index():
-    return "hello world"
+    return render_template('landing_page.html')
