@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect, url_for
 from app.models import *
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 from app.auth import bp 
 from app.auth.forms import *
@@ -16,12 +16,14 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 flash('Logged in successfully!', category = 'success')
                 login_user(user, remember = True)
-                return render_template('homepage.html', username=current_user.first_name, email=current_user.email)
+                return redirect(url_for('main.homepage'))
+                # return render_template('homepage.html', username=current_user.first_name, email=current_user.email)
             else:
                 flash('Account does not exist. Please register an account before logging in.', category='error')
     return render_template('auth/login.html', form = form)
 
 @bp.route('/logout', methods = ['GET'])
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
@@ -40,6 +42,11 @@ def register_patient():
                                           password = generate_password_hash(form.password.data, method="sha256"))
             db.session.add(new_patient_account)
             db.session.commit()
+
+            if form.account_type == "Patient":
+                print("Patient")
+            else: 
+                print("Therapist")
 
             # Where associations would go 
             login_user(new_patient_account, remember=True)

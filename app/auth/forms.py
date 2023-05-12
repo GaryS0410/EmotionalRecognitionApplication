@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = StringField('Password', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
 class RegisterPatientForm(FlaskForm):
@@ -13,6 +13,7 @@ class RegisterPatientForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('password')])
     confirm_password = PasswordField('Password', validators=[DataRequired(), Length(min=7)])
+    account_type = SelectField('Account Type', choices=[('1', 'Patient'), ('2', 'Therapist')])
     submit = SubmitField('Sign Up')
 
 class RegisterTherapistForm(FlaskForm):

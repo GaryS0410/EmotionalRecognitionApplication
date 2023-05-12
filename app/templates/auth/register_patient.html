@@ -3,19 +3,25 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <div class="card">
                 <h5 class="card-header">Register Account</h5>
                 <div class="card-body">
                     <form method = "POST" action="{{ url_for('auth.register_patient') }}">
                         {{ form.csrf_token }}
-                        <div class="form-group">
-                            {{ form.first_name.label }}
-                            {{ form.first_name(class="form-control", placeholder="First Name...") }}
-                        </div>
-                        <div class="form-group">
-                            {{ form.surname.label }}
-                            {{ form.surname(class="form-control", placeholder="Surname...") }}
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    {{ form.first_name.label }}
+                                    {{ form.first_name(class="form-control", placeholder="First Name...") }}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    {{ form.surname.label }}
+                                    {{ form.surname(class="form-control", placeholder="Surname...") }}
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             {{ form.email.label }}
@@ -30,6 +36,10 @@
                             {{ form.confirm_password(class="form-control", placeholder="Confirm Password...")}}
                         </div>
                         <div class="form-group">
+                            {{ form.account_type.label }}
+                            {{ form.account_type(class="form-control") }}
+                        </div>
+                        <div class="form-group">
                             {{ form.submit(class="btn btn-secondary") }}
                         </div>
                     </form>
@@ -38,6 +48,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

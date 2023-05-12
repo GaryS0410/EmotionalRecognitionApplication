@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="card" id="PHQ9">
+                <h3 class="card-header">PHQ-9 Questionnaire</h3>
+                <div class="card-body">
+                    <p>
+                        This is a questionnaire designed to gauge the severeity/presence of depressive symptoms.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary" type="button" id="start-phq-questionnaire">Take PHQ-9 Questionnaire</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card" id="GAD7">
+                <h3 class="card-header">GAD-7 Questionnaire</h3>
+                <div class="card-body">
+                    <p>
+                        This is a questionnaire designed to gauge the severeity/presence of generalised anxiety disorder symptoms.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary" type="button" id="start-gad-questionnaire">Take GAD-7 Questionnaire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-6">
+            <div class="card" id="SPIN">
+                <h3 class="card-header">Social Anxiety Inventory Questionnaire</h3>
+                <div class="card-body">
+                    <p>
+                        This is a questionnaire designed to gauge the severeity/prescence of social anxiety disorder symptoms
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary" type="button" id="start-spin-questionnaire">Take SPIN questionnaire</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card" id="PCL5">
+                <h3 class="card-header">PCL-5 Questionnaire</h3>
+                <div class="card-body">
+                    <p>
+                        This is a questionnaire designed to gauge the severeity/prescence of PTSD symptoms.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary" type="button" id="start-pcl-questionnaire">Take PCL-5 Questionnaire</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
