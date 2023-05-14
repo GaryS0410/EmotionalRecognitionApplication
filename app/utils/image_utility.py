@@ -2,7 +2,7 @@ import cv2
 from tensorflow.keras.models import load_model
 from PIL import Image
 
-from app.utility import bp 
+from app.utils import bp 
 
 # Pre-processing image function
 def preprocess_image(image):

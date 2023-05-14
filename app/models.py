@@ -86,6 +86,22 @@ class GAD7Scores(db.Model):
         latest_score = all_scores[-1]
         return latest_score
 
+# class SPINScores(db.Model):
+#     __tablename__ = 'SPINScores'
+#     id = db.Column(db.Integer, primary_key = True)
+#     score = db.Column(db.Integer, nullable = False)
+#     emotional_score = db.Column(db.Integer, default = 0)
+#     time_captured = db.Column(db.DateTime(timezone=True), default=func.now())
+#     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
+
+# class PCL5Scores(db.Model):
+#     __tablename__ = 'PCL5Scores'
+#     id = db.Column(db.Integer, primary_key = True)
+#     score = db.Column(db.Integer, nullable = False)
+#     emotional_score = db.Column(db.Integer, default = 0)
+#     time_captured = db.Column(db.DateTime(timezone=True), default=func.now())
+#     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
+
 # Base user model, used in order to define the base attributes both the
 # therapist and patient should have. These attributes include the names.
 # email, password, etc.

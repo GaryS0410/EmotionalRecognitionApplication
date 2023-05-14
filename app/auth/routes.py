@@ -43,14 +43,11 @@ def register_patient():
             db.session.add(new_patient_account)
             db.session.commit()
 
-            if form.account_type == "Patient":
-                print("Patient")
-            else: 
-                print("Therapist")
+            print(form.account_type.data)
 
             # Where associations would go 
             login_user(new_patient_account, remember=True)
             flash('Account created!', category='success')
             # Re-direct to appropriate page here
-            return render_template('homepage.html', username = current_user.first_name, email = current_user.email)
+            return redirect(url_for('main.homepage'))
     return render_template('auth/register_patient.html', form=form)
