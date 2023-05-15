@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="card">
+        <h3 class="card-header">PHQ-9 Questionnaire</h3>
+        <div class="card-body">
+            <form id="questionnaire-form" method="POST" action="{{ url_for('main.phq9_questionnaire') }}">
+                {{ form.csrf_token}}
+                <label for="{{ form.question1.id }}">{{ form.question1.label }}</label>
+                <div class="btn-group">
+                    <div class="btn-group me-2">
+                        {{ form.question1(name='question1', class="btn btn-secondary") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

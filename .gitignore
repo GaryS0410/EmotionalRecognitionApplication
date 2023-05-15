@@ -7,3 +7,6 @@ app/__pycache__
 
 # Instance Folder and Database File
 /instance
+
+# Model File
+model.h5
