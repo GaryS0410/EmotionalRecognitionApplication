@@ -28,6 +28,10 @@ class GAD7Form(FlaskForm):
     question6 = RadioField('Becoming easily annoyed or irritable?', choices=[('0', 'Not at all'), ('1', 'Several days'), ('2', 'More than half the days'), ('3', 'Nearly every day')])
     question7 = RadioField('Feeling afraid as if something awful might happen?', choices=[('0', 'Not at all'), ('1', 'Several days'), ('2', 'More than half the days'), ('3', 'Nearly every day')])
 
+    def calculate_score(self):
+        score = int(self.question1.data) + int(self.question2.data) + int(self.question3.data) + int(self.question4.data) + int(self.question5.data) + int(self.question6.data) + int(self.question7.data)
+        return score
+
 # Social Anxiety Inventory (SPIN) Form
 class SPINForm(FlaskForm):
     question1 = RadioField('I am afraid of people in authority', choices=[('0', 'Not at all'), ('1', 'A little bit'), ('2', 'Somewhat'), ('3', 'Very much'), ('4', 'Extremely')])

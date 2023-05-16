@@ -10,9 +10,9 @@
 
 <div class="container">
     <div class="card">
-        <h3 class="card-header">PHQ-9 Questionnaire</h3>
+        <h3 class="card-header">GAD-7 Questionnaire</h3>
         <div class="card-body">
-            <form id="questionnaire-form" method="POST" action="{{ url_for('main.phq9_questionnaire') }}">
+            <form id="questionnaire-form" method="POST" action="{{ url_for('main.gad7_questionnaire') }}">
                 {{ form.csrf_token}}
 
                 <div class="question" id="question1">
@@ -48,16 +48,6 @@
                 <div class="question" id="question7" style="display: none;">
                     <label for="{{ form.question7.id }}">{{ form.question7.label }}</label>
                     {{ form.question7 (name='question7') }}
-                </div>
-
-                <div class="question" id="question8" style="display: none;">
-                    <label for="{{ form.question8.id }}">{{ form.question8.label }}</label>
-                    {{ form.question8 (name='question8') }}
-                </div>
-
-                <div class="question" id="question9" style="display: none;">
-                    <label for="{{ form.question9.id }}">{{ form.question9.label }}</label>
-                    {{ form.question9 (name='question9') }}
                 </div>
 
                 <button class="btn btn-secondary" id="last" type="button" onclick="previousQuestion();">Previous</button>

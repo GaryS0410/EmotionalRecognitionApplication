@@ -16,7 +16,7 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 flash('Logged in successfully!', category = 'success')
                 login_user(user, remember = True)
-                return redirect(url_for('main.homepage'))
+                return redirect(url_for('main.profile_page'))
                 # return render_template('homepage.html', username=current_user.first_name, email=current_user.email)
             else:
                 flash('Account does not exist. Please register an account before logging in.', category='error')
@@ -49,5 +49,5 @@ def register_patient():
             login_user(new_patient_account, remember=True)
             flash('Account created!', category='success')
             # Re-direct to appropriate page here
-            return redirect(url_for('main.homepage'))
+            return redirect(url_for('main.profile_page'))
     return render_template('auth/register_patient.html', form=form)

@@ -10,3 +10,20 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log('not working');
     });
 }
+
+function upload(file) {
+    var formdata = new FormData();
+    formdata.append('snap', file);
+
+    fetch('/append_quiz_image', {
+        method: 'POST',
+        body: formdata,
+    })
+        .then(response => response.blob())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+}
