@@ -40,7 +40,7 @@ def preprocess_image(image):
 def predict_emotions(image_list):
     model = load_model('app\static\ml_models\model.h5')
 
-    images = np.array(image_list)
+    image_list = np.array(image_list)
 
     predictions = model.predict(image_list)
     predicted_classes = np.argmax(predictions, axis =1)
