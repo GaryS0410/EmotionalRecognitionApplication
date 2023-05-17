@@ -5,6 +5,7 @@
 {% if score %}
 
 {{ score }}
+{{ emotions }}
 
 {% else %}
 
@@ -64,6 +65,7 @@
 
 {% block scripts %}
 
+<script src=" {{ url_for('static', filename='js/camera.js') }}"></script>
 <script src=" {{ url_for('static', filename='js/questionnaire.js') }}"></script>
 
 {% endblock %}

@@ -7,7 +7,7 @@ import numpy as np
 from app.utils import bp 
 
 # PRE-PROCESSING A CAPTURED IMAGE
-def preprocess_image(image):
+def preprocess_image(webcam_image):
     face_classifier = cv2.CascadeClassifier('app\static\ml_models\haarcascade_frontalface_default.xml')
 
     webcam_image = Image.open(BytesIO(webcam_image))
@@ -26,6 +26,8 @@ def preprocess_image(image):
 
         face_image = np.expand_dims(face_image, axis = 0)
         face_image = np.expand_dims(face_image, axis = -1)
+
+        return face_image
     except:
         grey_image = cv2.resize(grey_image, (48, 48))
         grey_image = grey_image.astype('float32')

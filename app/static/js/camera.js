@@ -30,5 +30,5 @@ function upload(file) {
 
 function takePhoto() {
     context.drawImage(video, 0, 0, 640, 480);
-    context.toBlob(upload, 'image/jpeg', 1);
+    canvas.toBlob(upload, 'image/jpeg', 0.95);
 }

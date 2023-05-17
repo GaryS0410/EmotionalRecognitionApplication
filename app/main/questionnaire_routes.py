@@ -27,10 +27,8 @@ def phq9_questionnaire():
         score = form.calculate_score()
         
         emotions = predict_questionnaire_images()
-        print(emotions)
-        print(score)
 
-        return render_template('/questionnaires/PHQ9.html', score = score)
+        return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions)
     return render_template('/questionnaires/PHQ9.html', form = form)
 
 @bp.route('/gad7_questionnaire', methods = ['GET', 'POST'])
@@ -41,7 +39,9 @@ def gad7_questionnaire():
     if form.validate_on_submit():
         score = form.calculate_score()
 
-        return render_template('/questionnaires/GAD7.html', score = score)
+        emotions = predict_questionnaire_images()
+
+        return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions)
     return render_template('/questionnaires/GAD7.html', form = form)
 
 # Route for clearing the global image list 
@@ -61,7 +61,7 @@ def get_questionnaire_image():
         if image:
             image = preprocess_image(image)
             image_list = np.concatenate((image_list, image), axis = 0)
-            return 200
+            return ("Image captured", 200)
         else:
             return "Could not capture image."
         
