@@ -28,25 +28,49 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-@bp.route('/register_patient', methods=['GET', 'POST'])
-def register_patient():
-    form = RegisterPatientForm()
+@bp.route('/register_user', methods=['GET', 'POST'])
+def register_user():
+    form = RegisterForm()
 
     if form.validate_on_submit():
-        patient = Patient.query.filter_by(email = form.email.data).first()
 
-        if patient:
-            flash('An account already exists with this email. Please choose another email before registering.', category='error')
-        else:
-
-            new_patient_account = Patient(first_name = form.first_name.data, surname = form.surname.data, email = form.email.data,
-                                password = bcrypt.hashpw(form.password.data.encode('utf-8'), bcrypt.gensalt()))
-            db.session.add(new_patient_account)
-            db.session.commit()
-
-            # Where associations would go 
-            login_user(new_patient_account, remember=True)
-            flash('Account created!', category='success')
-            # Re-direct to appropriate page here
+        if form.account_type.data == '1':
+            register_patient(form.first_name.data, form.surname.data, form.email.data, form.password.data)
             return redirect(url_for('main.profile_page'))
+        elif form.account_type.data == '2':
+            register_therapist(form.first_name.data, form.surname.data, form.email.data, form.password.data)
+            return redirect(url_for('therapist.therapist_dash'))
     return render_template('auth/register_patient.html', form=form)
+
+
+def register_patient(first_name, surname, email, password):
+    patient = User.query.filter_by(email = email).first()
+
+    if patient:
+        flash('A user account already exists with this email. Please choose a unique email before registering', category='error')
+    else:
+        new_patient_account = Patient(first_name = first_name, surname = surname, email = email, 
+                                    password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))
+        db.session.add(new_patient_account)
+        db.session.commit()
+
+        login_user(new_patient_account, remember=True)
+        flash('New patient account created!', category='success')
+        
+        return redirect(url_for('main.profile_page'))
+
+def register_therapist(first_name, surname, email, password):
+    therapist = User.query.filter_by(email = email).first()
+
+    if therapist:
+        flash('A user account already exists with this email. Please use a different valid email address for your account.')
+    else:
+        new_therapist_account = Therapist(first_name = first_name, surname = surname, email = email,
+                                          password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))
+        db.session.add(new_therapist_account)
+        db.session.commit()
+    
+        login_user(new_therapist_account, remember=True)
+        flash('New therapist account created!', category='success')
+
+        return redirect(url_for('therapist.therapist_dash'))

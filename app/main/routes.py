@@ -25,4 +25,4 @@ def profile_page():
     full_name = first_name + " " + surname
     email = current_user.email
 
-    return render_template('user/patient_profile.html', name = full_name, email = email)
+    return render_template('patient_user/patient_profile.html', name = full_name, email = email)

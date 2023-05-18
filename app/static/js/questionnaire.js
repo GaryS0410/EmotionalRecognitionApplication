@@ -29,3 +29,18 @@ function previousQuestion() {
         lastQuestion.find("input").prop("disabled", false);
     }
 }
+
+function clearQuestionnaireImages() {
+    fetch('/clear_questionnaire_images')
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    clearQuestionnaireImages();
+})

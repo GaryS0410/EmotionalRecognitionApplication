@@ -50,7 +50,7 @@ def gad7_questionnaire():
 def clear_questionnaire_images():
     global image_list
     image_list = np.zeros((1, 48, 48, 1))
-    return 200
+    return ("Questionnaire image list cleared", 200)
 
 # Route for predicting on the images
 @bp.route('/get_questionnaire_image', methods = ['POST'])
