@@ -19,4 +19,10 @@ def model_test_page():
 @bp.route('/profile_page', methods = ['GET'])
 @login_required
 def profile_page():
-    return render_template('user/patient_profile.html', name = current_user.first_name)
+    first_name = current_user.first_name 
+    surname = current_user.surname
+
+    full_name = first_name + " " + surname
+    email = current_user.email
+
+    return render_template('user/patient_profile.html', name = full_name, email = email)

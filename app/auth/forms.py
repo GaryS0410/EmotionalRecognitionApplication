@@ -14,7 +14,7 @@ class RegisterPatientForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('password')])
     confirm_password = PasswordField('Password', validators=[DataRequired(), Length(min=7)])
     account_type = SelectField('Account Type', choices=[('1', 'Patient'), ('2', 'Therapist')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Sign Up')    
 
 class RegisterTherapistForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)], render_kw={"placeholder": "First Name..."})

@@ -44,7 +44,7 @@ def gad7_questionnaire():
         return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions)
     return render_template('/questionnaires/GAD7.html', form = form)
 
-# Route for clearing the global image list 
+# Route for clearing the global image list
 
 @bp.route('/clear_questionnaire_images')
 def clear_questionnaire_images():

@@ -3,7 +3,23 @@
 {% block content %}
 
 <div class="container">
-    <h3> Profile Page User: {{ name }} </h3>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Patient Information</h3>
+                </div>
+                <div class="card-body">
+                    <p> Patient Name: {{ name }}</p>
+                    <p> Email: {{ email }} </p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-secondary">Update User Details</button>
+                    <button type="button" class="btn btn-secondary">Choose Another Therapist</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
