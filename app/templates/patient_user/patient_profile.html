@@ -12,10 +12,11 @@
                 <div class="card-body">
                     <p> Patient Name: {{ name }}</p>
                     <p> Email: {{ email }} </p>
+                    <p> Current Therapist: None </p>
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-secondary">Update User Details</button>
-                    <button type="button" class="btn btn-secondary">Choose Another Therapist</button>
+                    <a href="{{ url_for('main.choose_therapist_page') }}" class="btn btn-secondary">Select/Update Therapist</a>
                 </div>
             </div>
         </div>

@@ -51,12 +51,16 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-secondary" id="last" type="button"
-                    onclick="previousQuestion();">Previous</button>
-                <button class="btn btn-secondary" id="next" type="button" onclick="nextQuestion();">Next</button>
+                <button class="btn btn-secondary" id="last" type="button" onclick="previousQuestion();">Previous</button>
+                <button class="btn btn-secondary" id="next" type="button" onclick="nextQuestion(); takePhoto();">Next</button>
             </div>
         </form>
     </div>
+</div>
+
+<div class="webcam" hidden>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="webcamCanvas" width="640" height="480" style="display: none;"></canvas>
 </div>
 
 {% endif %}

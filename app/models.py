@@ -11,8 +11,12 @@ class Association(db.Model):
     therapist_id = db.Column(db.Integer, db.ForeignKey('Therapist.id'))
 
     @staticmethod
-    def get_associations(therapist_id):
+    def get_associations_therapist(therapist_id):
         return Association.query.filter_by(therapist_id=therapist_id)
+    
+    @staticmethod
+    def get_associations_patient(patient_id):
+        return Association.query.filter_by(patient_id=patient_id)
 
 # Model for EmotionData database table. Is used in order to capture a emotion, 
 # it's type, and its timestamp. Has a relationshhip to the SessionData table

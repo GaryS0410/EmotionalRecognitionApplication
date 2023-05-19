@@ -1,9 +1,10 @@
 from flask import render_template, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 import numpy as np
 
 from app.main import bp
 from app.main.forms import *
+from app.models import PHQ9Scores
 
 from app.utils.image_utility import preprocess_image, predict_emotions
 
@@ -14,7 +15,7 @@ image_list = np.zeros((1, 48, 48, 1))
 @bp.route('/questionnaires_page', methods = ['GET'])
 @login_required
 def questionnaires_page():
-    return render_template('questionnaires_page.html')
+    return render_template('/questionnaires/questionnaires_page.html')
 
 # Routes for displaying either questionnaire
 
