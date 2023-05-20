@@ -12,7 +12,14 @@
                 <div class="card-body">
                     <p> Patient Name: {{ name }}</p>
                     <p> Email: {{ email }} </p>
-                    <p> Current Therapist: None </p>
+                    {% if therapist %}
+                    <p> Current Therapist: {{ therapist }} </p>
+                    {% else %}
+                    <p> 
+                        Current Therapist: You currently do not have an assigned therapist. Please select one before
+                        conducting a therapy session.
+                    </p>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-secondary">Update User Details</button>
