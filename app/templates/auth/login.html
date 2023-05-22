@@ -21,6 +21,10 @@
                         </div>
                         <br />
                         <div class="form-group">
+                            <a href="{{ url_for('auth.register_user') }}">Don't have an account? Click here to register.</a>
+                        </div>
+                        <br />
+                        <div class="form-group">
                             {{ form.submit(class="btn btn-secondary") }}
                         </div>
                     </form>

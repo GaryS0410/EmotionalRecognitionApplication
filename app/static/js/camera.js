@@ -1,4 +1,4 @@
-let canvas = document.querySelector('#webcamCanvas');
+let canvas = document.getElementById('webcamCanvas');
 let context = canvas.getContext('2d');
 let video = document.querySelector('#video');
 

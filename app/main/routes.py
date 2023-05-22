@@ -12,23 +12,6 @@ from app.models import Patient, Therapist, Association
 def landing_page():
     return render_template('landing_page.html')
 
-@bp.route('/therapy_page', methods=['GET'])
-def therapy_page():
-    therapist_list = Therapist.get_all_therapists()
-
-    if Association.query.filter_by(patient_id = current_user.id).first():
-        therapist_relationship = Association.query.filter_by(patient_id = current_user.id).first()
-        therapist = Therapist.query.filter_by(id = therapist_relationship.therapist_id).first()
-        therapist = therapist.first_name + " " + therapist.surname
-    else: 
-        therapist = None
-
-    return render_template('therapy/therapy.html', name=current_user.first_name, therapist = therapist, therapist_list = therapist_list)
-
-@bp.route('/model_test', methods = ['GET'])
-def model_test_page():
-    return render_template('model_page.html')
-
 @bp.route('/profile_page', methods = ['GET'])
 @login_required
 def profile_page():
@@ -39,8 +22,12 @@ def profile_page():
     email = current_user.email
 
     association = Association.query.filter_by(patient_id = current_user.id).first()
-    therapist = Therapist.query.filter_by(id = association.therapist_id).first()
-    therapist = therapist.first_name + " " + therapist.surname
+    
+    try:
+        therapist = Therapist.query.filter_by(id = association.therapist_id).first()
+        therapist = therapist.first_name + " " + therapist.surname
+    except:
+        therapist = None
 
     return render_template('patient_user/patient_profile.html', name = full_name, email = email, therapist = therapist)
 
@@ -59,9 +46,15 @@ def assign_therapist():
 
         if Association.query.filter_by(patient_id = current_user.id).first():
             old_therapist_relationship = Association.query.filter_by(patient_id = current_user.id).first()
+            old_therapist_id = old_therapist_relationship.therapist_id
+            old_therapist = Therapist.query.filter_by(id = old_therapist_id).first()
+            print(old_therapist.first_name)
+
             db.session.delete(old_therapist_relationship)
             db.session.commit()
 
+        print("=====")
+        print(therapist)
         patient_therapist_association = Association(patient_id = patient, therapist_id = therapist)
         db.session.add(patient_therapist_association)
         db.session.commit()
@@ -70,9 +63,3 @@ def assign_therapist():
 
     flash('Therapist successfully assigned.')
     return redirect(url_for('main.profile_page'))
-
-@bp.route('/testing_page', methods = ['GET'])
-def testing_page():
-    therapists = Therapist.get_all_therapists()
-    print(therapists)
-    return render_template('testing_page.html')

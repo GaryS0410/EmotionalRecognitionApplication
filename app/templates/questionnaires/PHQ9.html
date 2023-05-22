@@ -2,14 +2,14 @@
 
 {% block content %}
 
-{% if score %}
+{% if score and emotions %}
 
 <div class="container">
     <div class="row">
         <div class="col-6">
             <div class="card">
-                <div class="card-header">
-                    Questionnaire Results
+                <div class="card-header" style="width: 100%">
+                    <h3> Questionnaire Results </h3>
                 </div>
                 <div class="card-body">
                     <h5> PHQ-9 Score </h5>
@@ -22,7 +22,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3> Your Emotioanl Distribution </h3>
+                    <h3> Sessions Emotional Distribution </h3>
                 </div> 
                 <div class="card-body">
                     <canvas id="pieChartCanvas" width="640" height="480"></canvas>
@@ -111,10 +111,10 @@
 
 {% if score and emotions %}
 <script>
-    var context = document.getElementById('pieChartId').getContext('2d');
+    var ctx = document.getElementById('pieChartCanvas').getContext('2d');
     var emotionData = {{ emotions | tojson }};
 
-    createPieChart(context, emotionData);
+    createPieChart(ctx, emotionData);
 </script>
 {% endif %}
 

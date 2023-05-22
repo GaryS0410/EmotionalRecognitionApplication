@@ -2,13 +2,6 @@
 
 {% block head %}
 
-<style>
-    canvas {
-        width: 100%;
-        max-width: 600px;
-    }
-</style>
-
 {% endblock %}
 
 {% block content %}
@@ -28,14 +21,13 @@
                     </p>
                     {% if therapist %}
                     <p>
-                        Your current therapist is {{ therapist }}. By default this therapist will be selected for your session, as they are 
-                        registered to you. However, you can also change the therapist for this session via selecting a different one from the list of
-                        options if a different therapist is conducting your current session.
+                        Your current therapist is {{ therapist }}. This therapist will conduct your therapy session and will have access 
+                        to information regarding your emotional state after the session.
                     </p>
                     {% else %}
                     <p> 
-                        You currently do not have a selected therapist. Therefore, you must select a therapist from the list before conducting a 
-                        therapy session.
+                        You currently do not have a selected therapist. Therefore, you must select a therapist from the list within your patient profile
+                        before you will be able to participate in a therapy session.
                     </p>
                     {% endif %}
                     <p> 
@@ -43,24 +35,27 @@
                         and have the ability to stop the session whenever you like. Please press "Start Session" when you are ready to begin and 
                         make sure your camera has a good view of your face.
                     </p>
-                    <select class="form-select" aria-label="{{ therapist }}">
-                        <option selected>Choose Therapist</option>
-                        {% for therapist in therapist_list %}
-                        <option value="{{ therapist.id }}">{{ therapist.first_name + " " + therapist.surname }}</option>
-                        {% endfor %}
-                    </select>
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-secondary">Begin Therapy Session</button>
-                    <button type="button" class="btn btn-secondary">End Session</button>
-                    <button type="button" class="btn btn-secondary">Select Session Length</button>
+                    <button id="start" type="button" class="btn btn-secondary">Begin Session</button>
+                    <button id="stop" type="button" class="btn btn-secondary">End Session</button>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                      </div>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3> Webcam feed </h3>
+                    <h3> Webcam Feed </h3>
                 </div>
                 <div class="card-body">
                     <video id="video" width="100%" height="100%" autoplay></video>
@@ -76,9 +71,6 @@
 {% block scripts %}
 
 <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
-
-<script> 
-
-</script>
+<script src="{{ url_for('static', filename='js/therapy.js')}}"></script>
 
 {% endblock %}

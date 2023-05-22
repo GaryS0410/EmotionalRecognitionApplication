@@ -39,7 +39,8 @@ class SessionData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     time_of_session = db.Column(db.DateTime(timezone=True), default=func.now())
     emotional_score = db.Column(db.String(50))
-    user_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
+    patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
+    therapist_id = db.Column(db.Integer, db.ForeignKey('Therapist.id'))
     emotion_data = db.relationship('EmotionData')
 
     @staticmethod
