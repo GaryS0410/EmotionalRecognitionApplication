@@ -60,4 +60,4 @@ def predict_emotions(image_list):
         else:
             emotions_count[i] = 1
     
-    return emotions_count
+    return emotions_count, emotion_labels

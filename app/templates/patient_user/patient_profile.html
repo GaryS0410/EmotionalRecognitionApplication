@@ -10,13 +10,13 @@
                     <h3>Patient Information</h3>
                 </div>
                 <div class="card-body">
-                    <p> Patient Name: {{ name }}</p>
-                    <p> Email: {{ email }} </p>
+                    <p> <strong>Patient Name:</strong> {{ patient.first_name + " " + patient.surname }}</p>
+                    <p> <strong>Email:</strong> {{ patient.email }} </p>
                     {% if therapist %}
-                    <p> Current Therapist: {{ therapist }} </p>
+                    <p> <strong>Current Therapist:</strong> {{ therapist.first_name + " " + therapist.surname }} </p>
                     {% else %}
                     <p> 
-                        Current Therapist: You currently do not have an assigned therapist. Please select one before
+                        <strong>Current Therapist:</strong> You currently do not have an assigned therapist. Please select one before
                         conducting a therapy session.
                     </p>
                     {% endif %}
@@ -30,7 +30,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Card 2</h3>
+                    <h3>Questionnaire (PHQ/AD) Information </h3>
                 </div>
                 <div class="card-body">
                 </div>
@@ -41,14 +41,14 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Card 3</h3>
+                    <h3>Most Recent Therapy Session?</h3>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Card 4</h3>
+                    <h3>Datatable with Therapy Sessions?</h3>
                 </div>
             </div>
         </div>

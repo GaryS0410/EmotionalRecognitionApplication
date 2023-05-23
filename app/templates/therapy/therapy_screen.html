@@ -30,25 +30,19 @@
                         before you will be able to participate in a therapy session.
                     </p>
                     {% endif %}
-                    <p> 
-                        Once you have chosen your therapist you can then start your therapy session. You can also choose the length of your session 
-                        and have the ability to stop the session whenever you like. Please press "Start Session" when you are ready to begin and 
-                        make sure your camera has a good view of your face.
-                    </p>
                 </div>
                 <div class="card-footer">
                     <button id="start" type="button" class="btn btn-secondary">Begin Session</button>
-                    <button id="stop" type="button" class="btn btn-secondary">End Session</button>
+                    <a id="stop" href="{{ url_for('main.therapy_results_page') }}" class="btn btn-secondary">Stop Session</a>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Dropdown button
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                            Select Session Length
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Option1</a></li>
+                            <li><a class="dropdown-item" href="#">Option</a></li>
                         </ul>
-                      </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,7 +64,6 @@
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
 <script src="{{ url_for('static', filename='js/therapy.js')}}"></script>
 
 {% endblock %}

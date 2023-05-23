@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 ">
+            <div class="card">
+                <div class="card-header">
+                    <h2> Therapy Session Results </h2>
+                </div>
+                <div class="card-body">
+                    <p> Explanation of emotions placeholder </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2> Emotional Distribution Chart </h2>
+                </div>
+                <div class="card-body">
+                    <canvas id="pieChartCanvas" width="640" height="480"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2>helloworld</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/visualisations/pie_chart.js')}}"></script>
+
+<script>
+    var ctx = document.getElementById('pieChartCanvas').getContext('2d');
+    var emotionData = {{ emotions | tojson }};
+
+    createPieChart(ctx, emotionData);
+</script>
+
+{% endblock %}

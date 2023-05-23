@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+
+
+{% endblock %}
+
 {% block content %}
 
 {% if score and emotions %}
 
-<div class="container">
+<div class="container d-flex justify-content-center align-items-center">
     <div class="row">
         <div class="col-6">
             <div class="card">
@@ -22,7 +28,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3> Sessions Emotional Distribution </h3>
+                    <h3> Emotional Distribution Chart </h3>
                 </div> 
                 <div class="card-body">
                     <canvas id="pieChartCanvas" width="640" height="480"></canvas>
@@ -34,8 +40,20 @@
 
 {% else %}
 
-<div class="container">
-    <div class="card">
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card" id="phq9-info">
+        <div class="card-header">
+            <h2> PHQ-9 Questionnaire </h2>
+        </div>
+        <div class="card-body">
+            <p> Details about the PHQ-9 questionnaire </p>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-secondary" id="start-questionnaire">Start PHQ-9 Questionnaire</button>
+        </div>
+    </div>
+
+    <div class="card" style="display: none;" id="phq9-form">
         <h3 class="card-header">PHQ-9 Questionnaire</h3>
         <div class="card-body">
             <form id="questionnaire-form" method="POST" action="{{ url_for('main.phq9_questionnaire') }}">
@@ -43,7 +61,9 @@
 
                 <div class="question" id="question1">
                     <label for="{{ form.question1.id }}">{{ form.question1.label}}</label>
-                    {{ form.question1 (name='question1') }}
+                    <div class="radio-wrapper">
+                        {{ form.question1 (name='question1', class="btn btn-secondary mr-5") }}
+                    </div>
                 </div>
 
                 <div class="question" id="question2" style="display: none;">
@@ -108,6 +128,13 @@
 <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
 <script src="{{ url_for('static', filename='js/questionnaire.js') }}"></script>
 <script src="{{ url_for('static', filename='js/visualisations/pie_chart.js') }}"></script>
+
+<script>
+    document.getElementById('start-questionnaire').addEventListener('click', function() {
+        document.getElementById('phq9-form').style.display = 'block';
+        document.getElementById('phq9-info').style.display = 'none';
+    });
+</script>
 
 {% if score and emotions %}
 <script>

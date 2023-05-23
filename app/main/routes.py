@@ -15,21 +15,15 @@ def landing_page():
 @bp.route('/profile_page', methods = ['GET'])
 @login_required
 def profile_page():
-    first_name = current_user.first_name 
-    surname = current_user.surname
-
-    full_name = first_name + " " + surname
-    email = current_user.email
-
+    patient = Patient.query.filter_by(id = current_user.id).first()
     association = Association.query.filter_by(patient_id = current_user.id).first()
     
     try:
         therapist = Therapist.query.filter_by(id = association.therapist_id).first()
-        therapist = therapist.first_name + " " + therapist.surname
     except:
         therapist = None
 
-    return render_template('patient_user/patient_profile.html', name = full_name, email = email, therapist = therapist)
+    return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist)
 
 @bp.route('/choose_therapist_page', methods = ['GET', 'POST'])
 @login_required

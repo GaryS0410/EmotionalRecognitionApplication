@@ -21,7 +21,6 @@ function createPieChart(ctx, emotionsData) {
             legeng: {
                 labels: {
                     // Add whatever the designated font color here
-                    fontColor: '#'
                 }
             }
         },

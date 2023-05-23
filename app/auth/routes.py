@@ -43,8 +43,6 @@ def register_user():
 
         if form.account_type.data == '1':
             register_patient(form.first_name.data, form.surname.data, form.email.data, form.password.data)
-            return redirect(url_for('main.profile_page'))
         elif form.account_type.data == '2':
             register_therapist(form.first_name.data, form.surname.data, form.email.data, form.password.data)
-            return redirect(url_for('therapist.therapist_dash'))
     return render_template('auth/register_patient.html', form=form)

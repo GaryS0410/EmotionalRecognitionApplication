@@ -27,6 +27,7 @@ def register_therapist(first_name, surname, email, password):
 
     if therapist:
         flash('A user account already exists with this email. Please use a different valid email address for your account.')
+        return redirect(url_for('auth.register_user'))
     else:
         new_therapist_account = Therapist(first_name = first_name, surname = surname, email = email,
                                           password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))

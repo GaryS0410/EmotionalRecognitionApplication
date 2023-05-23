@@ -38,18 +38,18 @@ class SessionData(db.Model):
     __tablename__ = 'SessionData'
     id = db.Column(db.Integer, primary_key=True)
     time_of_session = db.Column(db.DateTime(timezone=True), default=func.now())
-    emotional_score = db.Column(db.String(50))
+    emotional_state = db.Column(db.String(50))
     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
     therapist_id = db.Column(db.Integer, db.ForeignKey('Therapist.id'))
     emotion_data = db.relationship('EmotionData')
 
     @staticmethod
     def get_all_sessions(patient_id):
-        return SessionData.query.filter_by(user_id=patient_id).all()
+        return SessionData.query.filter_by(patient_id=patient_id).all()
 
     @staticmethod
     def most_recent_session(patient_id):
-        return SessionData.query.filter_by(user_id=patient_id).order_by(SessionData.time_of_session.desc()).first()
+        return SessionData.query.filter_by(patient_id=patient_id).order_by(SessionData.time_of_session.desc()).first()
 
 # Model for PHQ9Scores. Used to store the score, emotional_score, time when the 
 # questionnaire was done, etc.
@@ -57,7 +57,7 @@ class PHQ9Scores(db.Model):
     __tablename__ = 'PHQ9Scores'
     id = db.Column(db.Integer, primary_key = True)
     score = db.Column(db.Integer, nullable = False)
-    emotional_score = db.Column(db.Integer, default = 0)
+    emotional_state = db.Column(db.String(50))
     time_captured = db.Column(db.DateTime(timezone=True), default=func.now())
     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
 
@@ -77,7 +77,7 @@ class GAD7Scores(db.Model):
     __tablename__ = 'GAD7Scores'
     id = db.Column(db.Integer, primary_key = True)
     score = db.Column(db.Integer, nullable = False)
-    emotional_score = db.Column(db.Integer, default = 0)
+    emotional_state = db.Column(db.String(50))
     time_captured = db.Column(db.DateTime(timezone=True), default=func.now())
     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
 

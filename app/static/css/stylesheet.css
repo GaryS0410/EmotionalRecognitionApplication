@@ -1,3 +1,14 @@
-.btn-secondary {
-    background-color: yellow !important;
+.dataTables_wrapper .dataTables_paginate {
+    text-align: center;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    margin: 0 5px;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -3,30 +3,54 @@
 {% block content %}
 
 <div class="container">
-    <table id="therapist_table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Choose this Therapist?</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for therapist in therapist_list %}
-            <tr>
-                <td>{{ therapist.first_name + " " + therapist.surname }}</td>
-                <td>{{ therapist.email }}</td>
-                <td>
-                    <form id="choose_therapist_form" method = "POST" action="{{ url_for('main.assign_therapist') }}">
-                        <input type="number" name="patient" value="{{ current_patient }}" hidden>
-                        <input type="number" name="therapist" value="{{ therapist.id }}" hidden>
-                        <input type="submit" class="btn btn-secondary" value="Select Therapist"></button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-12">
+            <h2> </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Choosing a Therapist</h2>
+                </div>
+                <div class="card-body">
+                    <p> 
+                        In order to make use of the applications therapy functionality you must choose an assigned therapist before 
+                        any sessions can be conducted. Your assigned therapist will be the one conducting your sessions and will also 
+                        have access tom the emotional data captured from your sessions. The purpose of this is to allow the therapist 
+                        to perform further review on the data.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <table id="therapist_table" class="cell-border">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Choose this Therapist?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for therapist in therapist_list %}
+                    <tr>
+                        <td>{{ therapist.first_name + " " + therapist.surname }}</td>
+                        <td>{{ therapist.email }}</td>
+                        <td>
+                            <form id="choose_therapist_form" method = "POST" action="{{ url_for('main.assign_therapist') }}">
+                                <input type="number" name="patient" value="{{ current_patient }}" hidden>
+                                <input type="number" name="therapist" value="{{ therapist.id }}" hidden>
+                                <input type="submit" class="btn btn-secondary" value="Select Therapist"></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
@@ -35,7 +59,14 @@
 
 <script> 
     $(document).ready(function () {
-        $('#therapist_table').DataTable();
+        $('#therapist_table').DataTable({
+            searching: false,
+            info: false,
+            lengthChange: false,
+            pageLength: 5, 
+            responsive: true,
+            "pagingType": "full_numbers",
+        });
     });
 </script>
 

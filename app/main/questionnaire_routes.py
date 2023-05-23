@@ -29,9 +29,6 @@ def phq9_questionnaire():
         
         emotions = predict_questionnaire_images()
 
-        print(emotions.keys())
-        print(emotions.values())
-
         return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions)
     return render_template('/questionnaires/PHQ9.html', form = form)
 
