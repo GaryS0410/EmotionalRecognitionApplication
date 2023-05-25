@@ -1,13 +1,23 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+<style>
+    body {
+        text-align: center;
+    }
+</style>
+
+{% endblock %}
+
 {% block content %}
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-4 mb-4">
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Patient Information</h3>
+                    <h3> Patient Information </h3>
                 </div>
                 <div class="card-body">
                     <p> <strong>Patient Name:</strong> {{ patient.first_name + " " + patient.surname }}</p>
@@ -22,7 +32,7 @@
                     {% endif %}
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-secondary">Update User Details</button>
+                    <a href="{{ url_for('auth.update_details') }}" class="btn btn-secondary">Change User Details</a>
                     <a href="{{ url_for('main.choose_therapist_page') }}" class="btn btn-secondary">Select/Update Therapist</a>
                 </div>
             </div>
@@ -30,29 +40,116 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Questionnaire (PHQ/AD) Information </h3>
+                    <h3> Questionnaire (PHQ/GAD) Information </h3>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5> PHQ-9 </h5>
+                            <p> Last Recorded Score: 16 </p>
+                            <p> Last Recorded Emotional State: Extremely Positive</p>
+                        </div>
+                        <div class="col-6">
+                            <h5> GAD-7 </h5>
+                            <p> Last Recorded Score: 21 </p>
+                            <p> Last Recorded Emotional State: Moderately Negative </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('main.previous_phq') }}" class="btn btn-secondary"> View Further PHQ-9 Results </a>
+                    <a href="{{ url_for('main.previous_gad')}}" class="btn btn-secondary"> View Further GAD-7 Results </a>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-6">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">
-                    <h3>Most Recent Therapy Session?</h3>
+                    <h3> Most Recent Therapy Session </h3>
+                </div>
+                <div class="card-body">
+                    {% if most_recent_session %}
+                    <h5> Session Emotional State: {{ most_recent_session.emotional_state }}</h5>
+                    <div class="container" style="width: 330px; height: 350px;">
+                        <div class="col-12">
+                            <canvas id="recentSessionPieChart"></canvas>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p> No therapy sessions have been conducted yet.</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('main.all_previous_sessions_page') }}" class="btn btn-secondary">View Session</a>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Datatable with Therapy Sessions?</h3>
+                    <h3> Previous Therapy Sessions </h3>
+                </div>
+                <div class="card-body">
+                    <table id="sessions_table" class="cell-border">
+                        <thead >
+                            <tr>
+                                <th> Date of Session </th>
+                                <th> Time of Session </th>
+                                <th> Emotional State </th>
+                                <th> Further Details </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for session in all_sessions %}
+                            <tr>
+                                <td> {{ session.time_of_session.strftime('%d-%m-%Y') }} </td>
+                                <td> {{ session.time_of_session.strftime('%H:%M') }} </td>
+                                <td> {{ session.emotional_state }}</td>
+                                <td> 
+                                    <a href="('main.specific_session')" class="btn btn-secondary">View Details</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% if most_recent_session %}
+
+<script src="{{ url_for('static', filename='js/visualisations/pie_chart.js') }}"></script>
+
+<script>
+    var ctx = document.getElementById('recentSessionPieChart').getContext('2d');
+    var emotion_data = {{ most_recent_session_emotions | tojson }};
+
+    createPieChart(ctx, emotion_data);
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#sessions_table').DataTable({
+            searching: false,
+            info: false,
+            lengthChange: false,
+            pageLength: 5,
+            responsive: true,
+            orderable: false,
+            "pagingType": "full_numbers"
+        });
+    })
+</script>
+
+{% endif %}
 
 {% endblock %}

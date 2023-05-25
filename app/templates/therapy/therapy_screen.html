@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
@@ -34,15 +34,13 @@
                 <div class="card-footer">
                     <button id="start" type="button" class="btn btn-secondary">Begin Session</button>
                     <a id="stop" href="{{ url_for('main.therapy_results_page') }}" class="btn btn-secondary">Stop Session</a>
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                            Select Session Length
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Option1</a></li>
-                            <li><a class="dropdown-item" href="#">Option</a></li>
-                        </ul>
-                    </div>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                        Select Session Length
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Option1</a></li>
+                        <li><a class="dropdown-item" href="#">Option</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

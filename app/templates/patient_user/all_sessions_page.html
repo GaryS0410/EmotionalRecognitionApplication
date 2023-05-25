@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-6">
+            <h3>Sessions Information</h3>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3> All Sessions </h3>
+                </div>
+                <div class="card-body">
+                    <table id="sessions_table" class="cell-border">
+                        <thead>
+                            <tr>
+                                <th> Date of Session </th>
+                                <th> Time of Session </th>
+                                <th> Emotional State </th>
+                                <th> Further Details </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for session in all_sessions %}
+                            <tr>
+                                <td> {{ session.time_of_session.strftime('%d-%m-%Y') }} </td>
+                                <td> {{ session.time_of_session.strftime('%H:%M') }} </td>
+                                <td> {{ session.emotional_state }}</td>
+                                <td> 
+                                    <a href="('main.specific_session')" class="btn btn-secondary">View Details</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--
+            <table id="sessions_table" class="cell-border">
+                <thead>
+                    <tr>
+                        <th> Date of Session </th>
+                        <th> Time of Session </th>
+                        <th> Emotional State </th>
+                        <th> Further Details </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in all_sessions %}
+                    <tr>
+                        <td> {{ session.time_of_session.strftime('%d-%m-%Y') }} </td>
+                        <td> {{ session.time_of_session.strftime('%H:%M') }} </td>
+                        <td> {{ session.emotional_state }}</td>
+                        <td> 
+                            <a href="('main.specific_session')" class="btn btn-secondary">View Details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/visualisations/pie_chart.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        $('#sessions_table').DataTable({
+            searching: false,
+            info: false,
+            lengthChange: false,
+            pageLength: 5,
+            responsive: true,
+            "pagingType": "full_numbers"
+        });
+    })
+</script>
+
+{% endblock %}

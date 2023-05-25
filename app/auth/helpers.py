@@ -18,9 +18,7 @@ def register_patient(first_name, surname, email, password):
         db.session.commit()
 
         login_user(new_patient_account, remember=True)
-        flash('New patient account created!', category='success')
-        
-        return redirect(url_for('main.profile_page'))
+        flash('New patient account created!', category='success')        
 
 def register_therapist(first_name, surname, email, password):
     therapist = User.query.filter_by(email = email).first()
@@ -36,5 +34,14 @@ def register_therapist(first_name, surname, email, password):
     
         login_user(new_therapist_account, remember=True)
         flash('New therapist account created!', category='success')
+    
+def update_user_details(first_name, surname, email, password):
+    user = User.query.filter_by(email = current_user.email).first()
 
-        return redirect(url_for('therapist.therapist_dash'))
+    user.first_name = first_name
+    user.surname = surname
+    user.email = email
+    user.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    db.session.add(user)
+    db.session.commit()

@@ -40,9 +40,25 @@ def register_user():
     form = RegisterForm()
 
     if form.validate_on_submit():
-
         if form.account_type.data == '1':
             register_patient(form.first_name.data, form.surname.data, form.email.data, form.password.data)
+            return redirect(url_for('main.profile_page'))
         elif form.account_type.data == '2':
             register_therapist(form.first_name.data, form.surname.data, form.email.data, form.password.data)
-    return render_template('auth/register_patient.html', form=form)
+            return redirect(url_for('therapist.therapist_dash'))
+    return render_template('auth/register.html', form=form)
+
+@bp.route('/update_details', methods = ['GET', 'POST'])
+def update_details():
+    form = UpdateForm()
+    user = User.query.filter_by(id = current_user.id).first()
+
+    if form.validate_on_submit():
+        update_user_details(form.first_name.data, form.surname.data, form.email.data, form.password.data)
+        flash('User details successfully updated.')
+        if user.is_patient():
+            return redirect(url_for('main.profile_page'))
+        elif user.is_therapist():
+            return redirect(url_for('therapist.therapist_dash'))
+
+    return render_template('auth/update_details.html', form = form)

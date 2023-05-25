@@ -1,81 +1,93 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+<style>
+    .card {
+        text-align: center;
+    }
+</style>
+
+{% endblock %}
+
 {% block content %}
 
-<div class="container-fluid px-0">
+<div class="flex-container">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="p-5 bg-primary text-white centered">
-                Mental Health
+        <div class="col-12">
+            <div class="p-5 text-center bg-light">
+                <h1 class="mb-3"> Mental Health Questionnaires </h1>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="container mt-3">
     <div class="row">
-        <div class="card-group" >
-            <div class="col-6">
-                <div class="card" id="PHQ9">
-                    <h3 class="card-header">PHQ-9 Questionnaire</h3>
-                    <div class="card-body">
-                        <p>
-                            This is a questionnaire designed to gauge the severeity/presence of depressive symptoms.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ url_for('main.phq9_questionnaire') }}" class="btn btn-secondary">Take PHQ-9
-                            Questionnaire</a>
-                    </div>
+        <div class="col-6 ">
+            <div class="card me-2" id="PHQ9">
+                <h3 class="card-header">PHQ-9 Questionnaire</h3>
+                <div class="card-body">
+                    <p>
+                        The PHQ-9 questionnaire is a mental health self-screening questionnaire which is designed to
+                        determine if an indivudal is exhibiting
+                        symptoms consistent with depression disorder.
+                    </p>
+                    <p>
+                        The questionnaire will ask 9 different questions about depressive symptoms. Depending on the
+                        answer selected a value
+                        will be assigned to the answer between 0 and 3. Once all questions have been answered a score
+                        will then be calculated at the end
+                        of the questionnaire which will determine depression severeity. The maximum score attainable is
+                        27, meaning this score correlates
+                        to the most severe level of depression. In addition to the questionnaires score itself an
+                        emotional metric will be given based off
+                        of data captured by the emotional recognition model during the questionnaire.
+                    </p>
+                    <p>
+                        The PHQ-9 questionnaire is a proven psychological screening method for depression. It was first
+                        proposed by psychologists Kroenke, Spitzer,
+                        Williams in psychological academic paper (2001). Since then it has proved an invaluable asset in
+                        depression diagnosis.
+                    </p>
                 </div>
-            </div>
-
-            <div class="col-6">
-                <div class="card" id="GAD7">
-                    <h3 class="card-header">GAD-7 Questionnaire</h3>
-                    <div class="card-body">
-                        <p>
-                            This is a questionnaire designed to gauge the severeity/presence of generalised anxiety
-                            disorder symptoms.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ url_for('main.gad7_questionnaire') }}" class="btn btn-secondary">Take GAD-7
-                            Questionnaire</a>
-                    </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('main.phq9_questionnaire') }}" class="btn btn-secondary">Take PHQ-9
+                        Questionnaire</a>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="card" id="SPIN">
-                    <h3 class="card-header">Social Anxiety Inventory Questionnaire</h3>
-                    <div class="card-body">
-                        <p>
-                            This is a questionnaire designed to gauge the severeity/prescence of social anxiety disorder
-                            symptoms
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-secondary" type="button" id="start-spin-questionnaire">Take SPIN
-                            questionnaire</button>
-                    </div>
+        <div class="col-6">
+            <div class="card ms-2" id="GAD7">
+                <h3 class="card-header">GAD-7 Questionnaire</h3>
+                <div class="card-body">
+                    <p>
+                        The GAD-7 questionnaire is a mental health self-screening questionnaire which is designed to
+                        determine if an indvidual is exhibiting
+                        symptoms consistent with generalised anxiety disorder (GAD).
+                    </p>
+                    <p>
+                        The questionnaire asks 7 different questions relating to GAD symptoms. Depending on the answer
+                        selected a value will be assigned to the answer
+                        between 0 and 3. Once all questions have been asnwered a score will then be calculated at the
+                        end of the questionanire which will determine
+                        the severity of generalised anxity disorder. The maximum score attainable is 21, meaning this
+                        score correlates to the most severe level of
+                        generalised anxiety disorder. In addition to the questionnaires score itself an emotional metric
+                        will be given based off of data captured
+                        by the emotional recognition model during the questionnaire
+                    </p>
+                    <p>
+                        The GAD-7 questionnaire is a proven psychological screening method for generalised anxiety
+                        disorder. It was first proposed by psychologists
+                        Spitzer, Kroenke, Williams, and Lowe in a psychological academic paper (2006). Since then it has
+                        proved an invaluable asset in GAD diagnosis.
+                    </p>
                 </div>
-            </div>
-
-            <div class="col-6">
-                <div class="card" id="PCL5">
-                    <h3 class="card-header">PCL-5 Questionnaire</h3>
-                    <div class="card-body">
-                        <p>
-                            This is a questionnaire designed to gauge the severeity/prescence of PTSD symptoms.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-secondary" type="button" id="start-pcl-questionnaire">Take PCL-5
-                            Questionnaire</button>
-                    </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('main.gad7_questionnaire') }}" class="btn btn-secondary">Take GAD-7
+                        Questionnaire</a>
                 </div>
             </div>
         </div>

@@ -2,8 +2,10 @@ from flask import render_template, request
 from flask_login import login_required, current_user
 import numpy as np
 
+from app import db
 from app.main import bp
 from app.main.forms import *
+from app.main.helpers import save_questionnaire_data
 from app.models import PHQ9Scores
 
 from app.utils.image_utility import preprocess_image, predict_emotions
@@ -42,6 +44,8 @@ def gad7_questionnaire():
 
         emotions = predict_questionnaire_images()
 
+        save_questionnaire_data("GAD", score, "Extremely Negative", current_user.id)
+
         return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions)
     return render_template('/questionnaires/GAD7.html', form = form)
 
@@ -70,8 +74,9 @@ def get_questionnaire_image():
 @bp.route('/predict_questionnaire_images', methods = ['GET'])
 def predict_questionnaire_images():
     global image_list
+    is_therapy = False
 
-    captured_emotions = predict_emotions(image_list)
+    captured_emotions = predict_emotions(image_list, is_therapy)
     image_list = np.zeros((1, 48, 48, 1))
 
     return captured_emotions

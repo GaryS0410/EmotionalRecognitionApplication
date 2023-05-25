@@ -39,10 +39,13 @@ def preprocess_image(webcam_image):
         return grey_image
     
 # PREDICTING ON IMAGES FUNCTIONS
-def predict_emotions(image_list):
+def predict_emotions(image_list, is_therapy):
     model = load_model('app\static\ml_models\model.h5')
 
     image_list = np.array(image_list)
+
+    if is_therapy:
+        image_list = image_list[1:]
 
     predictions = model.predict(image_list)
     predicted_classes = np.argmax(predictions, axis =1)
@@ -60,4 +63,7 @@ def predict_emotions(image_list):
         else:
             emotions_count[i] = 1
     
-    return emotions_count, emotion_labels
+    if is_therapy:
+        return(emotions_count, emotion_labels)
+    else:
+        return(emotions_count)

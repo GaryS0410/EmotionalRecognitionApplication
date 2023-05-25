@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <h5 class="card-header">Register Account</h5>
+                <h5 class="card-header">Update User Details</h5>
                 <div class="card-body">
-                    <form method = "POST" action="{{ url_for('auth.register_user') }}">
+                    <form method = "POST" action="{{ url_for('auth.update_details') }}">
                         {{ form.csrf_token }}
                         <div class="row">
                             <div class="col-6">
@@ -37,11 +38,6 @@
                         <div class="form-group">
                             {{ form.confirm_password.label }}
                             {{ form.confirm_password(class="form-control", placeholder="Confirm Password...")}}
-                        </div>
-                        <br />
-                        <div class="form-group">
-                            {{ form.account_type.label }}
-                            {{ form.account_type(class="form-control") }}
                         </div>
                         <br />
                         <div class="form-group">
