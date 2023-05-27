@@ -12,11 +12,12 @@
 
 {% block content %}
 
-<div class="flex-container">
+<div class="container">
     <div class="row">
         <div class="col-12">
             <div class="p-5 text-center bg-light">
                 <h1 class="mb-3"> Mental Health Questionnaires </h1>
+                <h4> Conduct mental health questionnaires with the addition of emotional recognition technology.</h4>
             </div>
         </div>
     </div>
@@ -52,8 +53,7 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ url_for('main.phq9_questionnaire') }}" class="btn btn-secondary">Take PHQ-9
-                        Questionnaire</a>
+                    <button type="button" id="start_phq" class="btn btn-secondary"> Take PHQ-9 Questionnaire </button>
                 </div>
             </div>
         </div>
@@ -86,12 +86,43 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ url_for('main.gad7_questionnaire') }}" class="btn btn-secondary">Take GAD-7
-                        Questionnaire</a>
+                    <button type="button" class="btn btn-secondary"> Take GAD-7 Questionnaire </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+<script>
+    document.addEventListener("click", startPHQ);
+    document.addEventListener("click", startGAD);
+
+    function startPHQ() {
+        fetch('/phq9_questionnaire', {
+            method: 'POST'
+        })
+    }
+
+    function startGAD() {
+        fetch('/gad7_questionnaire');
+    }
+</script>
+
+{% block scripts %}
+
+<script>
+    
+</script>
+
+{% if not therapist %}
+
+<script>
+    document.getElementById("start_gad").disabled = true;
+    document.getElementById("start_phq").disabled = true;
+</script>
+
+{% endif %}
 
 {% endblock %}

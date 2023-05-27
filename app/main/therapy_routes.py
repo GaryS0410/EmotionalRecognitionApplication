@@ -38,7 +38,7 @@ def therapy_results_page():
     emotional_state = "Extremely Positive"
 
     patient_id = current_user.id
-    therapist_id = current_user.therapist.id
+    therapist_id = current_user.current_therapist.id
 
     save_therapy_data(emotional_state, patient_id, therapist_id, all_emotions, image_timestamps)
 

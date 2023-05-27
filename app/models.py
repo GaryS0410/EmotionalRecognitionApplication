@@ -39,18 +39,18 @@ class SessionData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     time_of_session = db.Column(db.DateTime(timezone=True), default=func.now())
     emotional_state = db.Column(db.String(50))
-    patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
-    therapist_id = db.Column(db.Integer, db.ForeignKey('Therapist.id'))
+    session_patient = db.Column(db.Integer, db.ForeignKey('Patient.id'))
+    session_therapist = db.Column(db.Integer, db.ForeignKey('Therapist.id'))
     emotion_data = db.relationship('EmotionData')
 
     @staticmethod
     def get_all_sessions(patient_id):
-        return SessionData.query.filter_by(patient_id=patient_id).all()
+        return SessionData.query.filter_by(session_patient=patient_id).all()
 
     @staticmethod
     def get_most_recent_session(patient_id):
         try:
-            return SessionData.query.filter_by(patient_id=patient_id).order_by(SessionData.time_of_session.desc()).first()
+            return SessionData.query.filter_by(sesssion_patient=patient_id).order_by(SessionData.time_of_session.desc()).first()
         except:
             return None
 
@@ -60,7 +60,7 @@ class PHQ9Scores(db.Model):
     __tablename__ = 'PHQ9Scores'
     id = db.Column(db.Integer, primary_key = True)
     score = db.Column(db.Integer, nullable = False)
-    emotional_state = db.Column(db.String(50))
+    emotional_state = db.Column(db.Integer, nullable = False)
     time_captured = db.Column(db.DateTime(timezone=True), default=func.now())
     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
 
@@ -80,7 +80,7 @@ class GAD7Scores(db.Model):
     __tablename__ = 'GAD7Scores'
     id = db.Column(db.Integer, primary_key = True)
     score = db.Column(db.Integer, nullable = False)
-    emotional_state = db.Column(db.String(50))
+    emotional_state = db.Column(db.Integer, nullable = False)
     time_captured = db.Column(db.DateTime(timezone=True), default=func.now())
     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
 
@@ -121,6 +121,8 @@ class User(db.Model, UserMixin):
 class Therapist(User):
     __tablename__ = 'Therapist'
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+
+    therapy_sessions = db.relationship('SessionData')
     patients = db.relationship('Association', foreign_keys=[Association.therapist_id], backref='therapist')
 
     __mapper_args__ = {
@@ -144,8 +146,13 @@ class Patient(User):
     gad7_data = db.relationship('GAD7Scores')
 
     session_data = db.relationship('SessionData')
-    therapist = db.relationship('Association', foreign_keys=[Association.patient_id], backref='patient', uselist=False)
+    current_therapist = db.relationship('Association', foreign_keys=[Association.patient_id], backref='patient', uselist=False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'patient',
     }
+
+    @staticmethod
+    def get_patient(patient_id):
+        patient = Patient.query.get(patient_id)
+        return patient

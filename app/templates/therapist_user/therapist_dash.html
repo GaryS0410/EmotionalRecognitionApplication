@@ -3,7 +3,70 @@
 {% block content %}
 
 <div class="container">
-    <h2> Family Therapy </h2>
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3> Therapist User Details </h3>
+                </div>
+                <div class="card-body">
+                    <P> SOME DETAILS </P>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3> Your Current Patients </h3>
+                </div>
+                <div class="card-body">
+                    {% if current_patients %}
+                    <table id="current_patients_table" class="cell-border">
+                        <thead>
+                            <tr>
+                                <th> Patient Name </th>
+                                <th> Patient Email </th>
+                                <th> View Patient Details </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in current_patients %}
+                            <tr>
+                                <td> {{ patient.first_name + " " + patient.surname }} </td>
+                                <td> {{ patient.email }} </td>
+                                <td>
+                                    <a href="{{ url_for('therapist.view_patient_details') }}"
+                                        class="btn btn-secondary">View Patient Details</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p> You currently do not have any patients assigned to you. </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    $(document).ready(function () {
+        $('#current_patients_table').DataTable({
+            searching: false,
+            info: false,
+            lengthChange: false,
+            pageLength: 5,
+            responsive: true,
+            orderable: false,
+            "pagingType": "full_numbers"
+        });
+    })
+</script>
 
 {% endblock %}

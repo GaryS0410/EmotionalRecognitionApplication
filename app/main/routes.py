@@ -1,5 +1,6 @@
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_required
+import json
 
 from app import db
 
@@ -7,7 +8,7 @@ from app.main import bp
 from app.main.forms import *
 from app.utils.general_utility import get_recent_session_emotions
 
-from app.models import Patient, Therapist, Association, SessionData
+from app.models import *
 
 # Landing page route 
 
@@ -43,7 +44,27 @@ def profile_page():
 
 @bp.route('/previous_phq', methods = ['GET'])
 def previous_phq():
-    return render_template('patient_user/previous_phq.html')
+    phq9_scores = PHQ9Scores.get_all_scores(current_user.id)
+
+    last_10_scores = phq9_scores[-10:]
+
+    latest_phq_data = PHQ9Scores.get_latest_score(current_user.id)
+
+    graph_labels = []
+    score_data = []
+    emotional_state_data = []
+
+    for i in phq9_scores:
+        graph_labels.append(i.time_captured.strftime('%d/%m/%Y'))
+        score_data.append(i.score)
+        emotional_state_data.append(i.emotional_state)
+
+    graph_labels = json.dumps(graph_labels)
+    print(graph_labels)
+    score_data = json.dumps(score_data)
+    emotional_state_data = json.dumps(emotional_state_data)
+
+    return render_template('patient_user/previous_phq.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data)
 
 @bp.route('previous_gad', methods = ['GET'])
 def previous_gad():

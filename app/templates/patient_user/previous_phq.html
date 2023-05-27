@@ -3,18 +3,31 @@
 {% block content %}
 
 <div class="container">
-    <div class="row">
-        <div class="col-6">
+    <div class="row mb-3 mt-3">
+        <div class="col-6 md-12 sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3> Card 1 </h3>
+                    <h3> Last Recorded Scores </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <p> Score Info </p>
+                        </div>
+                        <div class="col-6">
+                            <p> Emotional State Info </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 md-12 sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3> Card 2</h3>
+                    <h3> Previous PHQ-9 Scores </h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="score_graph_canvas"></canvas>
                 </div>
             </div>
         </div>
@@ -23,18 +36,40 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3> Card 3 </h3>
+                    <h3> Previous Attempts/Score Information </h3>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3> Card 4</h3>
+                    <h3> Previous Captured Emotional States </h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="emotional_state_graph_canvas"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/visualisations/line_graph.js') }}"></script>
+
+<script>
+    //var graph_labels = {{ graph_labels | tojson }};
+
+    var score_ctx = document.getElementById('score_graph_canvas').getContext('2d');
+    //var score_data = {{ score_data  | tojson }};
+    createLineGraph(score_ctx, graph_labels, score_data);
+
+    var emotional_state_ctx = document.getElementById('emotional_state_graph_canvas');
+    //var emotional_state_data = {{ emotional_state_data | tojson }};
+    createLineGraph(emotional_state_ctx, graph_labels, emotional_state_data);
+
+</script>
 
 {% endblock %}

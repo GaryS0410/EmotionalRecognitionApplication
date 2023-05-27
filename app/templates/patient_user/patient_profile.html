@@ -75,11 +75,11 @@
                     <h5> Session Emotional State: {{ most_recent_session.emotional_state }}</h5>
                     <div class="container" style="width: 330px; height: 350px;">
                         <div class="col-12">
-                            <canvas id="recentSessionPieChart"></canvas>
+                            <canvas id="recent_session_pie_chart"></canvas>
                         </div>
                     </div>
                     {% else %}
-                    <p> No therapy sessions have been conducted yet.</p>
+                    <p> No data currently available to view as no therapy sessions have been conducted as of yet.</p>
                     {% endif %}
                 </div>
                 <div class="card-footer">
@@ -93,6 +93,7 @@
                     <h3> Previous Therapy Sessions </h3>
                 </div>
                 <div class="card-body">
+                    {% if all_sessions %}
                     <table id="sessions_table" class="cell-border">
                         <thead >
                             <tr>
@@ -103,18 +104,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for session in all_sessions %}
                             <tr>
+                            {% for session in all_sessions %}
                                 <td> {{ session.time_of_session.strftime('%d-%m-%Y') }} </td>
                                 <td> {{ session.time_of_session.strftime('%H:%M') }} </td>
                                 <td> {{ session.emotional_state }}</td>
                                 <td> 
                                     <a href="('main.specific_session')" class="btn btn-secondary">View Details</a>
                                 </td>
-                            </tr>
                             {% endfor %}
+                            </tr>
                         </tbody>
                     </table>
+                    {% else %}
+                    <p> No data currently available to view as no therapy have been conducted as of yet. </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -130,7 +134,7 @@
 <script src="{{ url_for('static', filename='js/visualisations/pie_chart.js') }}"></script>
 
 <script>
-    var ctx = document.getElementById('recentSessionPieChart').getContext('2d');
+    var ctx = document.getElementById('recent_session_pie_chart').getContext('2d');
     var emotion_data = {{ most_recent_session_emotions | tojson }};
 
     createPieChart(ctx, emotion_data);

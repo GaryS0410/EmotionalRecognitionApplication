@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, flash
 from flask_login import login_required, current_user
 import numpy as np
 
@@ -6,7 +6,7 @@ from app import db
 from app.main import bp
 from app.main.forms import *
 from app.main.helpers import save_questionnaire_data
-from app.models import PHQ9Scores
+from app.models import PHQ9Scores, Patient
 
 from app.utils.image_utility import preprocess_image, predict_emotions
 
@@ -17,6 +17,14 @@ image_list = np.zeros((1, 48, 48, 1))
 @bp.route('/questionnaires_page', methods = ['GET'])
 @login_required
 def questionnaires_page():
+    patient = Patient.get_patient(current_user.id)
+
+    if patient.current_therapist:
+        therapist = patient.current_therapist.therapist
+        print(therapist.first_name)
+    else:
+        flash('You do not have an assigned therapist currently. Please select a therapist from your profile before attempting a questionnaire.', category='error')
+
     return render_template('/questionnaires/questionnaires_page.html')
 
 # Routes for displaying either questionnaire
@@ -30,6 +38,8 @@ def phq9_questionnaire():
         score = form.calculate_score()
         
         emotions = predict_questionnaire_images()
+        
+        save_questionnaire_data("PHQ", score, 0.5, current_user.id)
 
         return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions)
     return render_template('/questionnaires/PHQ9.html', form = form)
