@@ -1,6 +1,6 @@
-def get_recent_session_emotions(most_recent_session):
+def get_session_emotions(session):
     emotions_count = {}
-    for emotion in most_recent_session.emotion_data:
+    for emotion in session.emotion_data:
         if emotion.emotion_type in emotions_count:
             emotions_count[emotion.emotion_type] += 1
         else:

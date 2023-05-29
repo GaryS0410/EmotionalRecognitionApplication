@@ -10,7 +10,7 @@
                     <h3> Therapist User Details </h3>
                 </div>
                 <div class="card-body">
-                    <P> SOME DETAILS </P>
+                    <p> <strong>Therapist Name: </strong>{{ therapist.first_name + " " + therapist.surname }} </p>
                 </div>
             </div>
         </div>
@@ -55,18 +55,11 @@
 
 {% block scripts %}
 
+<script src="{{ url_for('static', filename='js/other/datatable.js') }}"></script>
+
 <script>
-    $(document).ready(function () {
-        $('#current_patients_table').DataTable({
-            searching: false,
-            info: false,
-            lengthChange: false,
-            pageLength: 5,
-            responsive: true,
-            orderable: false,
-            "pagingType": "full_numbers"
-        });
-    })
+    table = document.getElementById('current_patients_table');
+    createDataTable(table);
 </script>
 
 {% endblock %}

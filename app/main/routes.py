@@ -6,7 +6,7 @@ from app import db
 
 from app.main import bp
 from app.main.forms import *
-from app.utils.general_utility import get_recent_session_emotions
+from app.utils.general_utility import get_session_emotions
 
 from app.models import *
 
@@ -23,14 +23,16 @@ def landing_page():
 def profile_page():
     patient = Patient.query.filter_by(id = current_user.id).first() 
     association = Association.query.filter_by(patient_id = current_user.id).first()
-    all_sessions = SessionData.get_all_sessions(patient_id = current_user.id)
+    all_sessions = SessionData.get_all_sessions(current_user.id)
 
     try:
-        most_recent_session = SessionData.get_most_recent_session(patient_id = current_user.id)
-        most_recent_session_emotions = get_recent_session_emotions(most_recent_session)
+        most_recent_session = SessionData.get_most_recent_session(current_user.id)
+        most_recent_session_emotions = get_session_emotions(most_recent_session)
     except:
         most_recent_session = None
         most_recent_session_emotions = None
+    
+    print(most_recent_session)
 
     try:
         therapist = Therapist.query.filter_by(id = association.therapist_id).first()
@@ -46,9 +48,9 @@ def profile_page():
 def previous_phq():
     phq9_scores = PHQ9Scores.get_all_scores(current_user.id)
 
-    last_10_scores = phq9_scores[-10:]
+    # last_10_scores = phq9_scores[-10:]
 
-    latest_phq_data = PHQ9Scores.get_latest_score(current_user.id)
+    # latest_phq_data = PHQ9Scores.get_latest_score(current_user.id)
 
     graph_labels = []
     score_data = []
@@ -58,11 +60,6 @@ def previous_phq():
         graph_labels.append(i.time_captured.strftime('%d/%m/%Y'))
         score_data.append(i.score)
         emotional_state_data.append(i.emotional_state)
-
-    graph_labels = json.dumps(graph_labels)
-    print(graph_labels)
-    score_data = json.dumps(score_data)
-    emotional_state_data = json.dumps(emotional_state_data)
 
     return render_template('patient_user/previous_phq.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data)
 
@@ -79,9 +76,17 @@ def all_previous_sessions_page():
 
     return render_template('patient_user/all_sessions_page.html', all_sessions = all_sessions, most_recent_session = most_recent_session)
 
-@bp.route('/specific_session', methods = ['GET'])
-def specific_session():
-    return None
+@bp.route('/specific_session/<int:session_id>', methods = ['GET'])
+def specific_session(session_id):
+    session = SessionData.query.get(session_id)
+    emotion_data = get_session_emotions(session)
+
+    # Here is where you should retrieve the relevant text for the emotional score and generally what it means
+    session_emotions = EmotionData.get_emotion_data(session.id)
+    total_emotions = len(session_emotions)
+
+    return render_template('patient_user/specific_session_page.html', session = session, total_emotions = total_emotions, emotion_data = emotion_data, 
+                           session_emotions = session_emotions)
 
 # Choosing/updating therapist related functionality 
 

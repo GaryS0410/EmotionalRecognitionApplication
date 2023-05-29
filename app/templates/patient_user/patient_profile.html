@@ -83,7 +83,7 @@
                     {% endif %}
                 </div>
                 <div class="card-footer">
-                    <a href="{{ url_for('main.all_previous_sessions_page') }}" class="btn btn-secondary">View Session</a>
+                    <a href="{{ url_for('main.specific_session', session_id = most_recent_session.id) }}" class="btn btn-secondary">View Session</a>
                 </div>
             </div>
         </div>
@@ -104,16 +104,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
                             {% for session in all_sessions %}
+                            <tr>
                                 <td> {{ session.time_of_session.strftime('%d-%m-%Y') }} </td>
                                 <td> {{ session.time_of_session.strftime('%H:%M') }} </td>
                                 <td> {{ session.emotional_state }}</td>
                                 <td> 
-                                    <a href="('main.specific_session')" class="btn btn-secondary">View Details</a>
+                                    <a href="{{ url_for('main.specific_session', session_id = session.id) }}" class="btn btn-secondary">View Details</a>
                                 </td>
-                            {% endfor %}
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                     {% else %}
@@ -129,9 +129,10 @@
 
 {% block scripts %}
 
-{% if most_recent_session %}
-
 <script src="{{ url_for('static', filename='js/visualisations/pie_chart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/other/datatable.js') }}"></script>
+
+{% if most_recent_session %}
 
 <script>
     var ctx = document.getElementById('recent_session_pie_chart').getContext('2d');
@@ -140,19 +141,15 @@
     createPieChart(ctx, emotion_data);
 </script>
 
+{% endif %}
+
+{% if all_sessions %}
+
 <script>
-    $(document).ready(function () {
-        $('#sessions_table').DataTable({
-            searching: false,
-            info: false,
-            lengthChange: false,
-            pageLength: 5,
-            responsive: true,
-            orderable: false,
-            "pagingType": "full_numbers"
-        });
-    })
+    table = document.getElementById('sessions_table');
+    createDataTable(table);
 </script>
+
 
 {% endif %}
 

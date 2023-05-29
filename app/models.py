@@ -45,14 +45,18 @@ class SessionData(db.Model):
 
     @staticmethod
     def get_all_sessions(patient_id):
-        return SessionData.query.filter_by(session_patient=patient_id).all()
+        return SessionData.query.filter_by(session_patient = patient_id).all()
 
     @staticmethod
     def get_most_recent_session(patient_id):
         try:
-            return SessionData.query.filter_by(sesssion_patient=patient_id).order_by(SessionData.time_of_session.desc()).first()
+            return SessionData.query.filter_by(session_patient = patient_id).order_by(SessionData.time_of_session.desc()).first()
         except:
             return None
+        
+    @staticmethod
+    def get_therapist_sessions(therapist_id):
+        return SessionData.query.filter_by(session_therapist = therapist_id).all()
 
 # Model for PHQ9Scores. Used to store the score, emotional_score, time when the 
 # questionnaire was done, etc.

@@ -5,6 +5,9 @@
 **/__pycache__
 app/__pycache__
 
+# Pytest Cache
+.pytest_cache
+
 # Instance Folder and Database File
 /instance
 

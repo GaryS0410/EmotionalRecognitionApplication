@@ -6,14 +6,19 @@ from app.models import *
 
 @bp.route('/therapist_dash', methods = ['GET'])
 def therapist_dash():
+    therapist = Therapist.query.filter_by(id = current_user.id).first()
+
     current_patient_associations = Association.get_associations_therapist(current_user.id)
+    conducted_therapy_sessions = SessionData.get_therapist_sessions(current_user.id)
+
+    print(conducted_therapy_sessions)
 
     current_patients = []
     for association in current_patient_associations:
         patient = Patient.get_patient(association.patient_id)
         current_patients.append(patient)
 
-    return render_template('therapist_user/therapist_dash.html', current_patients = current_patients)
+    return render_template('therapist_user/therapist_dash.html', therapist = therapist, current_patients = current_patients)
 
 @bp.route('/view_patient_details', methods = ['GET'])
 def view_patient_details():

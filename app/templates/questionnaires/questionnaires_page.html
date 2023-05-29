@@ -12,7 +12,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="flex-container" style="overflow: hidden;">
     <div class="row">
         <div class="col-12">
             <div class="p-5 text-center bg-light">
@@ -53,7 +53,7 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <button type="button" id="start_phq" class="btn btn-secondary"> Take PHQ-9 Questionnaire </button>
+                    <a href="{{ url_for('main.phq9_questionnaire') }}" class="btn btn-secondary">Take PHQ-9 Questionnaire </a>
                 </div>
             </div>
         </div>

@@ -20,6 +20,6 @@ class UpdateForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)])
     surname = StringField('Surname', validators=[DataRequired(), Length(min=2)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=7)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    password = PasswordField('New Password', validators=[DataRequired(), Length(min=7)])
+    confirm_password = PasswordField('Confirm New Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update Details')
