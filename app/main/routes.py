@@ -32,8 +32,6 @@ def profile_page():
         most_recent_session = None
         most_recent_session_emotions = None
     
-    print(most_recent_session)
-
     try:
         therapist = Therapist.query.filter_by(id = association.therapist_id).first()
     except:
@@ -48,10 +46,6 @@ def profile_page():
 def previous_phq():
     phq9_scores = PHQ9Scores.get_all_scores(current_user.id)
 
-    # last_10_scores = phq9_scores[-10:]
-
-    # latest_phq_data = PHQ9Scores.get_latest_score(current_user.id)
-
     graph_labels = []
     score_data = []
     emotional_state_data = []
@@ -65,7 +59,18 @@ def previous_phq():
 
 @bp.route('previous_gad', methods = ['GET'])
 def previous_gad():
-    return render_template('patient_user/previous_gad.html')
+    gad7_scores = GAD7Scores.get_all_scores(current_user.id)
+
+    graph_labels = []
+    score_data = []
+    emotional_state_data = []
+
+    for i in gad7_scores:
+        graph_labels.append(i.time_captured.strftime('%d/%m/%Y'))
+        score_data.append(i.score)
+        emotional_state_data.append(i.emotional_state)
+
+    return render_template('patient_user/previous_gad.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data)
 
 # Everything related to therapy sessions
 

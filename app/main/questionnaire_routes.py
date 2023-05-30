@@ -21,11 +21,11 @@ def questionnaires_page():
 
     if patient.current_therapist:
         therapist = patient.current_therapist.therapist
-        print(therapist.first_name)
     else:
-        flash('You do not have an assigned therapist currently. Please select a therapist from your profile before attempting a questionnaire.', category='error')
+        flash('You do not currnetly have an assigned therapist . Please select a therapist from your profile before attempting a questionnaire.', category='error')
+        therapist = None
 
-    return render_template('/questionnaires/questionnaires_page.html')
+    return render_template('/questionnaires/questionnaires_page.html', therapist = therapist)
 
 # Routes for displaying either questionnaire
 
@@ -54,7 +54,7 @@ def gad7_questionnaire():
 
         emotions = predict_questionnaire_images()
 
-        save_questionnaire_data("GAD", score, "Extremely Negative", current_user.id)
+        save_questionnaire_data("GAD", score, 0.2, current_user.id)
 
         return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions)
     return render_template('/questionnaires/GAD7.html', form = form)

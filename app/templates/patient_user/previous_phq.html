@@ -7,15 +7,15 @@
         <div class="col-6 md-12 sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3> Last Recorded Scores </h3>
+                    <h3> Latest Recorded Scores </h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <h5> Questionnaire Score Info </h5>
+                            <h5> Latest Score Info </h5>
                         </div>
                         <div class="col-6">
-                            <h5> Emotional State Info </h5>
+                            <h5> Latest Emotional State Info </h5>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <h3> Previous Attempts/Score Information </h3>
                 </div>
                 <div class="card-body">
-                    <h1> Placeholder </h1>
+                    <p> Some info on scoring system I guess </p>
                 </div>
             </div>
         </div>
@@ -64,10 +64,11 @@
 
 <script>
     var graph_labels = {{ graph_labels | tojson }};
+    var label_type = "PHQ-9 Scores"
 
     var score_ctx = document.getElementById('score_graph_canvas').getContext('2d');
     var score_data = {{ score_data  | tojson }};
-    createScoreGraph(score_ctx, graph_labels, score_data);
+    createScoreGraph(score_ctx, graph_labels, score_data, label_type);
 
     var emotional_state_ctx = document.getElementById('emotional_state_graph_canvas');
     var emotional_state_data = {{ emotional_state_data | tojson }};

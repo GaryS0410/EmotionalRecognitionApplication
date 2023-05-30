@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, flash
 from flask_login import current_user
 import numpy as np
 # import datetime
@@ -8,7 +8,7 @@ from app import db
 from app.main import bp
 from app.main.helpers import save_therapy_data
 
-from app.models import Therapist, Patient, Association
+from app.models import Therapist, Association
 
 from app.utils.image_utility import preprocess_image, predict_emotions
 
@@ -21,7 +21,8 @@ def therapy_page():
         therapist_relationship = Association.query.filter_by(patient_id = current_user.id).first()
         therapist = Therapist.query.filter_by(id = therapist_relationship.therapist_id).first()
         therapist = therapist.first_name + " " + therapist.surname
-    else: 
+    else:
+        flash("You do not currently have an assigned therapist. Please select a therapist from your patient profile before conducting a therapy session.", category = "error")
         therapist = None
 
     return render_template('therapy/therapy_screen.html', name=current_user.first_name, therapist = therapist)
@@ -37,10 +38,13 @@ def therapy_results_page():
 
     emotional_state = "Extremely Positive"
 
-    patient_id = current_user.id
-    therapist_id = current_user.current_therapist.id
 
-    save_therapy_data(emotional_state, patient_id, therapist_id, all_emotions, image_timestamps)
+    current_therapist_relationship = Association.query.filter_by(patient_id = current_user.id).first()
+    current_therapist = Therapist.query.filter_by(id = current_therapist_relationship.therapist.id).first()
+
+    print(current_therapist.first_name)
+
+    save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps)
 
     return render_template('therapy/therapy_results.html', emotions = emotions_pairs)
 

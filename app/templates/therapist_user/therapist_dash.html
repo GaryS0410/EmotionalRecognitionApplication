@@ -49,6 +49,33 @@
             </div>
         </div>
     </div>
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3> Your Previously Conducted Sessions </h3>
+                </div>
+                <div class="card-body">
+                    <table id="conducted_sessions_table" class="cell-border">
+                        <thead>
+                            <tr>
+                                <th> Session Date </th>
+                                <th> Session Patient </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in conducted_sessions %}
+                            <tr>
+                                <td> {{ entry.time_of_session.strftime('%d/%m/%Y') }}</td>
+                                <td> {{ entry.session_patient.helloworld }} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

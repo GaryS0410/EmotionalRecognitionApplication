@@ -40,7 +40,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h3> Questionnaire (PHQ/GAD) Information </h3>
+                    <h3> Questionnaire Information </h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -83,7 +83,11 @@
                     {% endif %}
                 </div>
                 <div class="card-footer">
-                    <a href="{{ url_for('main.specific_session', session_id = most_recent_session.id) }}" class="btn btn-secondary">View Session</a>
+                    {% if most_recent_session %}
+                    <a href="{{ url_for('main.specific_session', session_id = most_recent_session.id) }}" id="mostRecent" class="btn btn-secondary">View Session</a>
+                    {% else %}
+                    <button disabled type="button" class="btn btn-secondary">View Session</button>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -149,7 +153,6 @@
     table = document.getElementById('sessions_table');
     createDataTable(table);
 </script>
-
 
 {% endif %}
 

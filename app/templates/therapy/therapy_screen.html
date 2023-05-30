@@ -6,6 +6,17 @@
 
 {% block content %}
 
+<div class="flex-container" style="overflow: hidden;">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-center bg-light">
+                <h1 class="mb-3"> Therapy Session </h1>
+                <h4> Conduct therapy sessions with the aid of emotional recognition technology </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row mt-3">
         <div class="col-6">
@@ -32,9 +43,9 @@
                     {% endif %}
                 </div>
                 <div class="card-footer">
-                    <button id="start" type="button" class="btn btn-secondary">Begin Session</button>
-                    <a id="stop" href="{{ url_for('main.therapy_results_page') }}" class="btn btn-secondary">Stop Session</a>
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    <button type="button" id="start"  class="btn btn-secondary">Begin Session</button>
+                    <a href="{{ url_for('main.therapy_results_page') }}" id="stop" class="btn btn-secondary">Stop Session</a>
+                    <button type="button" id="sessionLength" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                         Select Session Length
                     </button>
                     <ul class="dropdown-menu">
@@ -63,5 +74,19 @@
 {% block scripts %}
 
 <script src="{{ url_for('static', filename='js/therapy.js')}}"></script>
+
+{% if not therapist %}
+
+<script>
+    var startButton = document.getElementById("start");
+    var stopButton = document.getElementById("stop");
+    var sessionLengthButton = document.getElementById("sessionLength");
+
+    startButton.classList.add("disabled");
+    stopButton.classList.add("disabled");
+    sessionLengthButton.classList.add("disabled");
+</script>
+
+{% endif %}
 
 {% endblock %}

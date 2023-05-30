@@ -2,7 +2,7 @@ from datetime import datetime
 
 from app import db
 
-from app.models import GAD7Scores, PHQ9Scores, SessionData, EmotionData
+from app.models import *
 
 # Function for calculating "emotional score metric". This is a holdover from v1 of the application,
 # and therefore is subject to change. Haven't ever been fully happy with how this works, however

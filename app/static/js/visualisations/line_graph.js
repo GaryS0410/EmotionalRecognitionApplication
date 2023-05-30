@@ -1,10 +1,10 @@
-function createScoreGraph(ctx, labels, data) {
+function createScoreGraph(ctx, labels, data, label_type) {
     var line_graph = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
             datasets: [{
-                label: "PHQ-9 Scores",
+                label: label_type,
                 data: data,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -30,7 +30,7 @@ function createEmotionalStateGraph(ctx, labels, data) {
         data: {
             labels: labels,
             datasets: [{
-                label: "PHQ-9 Scores",
+                label: "Emotional State Scores",
                 data: data,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',

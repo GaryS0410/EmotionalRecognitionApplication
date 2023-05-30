@@ -2,15 +2,16 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
-from . import config
+# from . import config
+from .config import Config
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
-def create_app():
+def create_app(config_class = Config):
     app = Flask(__name__, static_url_path='/static', static_folder='static')
 
-    app.config.from_object(config.Config)
+    app.config.from_object(config_class)
 
     db.init_app(app)
 
