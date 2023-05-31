@@ -50,7 +50,7 @@ function clearTherapyImages() {
 
 // Event listeners and button related functionality
 document.getElementById('start').addEventListener('click', () => {
-    console.log("button pushed");
+    toggleStartButton(true);
     intervalID = setInterval(takePhoto, 2000);
 })
 
@@ -61,4 +61,19 @@ document.getElementById('stop').addEventListener('click', () => {
 // Clearing images trigger 
 window.addEventListener('DOMContentLoaded', (event) => {
     clearTherapyImages();
+    alterStopButton(true);
 })
+
+// Button disabling based on current session state (in progress/not begun/yada yada)
+function disableButtons() {
+    document.getElementById('start').disabled = true;
+    document.getElementById('stop').disabled = true;
+}
+
+function alterStartButton(isDisabled) {
+    document.getElementById('start').disabled = true; 
+}
+
+function alterStopButton(isDisabled) {
+    document.getElementById('stop').disabled = isDisabled;
+}

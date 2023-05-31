@@ -2,11 +2,7 @@
 
 {% block head %}
 
-<style>
-    body {
-        text-align: center;
-    }
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
 
 {% endblock %}
 
@@ -15,7 +11,7 @@
 <div class="container">
     <div class="row mt-4 mb-4">
         <div class="col-6">
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-header">
                     <h3> Patient Information </h3>
                 </div>
@@ -38,7 +34,7 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-header">
                     <h3> Questionnaire Information </h3>
                 </div>
@@ -66,17 +62,15 @@
 
     <div class="row">
         <div class="col-6">
-            <div class="card mb-3">
+            <div class="card mb-3 text-center">
                 <div class="card-header">
                     <h3> Most Recent Therapy Session </h3>
                 </div>
                 <div class="card-body">
                     {% if most_recent_session %}
                     <h5> Session Emotional State: {{ most_recent_session.emotional_state }}</h5>
-                    <div class="container" style="width: 330px; height: 350px;">
-                        <div class="col-12">
-                            <canvas id="recent_session_pie_chart"></canvas>
-                        </div>
+                    <div class="container d-flex justify-content-center" style="position: relative; height:35vh; width: 80vw;">
+                        <canvas id="recent_session_pie_chart"></canvas>
                     </div>
                     {% else %}
                     <p> No data currently available to view as no therapy sessions have been conducted as of yet.</p>
@@ -92,7 +86,7 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-header">
                     <h3> Previous Therapy Sessions </h3>
                 </div>
@@ -110,8 +104,8 @@
                         <tbody>
                             {% for session in all_sessions %}
                             <tr>
-                                <td> {{ session.time_of_session.strftime('%d-%m-%Y') }} </td>
-                                <td> {{ session.time_of_session.strftime('%H:%M') }} </td>
+                                <td> {{ session.session_start_time.strftime('%d-%m-%Y') }} </td>
+                                <td> {{ session.session_start_time.strftime('%H:%M')}} </td>
                                 <td> {{ session.emotional_state }}</td>
                                 <td> 
                                     <a href="{{ url_for('main.specific_session', session_id = session.id) }}" class="btn btn-secondary">View Details</a>

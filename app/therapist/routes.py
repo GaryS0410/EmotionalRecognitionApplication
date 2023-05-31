@@ -18,7 +18,7 @@ def therapist_dash():
         current_patients.append(patient)
 
     for i in conducted_sessions:
-        print(i.session_patient)
+        print(i.session_patient.first_name)
 
     return render_template('therapist_user/therapist_dash.html', therapist = therapist, current_patients = current_patients, conducted_sessions = conducted_sessions)
 

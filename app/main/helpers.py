@@ -63,15 +63,35 @@ def save_questionnaire_data(questionnaire_type, score, emotional_state, patient_
 
 
 # Function for saving a therapy session
-def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, image_timestamps):
-    new_session = SessionData(time_of_session = datetime.now(), emotional_state = emotional_state, session_patient = patient_id, session_therapist = therapist_id)
+# def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, image_timestamps):
+    
+#     new_session = SessionData(emotional_state = emotional_state, session_patient = patient_id, session_therapist = therapist_id)
 
-    db.session.add(new_session)
+#     db.session.add(new_session)
+#     db.session.commit()
+
+#     i = 0
+#     for emotion in emotion_data:
+#         new_emotiondata_entry = EmotionData(emotion_type = emotion, time_captured = image_timestamps[i], session_id = new_session.id) 
+#         db.session.add(new_emotiondata_entry)
+#         i += 1
+#     db.session.commit()
+
+def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, image_timestamps):
+    start_time = image_timestamps[1]
+    end_time = image_timestamps[-1]
+
+    emotional_state = categorise_emotional_state(emotional_state)
+
+    new_session_entry = SessionData(emotional_state = emotional_state, session_patient = patient_id, session_therapist = therapist_id, session_start_time = start_time,
+                                    session_end_time = end_time)
+
+    db.session.add(new_session_entry)
     db.session.commit()
 
     i = 0
     for emotion in emotion_data:
-        new_emotiondata_entry = EmotionData(emotion_type = emotion, time_captured = image_timestamps[i], session_id = new_session.id) 
+        new_emotiondata_entry = EmotionData(emotion_type = emotion, time_captured = image_timestamps[i], session_id = new_session_entry.id)
         db.session.add(new_emotiondata_entry)
-        i += 1
+        i += 1 
     db.session.commit()

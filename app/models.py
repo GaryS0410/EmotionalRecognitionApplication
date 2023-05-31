@@ -11,11 +11,11 @@ class Association(db.Model):
     therapist_id = db.Column(db.Integer, db.ForeignKey('Therapist.id'))
 
     @staticmethod
-    def get_associations_therapist(therapist_id):
+    def get_therapist_associations(therapist_id):
         return Association.query.filter_by(therapist_id=therapist_id)
     
     @staticmethod
-    def get_associations_patient(patient_id):
+    def get_patient_association(patient_id):
         return Association.query.filter_by(patient_id=patient_id)
 
 # Model for EmotionData database table. Is used in order to capture a emotion, 
@@ -37,7 +37,8 @@ class EmotionData(db.Model):
 class SessionData(db.Model):
     __tablename__ = 'SessionData'
     id = db.Column(db.Integer, primary_key=True)
-    time_of_session = db.Column(db.DateTime(timezone=True), default=func.now())
+    session_start_time = db.Column(db.DateTime(timezone=True), default=func.now())
+    session_end_time = db.Column(db.DateTime(timezone=True), default=func.now())
     emotional_state = db.Column(db.String(50))
     session_patient = db.Column(db.Integer, db.ForeignKey('Patient.id'))
     session_therapist = db.Column(db.Integer, db.ForeignKey('Therapist.id'))
@@ -50,13 +51,25 @@ class SessionData(db.Model):
     @staticmethod
     def get_most_recent_session(patient_id):
         try:
-            return SessionData.query.filter_by(session_patient = patient_id).order_by(SessionData.time_of_session.desc()).first()
+            most_recent_session = SessionData.query.filter_by(session_patient = patient_id).order_by(SessionData.session_start_time.desc()).first()
+            return most_recent_session
         except:
-            return None
+            most_recent_session = None
+            return most_recent_session
         
     @staticmethod
     def get_therapist_sessions(therapist_id):
         return SessionData.query.filter_by(session_therapist = therapist_id).all()
+    
+    @staticmethod
+    def get_session_emotions(session):
+        emotions_count = {}
+        for emotion in session.emotion_data:
+            if emotion.emotion_type in emotions_count:
+                emotions_count[emotion.emotion_type] += 1
+            else: 
+                emotions_count[emotion.emotion_type] = 1
+        return emotions_count
 
 # Model for PHQ9Scores. Used to store the score, emotional_score, time when the 
 # questionnaire was done, etc.
@@ -137,6 +150,15 @@ class Therapist(User):
     def get_all_therapists():
         all_therapists = Therapist.query.all()
         return all_therapists
+    
+    @staticmethod
+    def get_therapist(therapist_id):
+        try:
+            therapist = Therapist.query.filter_by(id = therapist_id).first()
+            return therapist
+        except:
+            therapist = None
+            return therapist 
 
 # Model for the patient user. Has various attributes corresponding to mental 
 # health data, such as session_data and self-questionnaire scores. ALso has a

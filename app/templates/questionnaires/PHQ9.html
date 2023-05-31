@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+<style>
+    .quiz-position {
+        min-height: 700px;
+        max-width: 900px;
+    }
+
+</style>
+
+{% endblock %}
+
 {% block content %}
 
 {% if score and emotions %}
@@ -34,29 +46,42 @@
 
 {% else %}
 
-<div class="container d-flex justify-content-center align-items-center">
+<div class="container d-flex justify-content-center align-items-center quiz-position">
     <div class="card" id="phq9-info">
-        <div class="card-header">
+        <div class="card-header text-center">
             <h2> PHQ-9 Questionnaire </h2>
         </div>
         <div class="card-body">
-            <p> Details about the PHQ-9 questionnaire </p>
+            <p> 
+                The PHQ-9 questionnaire will present to you various questions regarding depression severity and will generally 
+                take the form of asking if you've been feeeling a specific way recently. You will be presented with various options
+                to answer such as "Several Days" or "Nearly every day", which will correspond to different values. At the end of 
+                the questionnaire a score will be given to you, as well as a descriptor of what this score means.
+            </p>
+            <p> 
+                In addition a machine learning model will be utilised in order to predict your emotions from your facial expression.
+                This will be used at the end of the questionnaire to calculate an additional metric which will attempt to quantify your 
+                emotional state during the questionnaire. This will range from either positive, neutral, or negative, wherein positive and 
+                negtative correspond to positive and negative emotions. For example, happy is a positive emotion whereas anger is definitely 
+                negative.
+            </p>
         </div>
-        <div class="card-footer">
+
+        <div class="card-footer text-center">
             <button type="button" class="btn btn-secondary" id="start-questionnaire">Start PHQ-9 Questionnaire</button>
         </div>
     </div>
 
-    <div class="card" style="display: none;" id="phq9-form">
-        <h3 class="card-header">PHQ-9 Questionnaire</h3>
-        <div class="card-body">
+    <div class="card align-items-center" style="display: none;" id="phq9-form">
+        <h3 class="card-header text-center">PHQ-9 Questionnaire</h3>
+        <div class="card-body text-center">
             <form id="questionnaire-form" method="POST" action="{{ url_for('main.phq9_questionnaire') }}">
                 {{ form.csrf_token}}
 
                 <div class="question" id="question1">
                     <label for="{{ form.question1.id }}">{{ form.question1.label}}</label>
                     <div class="radio-wrapper">
-                        {{ form.question1 (name='question1', class="btn btn-secondary") }}
+                        {{ form.question1 (name='question1') }}
                     </div>
                 </div>
 

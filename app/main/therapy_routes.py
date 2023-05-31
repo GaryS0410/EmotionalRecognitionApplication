@@ -6,7 +6,7 @@ from datetime import datetime
 
 from app import db
 from app.main import bp
-from app.main.helpers import save_therapy_data
+from app.main.helpers import *
 
 from app.models import Therapist, Association
 
@@ -36,17 +36,16 @@ def therapy_results_page():
 
     emotions_pairs, all_emotions = predict_emotions(image_list, is_therapy)
 
-    emotional_state = "Extremely Positive"
-
+    emotional_state = determine_emotional_state(emotions_pairs)
 
     current_therapist_relationship = Association.query.filter_by(patient_id = current_user.id).first()
     current_therapist = Therapist.query.filter_by(id = current_therapist_relationship.therapist.id).first()
 
-    print(current_therapist.first_name)
-
     save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps)
 
-    return render_template('therapy/therapy_results.html', emotions = emotions_pairs)
+    total_images_captured = (len(all_emotions))
+
+    return render_template('therapy/therapy_results.html', emotions = emotions_pairs, total_images_captured = total_images_captured)
 
 @bp.route('/get_therapy_image', methods = ['POST'])
 def get_therapy_image():

@@ -6,8 +6,6 @@ from app import db
 
 from app.main import bp
 from app.main.forms import *
-from app.utils.general_utility import get_session_emotions
-
 from app.models import *
 
 # Landing page route 
@@ -17,25 +15,18 @@ def landing_page():
     return render_template('landing_page.html')
 
 # All patient profile related pages/routes. Maybe will let these be accessed by therapist as well? Dunno yet
-
 @bp.route('/profile_page', methods = ['GET'])
 @login_required
 def profile_page():
-    patient = Patient.query.filter_by(id = current_user.id).first() 
+    patient = Patient.get_patient(current_user.id)
+    association = Association.get_patient_association(current_user.id)
     association = Association.query.filter_by(patient_id = current_user.id).first()
     all_sessions = SessionData.get_all_sessions(current_user.id)
 
-    try:
-        most_recent_session = SessionData.get_most_recent_session(current_user.id)
-        most_recent_session_emotions = get_session_emotions(most_recent_session)
-    except:
-        most_recent_session = None
-        most_recent_session_emotions = None
-    
-    try:
-        therapist = Therapist.query.filter_by(id = association.therapist_id).first()
-    except:
-        therapist = None
+    most_recent_session = SessionData.get_most_recent_session(patient_id = current_user.id)
+    most_recent_session_emotions = SessionData.get_session_emotions(most_recent_session)
+
+    therapist = Therapist.get_therapist(association.therapist_id)
 
     return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist, all_sessions = all_sessions, most_recent_session = most_recent_session, 
                            most_recent_session_emotions = most_recent_session_emotions)
@@ -84,7 +75,7 @@ def all_previous_sessions_page():
 @bp.route('/specific_session/<int:session_id>', methods = ['GET'])
 def specific_session(session_id):
     session = SessionData.query.get(session_id)
-    emotion_data = get_session_emotions(session)
+    emotion_data = SessionData.get_session_emotions(session)
 
     # Here is where you should retrieve the relevant text for the emotional score and generally what it means
     session_emotions = EmotionData.get_emotion_data(session.id)
@@ -99,6 +90,9 @@ def specific_session(session_id):
 @login_required
 def choose_therapist_page():
     therapist_list = Therapist.query.all()
+    
+    if len(therapist_list) == 0:
+        therapist_list = None
 
     return render_template('patient_user/choose_therapist.html', therapist_list = therapist_list, current_patient = current_user.id)
 

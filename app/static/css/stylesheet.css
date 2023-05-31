@@ -12,3 +12,16 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+body {
+    background-color: #24353d;
+    color: white;
+}
+
+.card {
+    background: #1a2933;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: white;
+}

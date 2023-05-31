@@ -10,10 +10,17 @@
                     <h3> Session Information </h3>
                 </div>
                 <div class="card-body">
-                    <p> Session Therapist: </p>
-                    <p> Total Emotion Instances: {{ total_emotions }} </p>
-                    <p> Session start time: </p>
-                    <p> Session End Time: {{ session.time_of_session.strftime('%H:%M:%S') }} </p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p> Overall Emotional State: {{ session.emotional_state }}</p>
+                            <p> Session Therapist:  </p>
+                            <p> Total Emotion Instances: {{ total_emotions }} </p>
+                        </div>
+                        <div class="col-6">
+                            <p> Session Start Time: {{ session.session_start_time.strftime('%H:%M:%S') }}</p>
+                            <p> Session End Time: {{ session.session_end_time.strftime('%H:%M:%S') }} </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card mt-3">
