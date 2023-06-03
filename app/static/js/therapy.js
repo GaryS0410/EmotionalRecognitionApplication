@@ -51,29 +51,49 @@ function clearTherapyImages() {
 // Event listeners and button related functionality
 document.getElementById('start').addEventListener('click', () => {
     toggleStartButton(true);
-    intervalID = setInterval(takePhoto, 2000);
+    disableSessionLengthButton(true);
+    enableStopButton();
+    takePhoto();
+    intervalID = setInterval(takePhoto, 30000);
 })
 
 document.getElementById('stop').addEventListener('click', () => {
     clearInterval(intervalID);
+    alterStartButton(true);
+    disableStopButton();
 })
 
 // Clearing images trigger 
 window.addEventListener('DOMContentLoaded', (event) => {
     clearTherapyImages();
-    alterStopButton(true);
+    disableStopButton();
 })
 
-// Button disabling based on current session state (in progress/not begun/yada yada)
+// Disables both stop/start
 function disableButtons() {
     document.getElementById('start').disabled = true;
     document.getElementById('stop').disabled = true;
 }
 
-function alterStartButton(isDisabled) {
-    document.getElementById('start').disabled = true; 
+// Can disable/enable start
+function toggleStartButton(isDisabled) {
+    document.getElementById('start').disabled = isDisabled;
 }
 
-function alterStopButton(isDisabled) {
-    document.getElementById('stop').disabled = isDisabled;
+// Disables stop
+function disableStopButton() {
+    var stopButton = document.getElementById('stop');
+
+    stopButton.classList.add("disabled");
+}
+
+// Enables stop
+function enableStopButton() {
+    var stopButton = document.getElementById('stop');
+
+    stopButton.classList.remove("disabled");
+}
+
+function disableSessionLengthButton(isDisabled) {
+    document.getElementById('sessionLength').disabled = isDisabled;
 }

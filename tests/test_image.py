@@ -2,35 +2,27 @@ import cv2
 from PIL import Image
 import numpy as np
 
-from app.utils.image_utility import preprocess_image
+from app.utils.image_utility import preprocess_image, predict_emotions
 
-def test_preprocessing():
-    # './test_images/happy_man_1.jpg'
-    # tests\test_images\happy_man_1.jpg
-    sample_image_path = 'tests/test_images/happy_man_1.jpg'
-    with open(sample_image_path, 'rb') as f:
-        sample_image_bytes = f.read()
+def test_preprocess_image():
+    with open("./test_images/happy_man_1.jpg", "rb") as file:
+        sample_image = file.read()
 
-    face_result = np.array([[10, 10, 20, 20]])
+    processed_image = preprocess_image(sample_image)
 
-    class MockCascadeClassifier:
-        def detectMultiScale(self, image, scaleFator, minNeighbors):
-            return face_result
-        
-    original_classifier = cv2.CascadeClassifier
-    cv2.CascadeClassifier = MockCascadeClassifier
+    assert isinstance(processed_image, np.ndarray)
+    assert processed_image.shape == (1, 48, 48, 1)
+    assert processed_image.dtype == np.float32
 
-    result = preprocess_image(sample_image_bytes)
+def test_prediction_happy():
+    with open("./test_images/happy_man_1.jpg", "rb") as file:
+        happy_image = file.read()
 
-    cv2.CascadeClassifier.original_classifier
+    processed_image = preprocess_image(happy_image)
+    image_list = [processed_image]
 
-    assert isinstance(result, np.ndarray)
-    assert result.shape == (1, 48, 48, 1)
-    assert result.dtype == np.float32
-    assert np.allclose(result, np.zeros((1, 48, 48, 1)))
+    emotions_count = predict_emotions(image_list, is_therapy = False)
 
-    face_result = ()
-    result = preprocess_image(sample_image_bytes)
-    assert result.shape == (1, 48, 48, 1)
-    assert result.dtype == np.float32
-    assert np.allclose(result, np.zeros((1, 48, 48, 1)))
+    assert isinstance(emotions_count, dict)
+    assert "happy" in emotions_count
+    assert emotions_count["happy"] == 1

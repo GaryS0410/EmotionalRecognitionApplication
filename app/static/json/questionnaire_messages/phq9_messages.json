@@ -1,0 +1,22 @@
+{
+    "Minimal Depression": {
+        "phq9_score_range": [0, 1, 2, 3, 4],
+        "message": "Your PHQ-9 score classes your level of depression severity at minimal to no depression. The is the lowest scoring range in the questionnaire and means you are unlikely to have depression or are experiencing it to a concernable degree."
+    },
+    "Mild Depression": {
+        "phq9_score_range": [5, 6, 7, 8, 9],
+        "message": "Your PHQ-9 score classes your level of depression severity at mild depression. This means your symptoms are not necessarily as severe as they could be, however it is still important to monitor yourself and seek advice from a medical professional if you feel your symptoms are becoming more severe"
+    },
+    "Moderate Depression": {
+        "phq9_score_range": [10, 11, 12, 13, 14],
+        "message": "Your PHQ-9 score classes your level of depression severity at moderate depression. At this level it is important to start considering reaching out to a medical professional, as this level of sevity is when it becomes concerning. Therefore, reaaching out to a family member, or a professional, for help is advised."
+    },
+    "Moderately Severe Depression": {
+        "phq9_score_range": [15, 16, 17, 18, 19],
+        "message": "Your PHQ-9 score classes your level of depression severity at moderately severe depression. At this level of depression it is important to seek medical attention as soon as you can as this is an extremely concerning level. It may also help to reach out to friends and family and open up about your situation."
+    },
+    "Severe Depression": {
+        "phq9_score_range": [20, 21, 22, 23, 24, 25, 26, 27],
+        "message": "Your PHQ-9 score classes your level of depression severity at severe depression. At this level it is important to talk to a medical professional as soon as possible about your symptoms as this is the highest level of severity. Therefore, it is important to seek advice as soon as possible. It may help to also reach out to a family member or friend to open about your current symptoms"
+    }
+}

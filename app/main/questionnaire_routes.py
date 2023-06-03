@@ -5,8 +5,9 @@ import numpy as np
 from app import db
 from app.main import bp
 from app.main.forms import *
-from app.main.helpers import save_questionnaire_data
+from app.main.helpers import save_questionnaire_data, determine_emotional_state, categorise_emotional_state
 from app.models import PHQ9Scores, Patient
+from app.utils.general_utility import get_phq_message
 
 from app.utils.image_utility import preprocess_image, predict_emotions
 
@@ -38,10 +39,15 @@ def phq9_questionnaire():
         score = form.calculate_score()
         
         emotions = predict_questionnaire_images()
-        
-        save_questionnaire_data("PHQ", score, 0.5, current_user.id)
+        emotional_state = determine_emotional_state(emotions)
 
-        return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions)
+        save_questionnaire_data("PHQ", score, emotional_state, current_user.id)
+
+        emotional_state = categorise_emotional_state(emotional_state)
+        phq_message = get_phq_message(score)
+        print(len(phq_message))
+
+        return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions, emotional_state = emotional_state, phq_message = phq_message)
     return render_template('/questionnaires/PHQ9.html', form = form)
 
 @bp.route('/gad7_questionnaire', methods = ['GET', 'POST'])
@@ -53,10 +59,12 @@ def gad7_questionnaire():
         score = form.calculate_score()
 
         emotions = predict_questionnaire_images()
+        emotional_state = determine_emotional_state(emotions)
+        save_questionnaire_data("GAD", score, emotional_state, current_user.id)
 
-        save_questionnaire_data("GAD", score, 0.2, current_user.id)
+        emotional_state = categorise_emotional_state(emotional_state)
 
-        return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions)
+        return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions, emotional_state = emotional_state)
     return render_template('/questionnaires/GAD7.html', form = form)
 
 # Route for clearing the global image list

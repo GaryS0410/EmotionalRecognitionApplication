@@ -12,11 +12,13 @@ class Association(db.Model):
 
     @staticmethod
     def get_therapist_associations(therapist_id):
-        return Association.query.filter_by(therapist_id=therapist_id)
-    
+        association = Association.query.filter_by(therapist_id = therapist_id).first()
+        return association
+
     @staticmethod
     def get_patient_association(patient_id):
-        return Association.query.filter_by(patient_id=patient_id)
+        association = Association.query.filter_by(patient_id = patient_id).first()
+        return association
 
 # Model for EmotionData database table. Is used in order to capture a emotion, 
 # it's type, and its timestamp. Has a relationshhip to the SessionData table
@@ -59,17 +61,22 @@ class SessionData(db.Model):
         
     @staticmethod
     def get_therapist_sessions(therapist_id):
-        return SessionData.query.filter_by(session_therapist = therapist_id).all()
+        conducted_sessions = SessionData.query.filter_by(session_theraist = therapist_id).all()
+        return conducted_sessions
     
     @staticmethod
     def get_session_emotions(session):
-        emotions_count = {}
-        for emotion in session.emotion_data:
-            if emotion.emotion_type in emotions_count:
-                emotions_count[emotion.emotion_type] += 1
-            else: 
-                emotions_count[emotion.emotion_type] = 1
-        return emotions_count
+        try:
+            emotions_count = {}
+            for emotion in session.emotion_data:
+                if emotion.emotion_type in emotions_count:
+                    emotions_count[emotion.emotion_type] += 1
+                else: 
+                    emotions_count[emotion.emotion_type] = 1
+            return emotions_count
+        except:
+            emotions_count = None
+            return emotions_count
 
 # Model for PHQ9Scores. Used to store the score, emotional_score, time when the 
 # questionnaire was done, etc.
@@ -153,13 +160,12 @@ class Therapist(User):
     
     @staticmethod
     def get_therapist(therapist_id):
-        try:
+        if therapist_id == None:
+            return None
+        else: 
             therapist = Therapist.query.filter_by(id = therapist_id).first()
             return therapist
-        except:
-            therapist = None
-            return therapist 
-
+        
 # Model for the patient user. Has various attributes corresponding to mental 
 # health data, such as session_data and self-questionnaire scores. ALso has a
 # therapist relationship which corresponds to the therapist the patient is 

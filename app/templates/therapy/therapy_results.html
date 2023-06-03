@@ -12,14 +12,14 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <p> Session Therapist: </p>
+                            <p> Session Therapist: {{ therapist.first_name + " " + therapist.surname}} </p>
                             <p> Total Images Captured: {{ total_images_captured }}</p>
-                            <p> Session Emotional State: </p>
+                            <p> Session Emotional State: {{ emotional_state }} </p>
                         </div>
                         <div class="col-6">
-                            <p> Session Start Time: </p>
-                            <p> Session End Time: </p>
-                            <p> Total Length of Session: </p>
+                            <p> Session Start Time: {{ session_start_time.strftime('%H:%M') }} </p>
+                            <p> Session End Time: {{ session_end_time.strftime('%H:%M') }} </p>
+                            <p> Total Length of Session: {{ time_difference }}</p>
                         </div>
                     </div>
                 </div>

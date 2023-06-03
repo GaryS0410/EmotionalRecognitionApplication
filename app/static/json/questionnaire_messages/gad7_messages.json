@@ -1,0 +1,18 @@
+{
+    "Minimal Anxiety": {
+        "gad7_score_range": [0, 1, 2, 3, 4],
+        "message": "Your GAD-7 score classes you as having minimal anxiety. Although you may experience anxiety sometimes it is unlikely you had generalised anxiety disorder based off of the answers given."
+    },
+    "Mild Anxiety": {
+        "gad7_score_range": [5, 6, 7, 8, 9],
+        "message": "Your GAD-7 score classes you as experiencing mild anxiety. This indicates you experience some level of persistent anxiety, however your symptoms are not severe enough yet to correspond to generalised anxiety disorder. However, if your symptoms get worse going forward it can still be worth it to consult with a medical professional."
+    },
+    "Moderate Anxiety": {
+        "gad7_score_range": [10, 11, 12, 13, 14],
+        "message":"Your GAD-7 score classes you as experiencing moderate anxiety. This indicates that your anxiety level is above average for most people, and could be an indication of having generalised anxiety disorder. "
+    },
+    "Severe Anxiety": {
+        "gad7_score_range": [15, 16, 17, 18, 19, 20, 21],
+        "message": "Your GAD-7 score classes you as experiencing severe anxiety. This indicates your anxiety level is severe and is at an extremely high level. This could be an indication of generalised anxiety disorder. At this level of severity it is definitely recommended to seek out a medical professional to discuss with as soon as possible."
+    }
+}

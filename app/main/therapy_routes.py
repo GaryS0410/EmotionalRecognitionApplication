@@ -38,14 +38,21 @@ def therapy_results_page():
 
     emotional_state = determine_emotional_state(emotions_pairs)
 
-    current_therapist_relationship = Association.query.filter_by(patient_id = current_user.id).first()
-    current_therapist = Therapist.query.filter_by(id = current_therapist_relationship.therapist.id).first()
+    emotional_state = categorise_emotional_state(emotional_state)
 
-    save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps)
+    current_therapist_relationship = Association.get_patient_association(current_user.id)
+    current_therapist = Therapist.get_therapist(current_therapist_relationship.therapist.id)
 
-    total_images_captured = (len(all_emotions))
+    start_time, end_time = get_session_times(image_timestamps)
 
-    return render_template('therapy/therapy_results.html', emotions = emotions_pairs, total_images_captured = total_images_captured)
+    time_difference = get_time_difference(start_time, end_time)
+
+    total_images_captured = len(all_emotions)
+
+    save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps, start_time, end_time)
+
+    return render_template('therapy/therapy_results.html', emotions = emotions_pairs, total_images_captured = total_images_captured, therapist = current_therapist, 
+                           emotional_state = emotional_state, session_start_time = start_time, session_end_time = end_time, time_difference = time_difference)
 
 @bp.route('/get_therapy_image', methods = ['POST'])
 def get_therapy_image():

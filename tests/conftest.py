@@ -6,6 +6,7 @@ from app.config import TestConfig
 @pytest.fixture()
 def app():
     app = create_app(config_class = TestConfig)
+    app.config['WTF_CSRF_ENABLED'] = False
 
     with app.app_context():
         db.create_all()

@@ -16,18 +16,24 @@
 
 {% if score and emotions %}
 
-<div class="container d-flex justify-content-center align-items-center">
+<div class="container justify-content-center align-items-center mt-3">
     <div class="row">
         <div class="col-6">
             <div class="card">
                 <div class="card-header" style="width: 100%">
-                    <h3> Questionnaire Results </h3>
+                    <h3> PHQ-9 Score Results </h3>
                 </div>
                 <div class="card-body">
-                    <h5> PHQ-9 Score </h5>
-                    {{ score }}
-                    <h5> Emotions </h5>
-                    {{ emotions }}
+                    <h5> PHQ-9 Score: {{ score }} </h5>
+                    <p> {{ phq_message }} </p>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h3> Emotional State Results </h3>
+                </div>
+                <div class="card-body">
+                    <p> Your captured emotional state during the questionnaire was {{ emotional_state }}.</p>
                 </div>
             </div>
         </div>

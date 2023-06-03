@@ -1,0 +1,23 @@
+{
+    "Extremely Positive": {
+        "message": "Your emotional score indicates a extremely positive attitude during the therapy session. This indicates that for a large majority of the session you expressed positive expressions. This is an indication that you were upbeat for the vast majority of the session."
+    },
+    "Moderately Positive": {
+        "message": "Your emotional score indicates a moderately positive attitude during the therapy session. This indicates that for a majority of the session you expressed positive expressions. This is an indication that for the majority of the time you remained upbeat and were never particuraly upset during the session."
+    },
+    "Slightly Positive": {
+        "message": "Your emotional score indicates a slightly positive attitude during the therapy session. This indicates that during the session you expressed positive expressions, but may have also expressed some negative emotions as well. This means that on average you remained positive during the session, however there could have been certain points were you were upset."
+    },
+    "Neutral": {
+        "message": "Your emotional score indicates a neutral attitude during the therapy session. This indicates that during the session you expressed neither strong positive or negative emotions. This means that for most of the session you were neither upbeat/joyful nor particuraly upset at any point. Therefore, this is a fairly inconclusive result as nothing can be inferred from it either way."
+    },
+    "Slightly Negative": {
+        "message": "Your emotional score indicates a slightly negative attitude during the therapy session. This indicates that during the session you expressed negative expressions, but may have also expressed some positive emotions as well. This means that some topics could have made you upset during the questionnaire, however not to a severe degree or for most of the session."
+    },
+    "Moderately Negative": {
+        "message": "Your emotional score indicates a moderately negative attitude during the therapy session. This indicates for a majority of the session you expressed negative expressions. This means that during the session you seemed upset at various points, which could indicate that some sensitive or upsetting topics were discussed."
+    }, 
+    "Extremely Negative": {
+        "message": "Your emotional score indicates a extremely negative attitude during the therapy session. This indicates that for a large majority of the therapy session you expressed negative expressions. This indicates that for a vast majority of the therapy session you were experiencing negative emotions. This means that some particurally upsetting topics may have been dicussed during the sesion."
+    }
+}

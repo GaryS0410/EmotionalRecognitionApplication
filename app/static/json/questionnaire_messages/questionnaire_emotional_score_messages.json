@@ -1,0 +1,23 @@
+{
+    "Extremely Positive": {
+        "message": "Your emotional score indicates a extremely positive attitude during the questionnaire. This indicates that for a large majority of the questionnaire you expressed positive expressions. This could put you at a lower risk of having a mental health disorder, however if your questionnaire score is high it still may be worth speaking to a medical professional."
+    },
+    "Moderately Positive": {
+        "message": "Your emotional score indicates a moderately positive attitude during the questionnaire. This indicates that for a majority of the questionnaire you expressed positive expressions. This could put you at a lower risk of having a mental health disorer, however if your questionnaire score is high it still may be worth speaking to a medical professional."
+    },
+    "Slightly Positive": {
+        "message": "Your emotional score indicates a slightly positive attitude during the questionnaire. This indicates that during the questionniare you expressed positive expressions, but may have also expressed some negative emotions as well. This could put you at a lower risk of having a mental health disorder, however if your questionnaire score is high it may still be worth speaking to a medical professonal."
+    },
+    "Neutral": {
+        "message": "Your emotional score indicates a neutral attitude during the questonnaire. This indicates that during the questionnaire you expressed neither strong positive or negative emotions. This means that the expression data can be interpreted either way. Therefore, a conclusion can only be reached by relying on your questionniare score, as neutral is a largely inconclusive result. "
+    },
+    "Slightly Negative": {
+        "message": "Your emotional score indicates a slightly negative attitude during the questionniare. This indicates that during the questionniare you expressed negative expressions, but may have also expressed some positive emotions as well. As you expressed more negative emotions this could put you at higher risk of a mental health disorder, however it is not the strongest indicator. Therefore, it is best to seek help if your questionanire score is also high."
+    },
+    "Moderately Negative": {
+        "message": "Your emotional score indicates a moderately negative attitude during the questionanire. This indicates for a majority of the questionanire you expressed negative expressions. This means that you are at a higher risk of having a mental health disorder and it could be worth monitoring your symptoms and looking into it more. If your questionniare score is also high it is advised that you seek professional advice as soon as possible."
+    }, 
+    "Extremely Negative": {
+        "message": "Your emotional score indicates a extremely negative attitude during the questionnaire. This indicates that for a large majority of the questionnaire you expressed negative expressions. Negative expressions have a higher correlation with mental health disorders, therefore this is a very strong indicator you may be at risk. If your questionnaire score is also high it is advised that you seek advice from a medical professional as soon as possible."
+    }
+}

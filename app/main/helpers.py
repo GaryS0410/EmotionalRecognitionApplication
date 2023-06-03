@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import timedelta
 
 from app import db
 
@@ -61,27 +61,7 @@ def save_questionnaire_data(questionnaire_type, score, emotional_state, patient_
         db.session.add(new_entry)
         db.session.commit()
 
-
-# Function for saving a therapy session
-# def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, image_timestamps):
-    
-#     new_session = SessionData(emotional_state = emotional_state, session_patient = patient_id, session_therapist = therapist_id)
-
-#     db.session.add(new_session)
-#     db.session.commit()
-
-#     i = 0
-#     for emotion in emotion_data:
-#         new_emotiondata_entry = EmotionData(emotion_type = emotion, time_captured = image_timestamps[i], session_id = new_session.id) 
-#         db.session.add(new_emotiondata_entry)
-#         i += 1
-#     db.session.commit()
-
-def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, image_timestamps):
-    start_time = image_timestamps[1]
-    end_time = image_timestamps[-1]
-
-    emotional_state = categorise_emotional_state(emotional_state)
+def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, image_timestamps, start_time, end_time):
 
     new_session_entry = SessionData(emotional_state = emotional_state, session_patient = patient_id, session_therapist = therapist_id, session_start_time = start_time,
                                     session_end_time = end_time)
@@ -95,3 +75,16 @@ def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, i
         db.session.add(new_emotiondata_entry)
         i += 1 
     db.session.commit()
+
+def get_session_times(image_timestamps):
+    session_start_time = image_timestamps[0]
+    session_end_time = image_timestamps[-1]
+
+    return session_start_time, session_end_time
+
+def get_time_difference(start_time, end_time):
+    time_difference = end_time - start_time
+
+    minute_difference = time_difference.total_seconds() // 60
+
+    print(f"Time difference is: {minute_difference}")

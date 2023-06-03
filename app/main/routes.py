@@ -18,15 +18,23 @@ def landing_page():
 @bp.route('/profile_page', methods = ['GET'])
 @login_required
 def profile_page():
+    # Getting current patient by querying the database with the current user id
     patient = Patient.get_patient(current_user.id)
+    
     association = Association.get_patient_association(current_user.id)
-    association = Association.query.filter_by(patient_id = current_user.id).first()
+
+    if association != None:
+        therapist = Therapist.get_therapist(association.therapist_id)
+    else:
+        therapist = None
+
     all_sessions = SessionData.get_all_sessions(current_user.id)
-
     most_recent_session = SessionData.get_most_recent_session(patient_id = current_user.id)
-    most_recent_session_emotions = SessionData.get_session_emotions(most_recent_session)
 
-    therapist = Therapist.get_therapist(association.therapist_id)
+    if most_recent_session:
+        most_recent_session_emotions = SessionData.get_session_emotions(most_recent_session)
+    else:
+        most_recent_session_emotions = None
 
     return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist, all_sessions = all_sessions, most_recent_session = most_recent_session, 
                            most_recent_session_emotions = most_recent_session_emotions)
@@ -104,7 +112,6 @@ def assign_therapist():
 
         if Association.query.filter_by(patient_id = current_user.id).first():
             old_therapist_relationship = Association.query.filter_by(patient_id = current_user.id).first()
-            old_therapist_id = old_therapist_relationship.therapist_id
 
             db.session.delete(old_therapist_relationship)
             db.session.commit()
@@ -112,6 +119,7 @@ def assign_therapist():
         patient_therapist_association = Association(patient_id = patient, therapist_id = therapist)
         db.session.add(patient_therapist_association)
         db.session.commit()
+        print(patient_therapist_association)
     else:
         return('Request failed', 400)
 

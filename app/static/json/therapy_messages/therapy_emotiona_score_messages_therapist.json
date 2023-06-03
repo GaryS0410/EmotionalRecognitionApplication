@@ -1,0 +1,23 @@
+{
+    "Extremely Positive": {
+        "message": "The patients emotional score from this session indicates a extremely positive attitude, meaning they displayed practially only positive facial expressions. This could mean that the patient didn't discuss any particurally difficult topics during the session and they also never really became upset during the session."
+    },
+    "Moderately Positive": {
+        "message": "The patients emotional score from this session indicates a moderately positive attitude, meaning they dispayed positive facial expression by a large majority. This could meant that the patient didn't discuss any particurally difficult topics and for a majortiy of the time never seemed particuraly upset, as they were predominantly positive."
+    },
+    "Slightly Positive": {
+        "message": "The patients emotional score from this session indicates a slightly positive attitude, meaning they displayed positive facial expressions by a slight majority. This could mean that most of the time the patient was positive, however there could be various points in which they were more negative and neutral orientated."
+    },
+    "Neutral": {
+        "message": "The patients emotional score from this session indicates a neutral attitude, meaning the patient didn't display strong emotion one way or the other. This means that during the session the patient remained largely neutral for the most part and it is difficult to gleam anything useful the expression data. However, it is still possibel that the patient displayed positive and negative emotions during certain points."
+    },
+    "Slightly Negative": {
+        "message": "The patients emotional score from this session indicates a slightly negative attitude, meaning they displayed negative expressions by a slight majority. This could mean that for most of the time the patient displayed a negative attitude, meaning there could be various points which the patient was upset. However, there could still be various points wherein the patient was more positive/neutral orientated."
+    },
+    "Moderately Negative": {
+        "message": "The patients emotional score from this session indicates a moderately negative attitude, meaning they displayed negative emotions by a large majority. This could mean that some particuraly difficult topics were discussed during the session. Ultimately though, it is certain that the patient was upset for a majority of the time during this session."
+    }, 
+    "Extremely Negative": {
+        "message": "The patients emotional score from this session indicates a extremely negative attitude, meaning they displayed practially only negative facial expressions. This means that for a large majority of the session the patient was upset and some potentially upsetting topics may have been discussed. The things discussed within this session may be worth re-visting, as it is evident that they have had a profound effect on the patients mental state and it would be wroth finding out why."
+    }
+}
