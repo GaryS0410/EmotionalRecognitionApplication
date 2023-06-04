@@ -13,6 +13,10 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     });
 }
 
+document.getElementById('start-questionnaire').addEventListener('click', function () {
+    intervalID = setInterval(takePhoto, 10000);
+})
+
 function upload(file) {
     var formdata = new FormData();
     formdata.append('snap', file);

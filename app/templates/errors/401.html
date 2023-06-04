@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container mt-3">
     <div class="card">
         <div class="card-header">
             <h3> 401 Error Encountered </h3>
@@ -11,6 +11,9 @@
             <p> 
                 A 401 error has been encountered, meaning you are not authorised to view this webpage. Please press the button below to return to the applications landing page.
             </p>
+        </div>
+        <div class="card-footer">
+            <a href="{{ url_for('main.landing_page') }}">Landing Page</a>
         </div>
     </div>
 </div>

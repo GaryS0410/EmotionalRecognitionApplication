@@ -1,23 +1,94 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+<style>
+    .quiz-position {
+        min-height: 700px;
+        max-width: 900px;
+    }
+
+</style>
+
+{% endblock %}
+
 {% block content %}
 
-{% if score %}
+{% if score and emotions %}
 
-{{ score }}
-{{ emotions }}
+<div class="container justify-content-center align-items-center mt-3">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="card">
+                <div class="card-header text-center" style="width: 100%">
+                    <h3> GAD-7 Score Results </h3>
+                </div>
+                <div class="card-body">
+                    <h5> GAD-7 Score: {{ score }} </h5>
+                    <p> {{ gad_message }} </p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header text-center">
+                    <h3> Emotional State Results </h3>
+                </div>
+                <div class="card-body">
+                    <h5> Emotional State Captured: {{ emotional_state }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 mt-lg-0 mt-sm-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3> Emotional Distribution Chart </h3>
+                </div> 
+                <div class="card-body">
+                    <canvas id="pieChartCanvas" width="640" height="480"></canvas>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
 
 {% else %}
 
-<div class="container h-100 d-flex align-items-center justify-content-center">
-    <div class="card align-items-center">
-        <h3 class="card-header">GAD-7 Questionnaire</h3>
-        <form id="questionnaire-form" method="POST" action="{{ url_for('main.gad7_questionnaire') }}">
-            {{ form.csrf_token}}
-            <div class="card-body">
+<div class="container d-flex justify-content-center align-items-center quiz-position">
+    <div class="card" id="gad7-info">
+        <div class="card-header text-center">
+            <h2> GAD-7 Questionnaire </h2>
+        </div>
+        <div class="card-body">
+            <p>
+                The GAD-7 questionnaire will present to you various questions regarding anxiety severity and will generally
+                take the form of asking if you've been feeling a specific way recently. You will be presented with various options 
+                to answer, such as "Several days" or "Nearly every day", which will correspond to different values. At the end of the 
+                questionnaire a score will be given to you, as well as a descriptor of what this score means.
+            </p>
+            <p>
+                In addition a machine learning model will be utilised in order to predict your emotions from your facial expressions. This 
+                will be used at the end of the questionnaire to calculate an additional metric which will attempt to quantify your emotional 
+                state during the questionnaire. This will range from either positive, neutral, or negative, wherein positive and negative correspond 
+                to positive and negative emotions. For example, happy is a positive emotion whereas anger is a negative emotion.
+            </p>
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" class="btn btn-secondary" id="start-questionnaire">Start GAD-7 Questionnaire</button>
+        </div>
+    </div>
+
+    <div class="card align-items-center" style="display: none; width:100%;" id="gad7-form" width: 50%;>
+        <h3 class="card-header text-center">GAD-7 Questionnaire</h3>
+        <div class="card-body text-center">
+            <form id="questionnaire-form" method="POST" action="{{ url_for('main.gad7_questionnaire') }}">
+                {{ form.csrf_token}}
+
+                <h5> Recently, have you felt... </h5>
+
                 <div class="question" id="question1">
                     <label for="{{ form.question1.id }}">{{ form.question1.label}}</label>
-                    {{ form.question1 (name='question1') }}
+                    <div class="radio-wrapper">
+                        {{ form.question1 (name='question1') }}
+                    </div>
                 </div>
 
                 <div class="question" id="question2" style="display: none;">
@@ -49,12 +120,12 @@
                     <label for="{{ form.question7.id }}">{{ form.question7.label }}</label>
                     {{ form.question7 (name='question7') }}
                 </div>
-            </div>
-            <div class="card-footer">
+
                 <button class="btn btn-secondary" id="last" type="button" onclick="previousQuestion();">Previous</button>
                 <button class="btn btn-secondary" id="next" type="button" onclick="nextQuestion(); takePhoto();">Next</button>
-            </div>
-        </form>
+            
+            </form>
+        </div>
     </div>
 </div>
 
@@ -69,7 +140,24 @@
 
 {% block scripts %}
 
-<script src=" {{ url_for('static', filename='js/camera.js') }}"></script>
-<script src=" {{ url_for('static', filename='js/questionnaire.js') }}"></script>
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+<script src="{{ url_for('static', filename='js/questionnaire.js') }}"></script>
+<script src="{{ url_for('static', filename='js/visualisations/pie_chart.js') }}"></script>
+
+<script>
+    document.getElementById('start-questionnaire').addEventListener('click', function() {
+        document.getElementById('gad7-form').style.display = 'block';
+        document.getElementById('gad7-info').style.display = 'none';
+    });
+</script>
+
+{% if score and emotions %}
+<script>
+    var ctx = document.getElementById('pieChartCanvas').getContext('2d');
+    var emotionData = {{ emotions | tojson }};
+
+    createPieChart(ctx, emotionData);
+</script>
+{% endif %}
 
 {% endblock %}

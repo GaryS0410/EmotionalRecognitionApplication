@@ -69,7 +69,10 @@
                 <div class="card-body">
                     {% if most_recent_session %}
                     <h5> Session Emotional State: {{ most_recent_session.emotional_state }}</h5>
-                        <canvas id="recent_session_pie_chart" width="100" height="100" style="border:1px solid;"></canvas>
+                    <div class="container" style="position: relative; height:35vh; width: 80vw;">
+                        <canvas id="recent_session_pie_chart" style="border: 1px black solid;"></canvas>
+                    </div>
+                        <!--<canvas id="recent_session_pie_chart" width="500" height="350" style="border:1px solid;"></canvas>-->
                     {% else %}
                     <p> No data currently available to view as no therapy sessions have been conducted as of yet.</p>
                     {% endif %}

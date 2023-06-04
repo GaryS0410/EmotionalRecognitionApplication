@@ -18,6 +18,7 @@ function createPieChart(ctx, emotionsData) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             legeng: {
                 labels: {
                     // Add whatever the designated font color here

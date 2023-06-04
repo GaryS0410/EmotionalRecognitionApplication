@@ -1,15 +1,18 @@
 from flask import render_template
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from app.therapist import bp
 from app.models import *
 
 @bp.route('/therapist_dash', methods = ['GET'])
+@login_required
 def therapist_dash():
     therapist = Therapist.query.filter_by(id = current_user.id).first()
 
-    current_patient_associations = Association.get_associations_therapist(current_user.id)
+    current_patient_associations = Association.get_therapist_associations(current_user.id)
     conducted_sessions = SessionData.get_therapist_sessions(current_user.id)
+
+    print(current_patient_associations)
 
     current_patients = []
     

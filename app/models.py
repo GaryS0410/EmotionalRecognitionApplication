@@ -61,7 +61,7 @@ class SessionData(db.Model):
         
     @staticmethod
     def get_therapist_sessions(therapist_id):
-        conducted_sessions = SessionData.query.filter_by(session_theraist = therapist_id).all()
+        conducted_sessions = SessionData.query.filter_by(session_therapist = therapist_id).all()
         return conducted_sessions
     
     @staticmethod
@@ -110,7 +110,12 @@ class GAD7Scores(db.Model):
 
     @staticmethod 
     def get_all_scores(patient_id):
-        return GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all()
+        all_previous_scores = GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all
+        if all_previous_scores is not None:
+            return all_previous_scores
+        else: 
+            all_previous_scores = None
+            return all_previous_scores
     
     @staticmethod 
     def get_latest_score(patient_id):
@@ -156,6 +161,7 @@ class Therapist(User):
     @staticmethod
     def get_all_therapists():
         all_therapists = Therapist.query.all()
+        
         return all_therapists
     
     @staticmethod

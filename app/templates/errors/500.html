@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container mt-3">
     <div class="card">
         <div class="card-header">
             <h3> 500 Error Encountered </h3>
@@ -13,7 +13,7 @@
             </p>
         </div>
         <div class="card-footer">
-            <button type="button" class="btn btn-secondary">Help Me</button>
+            <a href="{{ url_for('main.landing_page') }}" class="btn btn-secondary">Landing Page</a>
         </div>
     </div>
 </div>

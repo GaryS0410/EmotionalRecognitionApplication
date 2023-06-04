@@ -23,7 +23,7 @@ def profile_page():
     
     association = Association.get_patient_association(current_user.id)
 
-    if association != None:
+    if association is not None:
         therapist = Therapist.get_therapist(association.therapist_id)
     else:
         therapist = None
@@ -60,14 +60,19 @@ def previous_phq():
 def previous_gad():
     gad7_scores = GAD7Scores.get_all_scores(current_user.id)
 
-    graph_labels = []
-    score_data = []
-    emotional_state_data = []
+    if gad7_scores is not None:
+        graph_labels = []
+        score_data = []
+        emotional_state_data = []
 
-    for i in gad7_scores:
-        graph_labels.append(i.time_captured.strftime('%d/%m/%Y'))
-        score_data.append(i.score)
-        emotional_state_data.append(i.emotional_state)
+        for i in gad7_scores:
+            graph_labels.append(i.time_captured.strftime('%d/%m/%Y'))
+            score_data.append(i.score)
+            emotional_state_data.append(i.emotional_state)
+    else:
+        graph_labels = None
+        score_data = None
+        emotional_state_data = None
 
     return render_template('patient_user/previous_gad.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data)
 
@@ -97,7 +102,7 @@ def specific_session(session_id):
 @bp.route('/choose_therapist_page', methods = ['GET', 'POST'])
 @login_required
 def choose_therapist_page():
-    therapist_list = Therapist.query.all()
+    therapist_list = Therapist.get_all_therapists()
     
     if len(therapist_list) == 0:
         therapist_list = None
