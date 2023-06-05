@@ -26,6 +26,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
@@ -60,7 +61,7 @@
             </div>
         </div>
     </div>
-    <!--
+
     <div class="row mt-3">
         <div class="col-6">
             <div class="card">
@@ -68,19 +69,31 @@
                     <h3> Your Previously Conducted Sessions </h3>
                 </div>
                 <div class="card-body">
-                    {% if conducted_sessions %}
+                    {% if conducted_sessions_data %}
                     <table id="conducted_sessions_table" class="cell-border">
                         <thead>
                             <tr>
                                 <th> Session Date </th>
+                                <th> Session Time </th>
                                 <th> Session Patient </th>
+                                <th> Session Details </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for entry in conducted_sessions %}
+                            {% for session, patient in conducted_sessions_data %}
                             <tr>
-                                <td> {{ entry.session_start_time.strftime('%d/%m/%Y') }}</td>
-                                <td> {{ entry.session_patient.first_name }} </td>
+                                <td>
+                                    {{ session.session_start_time.strftime('%d/%d/%Y') }}
+                                </td>
+                                <td>
+                                    {{ session.session_start_time.strftime('%H:%M') }}
+                                </td>
+                                <td>
+                                    {{ patient.first_name + " " + patient.surname }}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('main.specific_session', session_id = session.id) }}" class="btn btn-secondary"> View Session </a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -95,7 +108,6 @@
             </div>
         </div>
     </div>
-    -->
 </div>
 
 {% endblock %}
@@ -105,8 +117,11 @@
 <script src="{{ url_for('static', filename='js/other/datatable.js') }}"></script>
 
 <script>
-    table = document.getElementById('current_patients_table');
-    createDataTable(table);
+    current_patients_table = document.getElementById('current_patients_table');
+    createDataTable(current_patients_table);
+    
+    conducted_sessions_table = document.getElementById('conducted_sessions_table');
+    createDataTable(conducted_sessions_table);
 </script>
 
 {% endblock %}
