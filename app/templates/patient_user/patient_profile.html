@@ -42,19 +42,40 @@
                     <div class="row">
                         <div class="col-6">
                             <h5> PHQ-9 </h5>
-                            <p> Last Recorded Score: 16 </p>
-                            <p> Last Recorded Emotional State: Extremely Positive</p>
+                            {% if most_recent_phq %}
+                            <p> Last Recorded Score: {{ most_recent_phq.score }} </p>
+                            <p> Last Recorded Emotional State: {{ most_recent_phq.emotional_state }} </p>
+                            {% else %}
+                            <p> 
+                                No score data is currently available. Attempt the PHQ-9 questionanire at least once and data will appear here for review. 
+                            </p>
+                            {% endif %}
                         </div>
                         <div class="col-6">
                             <h5> GAD-7 </h5>
+                            {% if most_recent_gad %}
                             <p> Last Recorded Score: 21 </p>
                             <p> Last Recorded Emotional State: Moderately Negative </p>
+                            {% else %}
+                            <p>
+                                No score data is currently available. Attempt the GAD-7 questionnaire at least once and data will appear here for review.
+                            </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ url_for('main.previous_phq') }}" class="btn btn-secondary"> View Further PHQ-9 Results </a>
+                    {% if most_recent_phq %}
+                    <a href="{{ url_for('main.previous_phq') }}" class="btn btn-secondary"> Further PHQ-9 Results </a>
+                    {% else %}
+                    <button type="button" class="btn btn-secondary" disabled> Further PHQ-9 Results </button>
+                    {% endif %}
+
+                    {% if most_recent_gad %}
                     <a href="{{ url_for('main.previous_gad')}}" class="btn btn-secondary"> View Further GAD-7 Results </a>
+                    {% else %}
+                    <button type="button" class="btn btn-secondary" disabled> Further GAD-7 Results </button>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -136,7 +157,6 @@
 <script>
     var ctx = document.getElementById('recent_session_pie_chart').getContext('2d');
     var emotion_data = {{ most_recent_session_emotions | tojson }};
-
     createPieChart(ctx, emotion_data);
 </script>
 

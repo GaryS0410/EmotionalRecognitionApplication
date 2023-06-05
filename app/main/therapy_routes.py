@@ -10,6 +10,7 @@ from app.main.helpers import *
 
 from app.models import Therapist, Association
 
+from app.utils.general_utility import get_therapy_message
 from app.utils.image_utility import preprocess_image, predict_emotions
 
 image_list = np.zeros((1, 48, 48, 1))
@@ -40,6 +41,8 @@ def therapy_results_page():
 
     emotional_state = categorise_emotional_state(emotional_state)
 
+    message = get_therapy_message(emotional_state)
+
     current_therapist_relationship = Association.get_patient_association(current_user.id)
     current_therapist = Therapist.get_therapist(current_therapist_relationship.therapist.id)
 
@@ -52,7 +55,7 @@ def therapy_results_page():
     save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps, start_time, end_time)
 
     return render_template('therapy/therapy_results.html', emotions = emotions_pairs, total_images_captured = total_images_captured, therapist = current_therapist, 
-                           emotional_state = emotional_state, session_start_time = start_time, session_end_time = end_time, time_difference = time_difference)
+                           emotional_state = emotional_state, session_start_time = start_time, session_end_time = end_time, time_difference = time_difference, message = message)
 
 @bp.route('/get_therapy_image', methods = ['POST'])
 def get_therapy_image():

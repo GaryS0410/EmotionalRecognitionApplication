@@ -12,7 +12,7 @@ class Association(db.Model):
 
     @staticmethod
     def get_therapist_associations(therapist_id):
-        association = Association.query.filter_by(therapist_id = therapist_id).first()
+        association = Association.query.filter_by(therapist_id = therapist_id).all()
         return association
 
     @staticmethod
@@ -95,8 +95,12 @@ class PHQ9Scores(db.Model):
     @staticmethod
     def get_latest_score(patient_id):
         all_scores = PHQ9Scores.query.filter_by(patient_id = patient_id).order_by(PHQ9Scores.time_captured.asc()).all()
-        latest_score = all_scores[-1]
-        return latest_score
+        if len(all_scores) > 1:
+            latest_score = all_scores[-1]
+            return latest_score
+        else:
+            latest_score = None
+            return latest_score
 
 # Model for GAD7Scores. Used to store the score, emotional_score, time when the 
 # questionnaire was done, etc.
@@ -116,12 +120,16 @@ class GAD7Scores(db.Model):
         else: 
             all_previous_scores = None
             return all_previous_scores
-    
+        
     @staticmethod 
     def get_latest_score(patient_id):
         all_scores = GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all()
-        latest_score = all_scores[-1]
-        return latest_score
+        if len(all_scores) > 1:
+            latest_score = all_scores[-1]
+            return latest_score
+        else:
+            latest_score = None
+            return latest_score
 
 # Base user model, used in order to define the base attributes both the
 # therapist and patient should have. These attributes include the names.

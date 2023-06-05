@@ -36,8 +36,11 @@ def profile_page():
     else:
         most_recent_session_emotions = None
 
+    most_recent_phq = PHQ9Scores.get_latest_score(patient.id)
+    most_recent_gad = GAD7Scores.get_latest_score(patient.id)
+
     return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist, all_sessions = all_sessions, most_recent_session = most_recent_session, 
-                           most_recent_session_emotions = most_recent_session_emotions)
+                           most_recent_session_emotions = most_recent_session_emotions, most_recent_phq = most_recent_phq, most_recent_gad = most_recent_gad)
 
 # Everything related to viewing questionnaire data
 

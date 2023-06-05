@@ -2,6 +2,16 @@
 
 {% block content %}
 
+<div class="flex-container" style="overflow: hidden;">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-center bg-light">
+                <h1 class="mb-3"> {{ therapist.first_name}}'s Dashboard </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row mt-3">
         <div class="col-6">
@@ -11,6 +21,8 @@
                 </div>
                 <div class="card-body">
                     <p> <strong>Therapist Name: </strong>{{ therapist.first_name + " " + therapist.surname }} </p>
+                    <p> <strong>Email: </strong> {{ therapist.email }} </p>
+                    <p> <strong> Number of Current Patients: </strong> {{ patient_count }} </p>
                 </div>
             </div>
         </div>
@@ -35,8 +47,7 @@
                                 <td> {{ patient.first_name + " " + patient.surname }} </td>
                                 <td> {{ patient.email }} </td>
                                 <td>
-                                    <a href="{{ url_for('therapist.view_patient_details') }}"
-                                        class="btn btn-secondary">View Patient Details</a>
+                                    <a href="{{ url_for('therapist.view_patient_details') }}" class="btn btn-secondary">View Patient Details</a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -49,6 +60,7 @@
             </div>
         </div>
     </div>
+    <!--
     <div class="row mt-3">
         <div class="col-6">
             <div class="card">
@@ -56,6 +68,7 @@
                     <h3> Your Previously Conducted Sessions </h3>
                 </div>
                 <div class="card-body">
+                    {% if conducted_sessions %}
                     <table id="conducted_sessions_table" class="cell-border">
                         <thead>
                             <tr>
@@ -66,16 +79,23 @@
                         <tbody>
                             {% for entry in conducted_sessions %}
                             <tr>
-                                <td> {{ entry.time_of_session.strftime('%d/%m/%Y') }}</td>
-                                <td> {{ entry.session_patient.helloworld }} </td>
+                                <td> {{ entry.session_start_time.strftime('%d/%m/%Y') }}</td>
+                                <td> {{ entry.session_patient.first_name }} </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% else %}
+                    <p> 
+                        No sessions have currently been conducted by you. Once you have conducted at least one therapy session data with a patient 
+                        data will appear here for further review.
+                    </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    -->
 </div>
 
 {% endblock %}
