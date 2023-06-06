@@ -4,7 +4,6 @@ import numpy as np
 # import datetime
 from datetime import datetime
 
-from app import db
 from app.main import bp
 from app.main.helpers import *
 

@@ -41,10 +41,15 @@
                         before you will be able to participate in a therapy session.
                     </p>
                     {% endif %}
+                    <p> 
+                        For best results make sure that you face forward towards the camera as the model as the application is most proficient at detecting 
+                        faces which are facing forward as opposed to an unconventional or a profile view.
+                    </p>
                 </div>
                 <div class="card-footer text-center align-middle">
                     <button type="button" id="start"  class="btn btn-secondary">Begin Session</button>
                     <a href="{{ url_for('main.therapy_results_page') }}" id="stop" class="btn btn-secondary">Stop Session</a>
+                    <!--
                     <button type="button" id="sessionLength" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                         Select Session Length
                     </button>
@@ -52,6 +57,7 @@
                         <li><a class="dropdown-item" href="#">30 Minutes</a></li>
                         <li><a class="dropdown-item" href="#">60 Minutes</a></li>
                     </ul>
+                    -->
                 </div>
             </div>
         </div>

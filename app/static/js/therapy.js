@@ -3,8 +3,6 @@ let video = document.getElementById('video');
 
 let context = canvas.getContext('2d');
 
-let intervalID;
-
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         video.srcObject = stream;
@@ -51,7 +49,7 @@ function clearTherapyImages() {
 // Event listeners and button related functionality
 document.getElementById('start').addEventListener('click', () => {
     toggleStartButton(true);
-    disableSessionLengthButton(true);
+    // disableSessionLengthButton(true);
     enableStopButton();
     takePhoto();
     intervalID = setInterval(takePhoto, 30000);
@@ -94,6 +92,6 @@ function enableStopButton() {
     stopButton.classList.remove("disabled");
 }
 
-function disableSessionLengthButton(isDisabled) {
-    document.getElementById('sessionLength').disabled = isDisabled;
-}
+// function disableSessionLengthButton(isDisabled) {
+//     document.getElementById('sessionLength').disabled = isDisabled;
+// }

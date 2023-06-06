@@ -8,6 +8,8 @@ from app.main import bp
 from app.main.forms import *
 from app.models import *
 
+from app.main.models import PatientProfileData
+
 # Landing page route 
 
 @bp.route('/', methods = ['GET', 'POST'])
@@ -15,11 +17,11 @@ def landing_page():
     return render_template('landing_page.html')
 
 # All patient profile related pages/routes. Maybe will let these be accessed by therapist as well? Dunno yet
-@bp.route('/profile_page', methods = ['GET'])
+@bp.route('/profile_page/<int:patient_id>', methods = ['GET', 'POST'])
 @login_required
-def profile_page():
+def profile_page(patient_id):
     # Getting current patient by querying the database with the current user id
-    patient = Patient.get_patient(current_user.id)
+    patient = Patient.get_patient(patient_id)
     
     association = Association.get_patient_association(current_user.id)
 
@@ -38,6 +40,8 @@ def profile_page():
 
     most_recent_phq = PHQ9Scores.get_latest_score(patient.id)
     most_recent_gad = GAD7Scores.get_latest_score(patient.id)
+
+    # profile_data = PatientProfileData(patient, therapist, all_sessions, most_recent_session, most_recent_session_emotions, most_recent_phq, most_recent_gad)
 
     return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist, all_sessions = all_sessions, most_recent_session = most_recent_session, 
                            most_recent_session_emotions = most_recent_session_emotions, most_recent_phq = most_recent_phq, most_recent_gad = most_recent_gad)

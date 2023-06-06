@@ -31,6 +31,8 @@ def therapist_dash():
     return render_template('therapist_user/therapist_dash.html', therapist = therapist, current_patients = current_patients, conducted_sessions_data = conducted_session_data, 
                            patient_count = patient_count)
 
-@bp.route('/view_patient_details', methods = ['GET'])
-def view_patient_details():
-    return "<h4> Patient Details Page </h4>"
+@bp.route('/view_patient_details/<int:patient_id>', methods = ['GET'])
+def view_patient_details(patient_id):
+    patient = Patient.get_patient(patient_id)
+
+    return render_template('patient_user/patient_profile.html', patient = patient)
