@@ -49,7 +49,7 @@
                                 <td> {{ patient.first_name + " " + patient.surname }} </td>
                                 <td> {{ patient.email }} </td>
                                 <td>
-                                    <a href="{{ url_for('therapist.view_patient_details', patient_id = patient.id) }}" class="btn btn-secondary">View Patient Details</a>
+                                    <a href="{{ url_for('main.profile_page', patient_id = patient.id) }}" class="btn btn-secondary">View Patient Details</a>
                                 </td>
                             </tr>
                             {% endfor %}

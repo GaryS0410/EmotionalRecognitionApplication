@@ -15,4 +15,4 @@ app/__pycache__
 model.h5
 
 # Test Facial Expression Images
-/tests/test_images
+tests/test_images

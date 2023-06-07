@@ -21,15 +21,15 @@ def profile_page(patient_id):
     # Getting current patient by querying the database with the current user id
     patient = Patient.get_patient(patient_id)
     
-    association = Association.get_patient_association(current_user.id)
+    association = Association.get_patient_association(patient.id)
 
     if association is not None:
         therapist = Therapist.get_therapist(association.therapist_id)
     else:
         therapist = None
 
-    all_sessions = SessionData.get_all_sessions(current_user.id)
-    most_recent_session = SessionData.get_most_recent_session(patient_id = current_user.id)
+    all_sessions = SessionData.get_all_sessions(patient.id)
+    most_recent_session = SessionData.get_most_recent_session(patient_id = patient.id)
 
     if most_recent_session:
         most_recent_session_emotions = SessionData.get_session_emotions(most_recent_session)
@@ -44,8 +44,8 @@ def profile_page(patient_id):
 
 # Everything related to viewing questionnaire data
 
-@bp.route('/previous_phq', methods = ['GET'])
-def previous_phq():
+@bp.route('/previous_phq/<int:patient_id>', methods = ['GET'])
+def previous_phq(patient_id):
     phq9_scores = PHQ9Scores.get_all_scores(current_user.id)
 
     graph_labels = []
@@ -59,46 +59,38 @@ def previous_phq():
 
     return render_template('patient_user/previous_phq.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data)
 
-@bp.route('previous_gad', methods = ['GET'])
-def previous_gad():
-    gad7_scores = GAD7Scores.get_all_scores(current_user.id)
+@bp.route('previous_gad/<int:patient_id>', methods = ['GET'])
+def previous_gad(patient_id):
+    patient = Patient.get_patient(patient_id)
+    gad7_scores = GAD7Scores.get_all_scores(patient.id)
+    most_recent = GAD7Scores.get_latest_score(patient.id)
 
-    if gad7_scores is not None:
-        graph_labels = []
-        score_data = []
-        emotional_state_data = []
+    graph_labels = []
+    score_data = []
+    emotional_state_data = []
 
-        for i in gad7_scores:
-            graph_labels.append(i.time_captured.strftime('%d/%m/%Y'))
-            score_data.append(i.score)
-            emotional_state_data.append(i.emotional_state)
-    else:
-        graph_labels = None
-        score_data = None
-        emotional_state_data = None
+    for i in gad7_scores:
+        graph_labels.append(i.time_captured.strftime('%d/%m/%Y'))
+        score_data.append(i.score)
+        emotional_state_data.append(i.emotional_state)
 
-    return render_template('patient_user/previous_gad.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data)
+    return render_template('patient_user/previous_gad.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data, 
+                           most_recent = most_recent)
 
 # Everything related to therapy sessions
-
-@bp.route('/all_previous_sessions_page', methods = ['GET'])
-def all_previous_sessions_page():
-    all_sessions = SessionData.get_all_sessions(current_user.id)
-    most_recent_session = SessionData.get_most_recent_session(current_user.id)
-
-    return render_template('patient_user/all_sessions_page.html', all_sessions = all_sessions, most_recent_session = most_recent_session)
 
 @bp.route('/specific_session/<int:session_id>', methods = ['GET'])
 def specific_session(session_id):
     session = SessionData.query.get(session_id)
     emotion_data = SessionData.get_session_emotions(session)
+    session_therapist = Therapist.get_therapist(session.session_therapist)
 
     # Here is where you should retrieve the relevant text for the emotional score and generally what it means
     session_emotions = EmotionData.get_emotion_data(session.id)
     total_emotions = len(session_emotions)
 
     return render_template('patient_user/specific_session_page.html', session = session, total_emotions = total_emotions, emotion_data = emotion_data, 
-                           session_emotions = session_emotions)
+                           session_emotions = session_emotions, session_therapist = session_therapist)
 
 # Choosing/updating therapist related functionality 
 

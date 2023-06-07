@@ -6,16 +6,21 @@
     <div class="row mb-3 mt-3">
         <div class="col-6 md-12 sm-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-center">
                     <h3> Latest Recorded Scores </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
+                    <p> 
+                        Below you can see the the latest GAD-7 score and latest emotional state score captured during the last GAD-7 attempt 
+                    </p>
                     <div class="row">
                         <div class="col-6">
-                            <h5> Latest Score Info </h5>
+                            <h5> Latest GAD Score </h5>
+                            <p> {{ most_recent.score }} </p>
                         </div>
                         <div class="col-6">
-                            <h5> Latest Emotional State Info </h5>
+                            <h5> Latest Emotional State Score </h5>
+                            <p> {{ most_recent.emotional_state }} </p>
                         </div>
                     </div>
                 </div>
@@ -23,8 +28,8 @@
         </div>
         <div class="col-6 md-12 sm-12">
             <div class="card">
-                <div class="card-header">
-                    <h3> Previous GAD-7 Scores </h3>
+                <div class="card-header text-center">
+                    <h3 tex> Previous GAD-7 Scores </h3>
                 </div>
                 <div class="card-body">
                     <canvas id="score_graph_canvas"></canvas>
@@ -35,7 +40,7 @@
     <div class="row">
         <div class="col-6">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-center">
                     <h3> Previous Attempts/Score Information </h3>
                 </div>
                 <div class="card-body">
@@ -45,7 +50,7 @@
         </div>
         <div class="col-6">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-center">
                     <h3> Previous Captured Emotional States </h3>
                 </div>
                 <div class="card-body">

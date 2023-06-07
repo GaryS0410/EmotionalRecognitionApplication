@@ -95,7 +95,7 @@ class PHQ9Scores(db.Model):
     @staticmethod
     def get_latest_score(patient_id):
         all_scores = PHQ9Scores.query.filter_by(patient_id = patient_id).order_by(PHQ9Scores.time_captured.asc()).all()
-        if len(all_scores) > 1:
+        if len(all_scores) >= 1:
             latest_score = all_scores[-1]
             return latest_score
         else:
@@ -114,17 +114,12 @@ class GAD7Scores(db.Model):
 
     @staticmethod 
     def get_all_scores(patient_id):
-        all_previous_scores = GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all
-        if all_previous_scores is not None:
-            return all_previous_scores
-        else: 
-            all_previous_scores = None
-            return all_previous_scores
+        return GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all()
         
     @staticmethod 
     def get_latest_score(patient_id):
         all_scores = GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all()
-        if len(all_scores) > 1:
+        if len(all_scores) >= 1:
             latest_score = all_scores[-1]
             return latest_score
         else:

@@ -50,6 +50,8 @@ def therapy_results_page():
 
     time_difference = get_time_difference(start_time, end_time)
 
+    total_images_captured = len(all_emotions)
+
     save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps, start_time, end_time)
 
     return render_template('therapy/therapy_results.html', emotions = emotions_pairs, total_images_captured = total_images_captured, therapist = current_therapist, 

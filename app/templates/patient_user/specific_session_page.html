@@ -12,13 +12,13 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <p> Overall Emotional State: {{ session.emotional_state }}</p>
-                            <p> Session Therapist:  </p>
-                            <p> Total Emotion Instances: {{ total_emotions }} </p>
+                            <p> <strong> Overall Emotional State: </strong> {{ session.emotional_state }} </p>
+                            <p> <strong> Session Therapist: </strong> {{ session_therapist.first_name + " " + session_therapist.surname }} </p>
+                            <p> <strong> Total Emotion Instances: </strong> {{ total_emotions }} </p>
                         </div>
                         <div class="col-6">
-                            <p> Session Start Time: {{ session.session_start_time.strftime('%H:%M:%S') }}</p>
-                            <p> Session End Time: {{ session.session_end_time.strftime('%H:%M:%S') }} </p>
+                            <p> <strong> Session Start Time: </strong>{{ session.session_start_time.strftime('%H:%M:%S') }}</p>
+                            <p> <strong> Session End Time: </strong>{{ session.session_end_time.strftime('%H:%M:%S') }} </p>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
 <script src="{{ url_for('static', filename='js/other/datatable.js') }}"></script>
 
 <script>
-    var ctx = document.getElementById('emotions_distribution');
+    var ctx = document.getElementById('emotions_diimage.pngstribution');
     var emotion_data = {{ emotion_data | tojson }};
 
     createPieChart(ctx, emotion_data);

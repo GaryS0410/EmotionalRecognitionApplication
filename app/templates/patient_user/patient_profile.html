@@ -2,7 +2,6 @@
 
 {% block head %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
 
 {% endblock %}
 
@@ -47,7 +46,7 @@
                             <p> Last Recorded Emotional State: {{ most_recent_phq.emotional_state }} </p>
                             {% else %}
                             <p> 
-                                No score data is currently available. Attempt the PHQ-9 questionanire at least once and data will appear here for review. 
+                                No score data is currently available. Once the PHQ-9 questionanire has been attempted at least once data will appear here for review. 
                             </p>
                             {% endif %}
                         </div>
@@ -55,10 +54,10 @@
                             <h5> GAD-7 </h5>
                             {% if most_recent_gad %}
                             <p> Last Recorded Score: 21 </p>
-                            <p> Last Recorded Emotional State: Moderately Negative </p>
+                            <p> Last Recorded Emotional State: {{ most_recent_gad.emotional_state }} </p>
                             {% else %}
                             <p>
-                                No score data is currently available. Attempt the GAD-7 questionnaire at least once and data will appear here for review.
+                                No score data is currently available. Once the GAD-7 questionnaire has been attempted at least once data will appear here for review.
                             </p>
                             {% endif %}
                         </div>
@@ -66,13 +65,13 @@
                 </div>
                 <div class="card-footer">
                     {% if most_recent_phq %}
-                    <a href="{{ url_for('main.previous_phq') }}" class="btn btn-secondary"> Further PHQ-9 Results </a>
+                    <a href="{{ url_for('main.previous_phq', patient_id = patient.id) }}" class="btn btn-secondary"> Further PHQ-9 Results </a>
                     {% else %}
                     <button type="button" class="btn btn-secondary" disabled> Further PHQ-9 Results </button>
                     {% endif %}
 
                     {% if most_recent_gad %}
-                    <a href="{{ url_for('main.previous_gad')}}" class="btn btn-secondary"> View Further GAD-7 Results </a>
+                    <a href="{{ url_for('main.previous_gad', patient_id = patient.id)}}" class="btn btn-secondary"> View Further GAD-7 Results </a>
                     {% else %}
                     <button type="button" class="btn btn-secondary" disabled> Further GAD-7 Results </button>
                     {% endif %}
@@ -90,7 +89,7 @@
                 <div class="card-body">
                     {% if most_recent_session %}
                     <h5> Session Emotional State: {{ most_recent_session.emotional_state }}</h5>
-                    <div class="chart_container d-flex justify-content-center" style="height: 350px; width: 100%;">
+                    <div class="chart_container d-flex justify-content-center" style="height: 340px; width: 100%;">
                         <canvas id="recent_session_pie_chart"></canvas>
                     </div>
                     {% else %}
