@@ -13,3 +13,5 @@ app/__pycache__
 
 # Model File
 model.h5
+
+/tests/test_image

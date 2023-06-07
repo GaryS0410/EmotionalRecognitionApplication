@@ -12,6 +12,7 @@ from app.models import Therapist, Association
 from app.utils.general_utility import get_therapy_message
 from app.utils.image_utility import preprocess_image, predict_emotions
 
+# image_list = np.zeros((1, 48, 48, 1))
 image_list = np.zeros((1, 48, 48, 1))
 image_timestamps = []
 
@@ -49,8 +50,6 @@ def therapy_results_page():
 
     time_difference = get_time_difference(start_time, end_time)
 
-    total_images_captured = len(all_emotions)
-
     save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps, start_time, end_time)
 
     return render_template('therapy/therapy_results.html', emotions = emotions_pairs, total_images_captured = total_images_captured, therapist = current_therapist, 
@@ -65,8 +64,8 @@ def get_therapy_image():
         image = request.files.get('snap').read()
         if image:
             image = preprocess_image(image)
-            image_list = np.concatenate((image_list, image), axis = 0)
             current_time = datetime.now()
+            image_list = np.concatenate((image_list, image), axis = 0)
             image_timestamps.append(current_time)
             return ("Image captured", 200)
         else:

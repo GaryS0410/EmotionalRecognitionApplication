@@ -34,6 +34,7 @@
                 </div>
                 <div class="card-body">
                     <h5> Emotional State Captured: {{ emotional_state }}</h5>
+                    <p> {{ emotional_state_message }}</p>
                 </div>
             </div>
         </div>
@@ -43,7 +44,9 @@
                     <h3> Emotional Distribution Chart </h3>
                 </div> 
                 <div class="card-body">
-                    <canvas id="pieChartCanvas" width="640" height="480"></canvas>
+                    <div class="chart_container d-flex justify-content-center" style="height: 400px; width: 100%"> 
+                        <canvas id="pieChartCanvas" width="640" height="480"></canvas>
+                    </div>
                 </div> 
             </div>
         </div>
