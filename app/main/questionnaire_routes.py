@@ -7,8 +7,8 @@ from app.main import bp
 from app.main.forms import *
 from app.main.helpers import save_questionnaire_data, determine_emotional_state, categorise_emotional_state
 from app.models import PHQ9Scores, Patient
-from app.utils.general_utility import get_phq_message
 
+from app.utils.general_utility import *
 from app.utils.image_utility import preprocess_image, predict_emotions
 
 image_list = np.zeros((1, 48, 48, 1))
@@ -45,7 +45,6 @@ def phq9_questionnaire():
 
         emotional_state = categorise_emotional_state(emotional_state)
         phq_message = get_phq_message(score)
-        print(len(phq_message))
 
         return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions, emotional_state = emotional_state, phq_message = phq_message)
     return render_template('/questionnaires/PHQ9.html', form = form)
@@ -64,7 +63,11 @@ def gad7_questionnaire():
 
         emotional_state = categorise_emotional_state(emotional_state)
 
-        return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions, emotional_state = emotional_state)
+        gad_message = get_gad_message(score)
+        emotional_state_message = get_questionnaire_message(emotional_state)
+
+        return render_template('/questionnaires/GAD7.html', score = score, emotions = emotions, emotional_state = emotional_state, gad_message = gad_message,
+                               emotional_state_message = emotional_state_message)
     return render_template('/questionnaires/GAD7.html', form = form)
 
 # Route for clearing the global image list

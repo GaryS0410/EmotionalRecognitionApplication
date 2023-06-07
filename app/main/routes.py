@@ -8,8 +8,6 @@ from app.main import bp
 from app.main.forms import *
 from app.models import *
 
-from app.main.models import PatientProfileData
-
 # Landing page route 
 
 @bp.route('/', methods = ['GET', 'POST'])
@@ -40,8 +38,6 @@ def profile_page(patient_id):
 
     most_recent_phq = PHQ9Scores.get_latest_score(patient.id)
     most_recent_gad = GAD7Scores.get_latest_score(patient.id)
-
-    # profile_data = PatientProfileData(patient, therapist, all_sessions, most_recent_session, most_recent_session_emotions, most_recent_phq, most_recent_gad)
 
     return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist, all_sessions = all_sessions, most_recent_session = most_recent_session, 
                            most_recent_session_emotions = most_recent_session_emotions, most_recent_phq = most_recent_phq, most_recent_gad = most_recent_gad)
@@ -137,3 +133,7 @@ def assign_therapist():
 
     flash('Therapist successfully assigned.')
     return redirect(url_for('main.profile_page'))
+
+@bp.route('testing')
+def testing():
+    return render_template('testing.html')
