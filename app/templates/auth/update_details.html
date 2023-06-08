@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+
+{% endblock %}
+
 {% block content %}
 
 <div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">

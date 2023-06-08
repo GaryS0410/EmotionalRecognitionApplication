@@ -2,11 +2,7 @@
 
 {% block head %}
 
-<style>
-    .card {
-        text-align: center;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/stylesheet.css') }}">
 
 {% endblock %}
 
@@ -15,7 +11,7 @@
 <div class="flex-container" style="overflow: hidden;">
     <div class="row">
         <div class="col-12">
-            <div class="p-5 text-center bg-light">
+            <div class="p-5 text-center">
                 <h1 class="mb-3"> Mental Health Questionnaires </h1>
                 <h4> Conduct mental health questionnaires with the addition of emotional recognition technology</h4>
             </div>
@@ -26,7 +22,7 @@
 <div class="container mt-3">
     <div class="row">
         <div class="col-6 ">
-            <div class="card me-2" id="PHQ9">
+            <div class="card me-2 text-center" id="PHQ9">
                 <h3 class="card-header">PHQ-9 Questionnaire</h3>
                 <div class="card-body">
                     <p>
@@ -59,7 +55,7 @@
         </div>
 
         <div class="col-6">
-            <div class="card ms-2" id="GAD7">
+            <div class="card ms-2 text-center" id="GAD7">
                 <h3 class="card-header">GAD-7 Questionnaire</h3>
                 <div class="card-body">
                     <p>

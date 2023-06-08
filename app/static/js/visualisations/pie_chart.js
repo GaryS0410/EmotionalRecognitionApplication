@@ -1,3 +1,13 @@
+var emotion_colours = {
+    "angry": "red",
+    "disgust": "green",
+    "fear": "black",
+    "happy": "yellow",
+    "sad": "blue",
+    "surprise": "orange",
+    "neutral": "gray"
+}
+
 function createPieChart(ctx, emotionsData) {
     var labels = [];
     var data = [];
@@ -7,6 +17,8 @@ function createPieChart(ctx, emotionsData) {
         data.push(emotionsData[emotion])
     }
 
+    var label_colours = labels.map(label => emotion_colours[label]);
+
     // maybe rename the "chart" variable to something more appropriate when it is in use
     var chart = new Chart(ctx, {
         type: 'pie',
@@ -14,16 +26,17 @@ function createPieChart(ctx, emotionsData) {
             labels: labels,
             datasets: [{
                 data: data,
+                backgroundColor: label_colours
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
-            legeng: {
+            legend: {
                 labels: {
-                    // Add whatever the designated font color here
-                }
-            }
+                    fontColor: '#c7c6cd'
+                },
+            },
         },
     });
 }

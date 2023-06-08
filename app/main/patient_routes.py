@@ -128,7 +128,3 @@ def assign_therapist():
 
     flash('Therapist successfully assigned.')
     return redirect(url_for('main.profile_page', patient_id = current_user.id))
-
-@bp.route('testing')
-def testing():
-    return render_template('testing.html')

@@ -2,6 +2,7 @@
 
 {% block head %}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
 
 {% endblock %}
 
@@ -11,7 +12,7 @@
 <div class="flex-container" style="overflow: hidden;">
     <div class="row">
         <div class="col-12">
-            <div class="p-5 text-center bg-light">
+            <div class="p-5 text-center">
                 <h1 class="mb-3"> Patient Users Dashboard </h1>
                 <h3 class="mb-3"> Review data captured during your previous therapy sessions and questionnaire attempts </h3>
             </div>

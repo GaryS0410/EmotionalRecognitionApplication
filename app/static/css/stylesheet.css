@@ -13,14 +13,23 @@
     transform: translate(-50%, -50%);
 }
 
+.card {
+    background-color: #212429;
+    color: #c7c6cd;
+}
+
+.flex-container {
+    background: #736980;
+}
+
 body {
     background-color: #444653;
 }
 
-.card {
-    background-color: #212429;
+h1, h2, h3, h4, h5, p {
+    color: #c7c6cd;
 }
 
-h1, h2, h3, h4, h5, p {
+table {
     color: #c7c6cd;
 }

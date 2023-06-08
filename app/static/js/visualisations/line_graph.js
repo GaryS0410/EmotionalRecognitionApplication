@@ -38,6 +38,11 @@ function createEmotionalStateGraph(ctx, labels, data) {
             }]
         },
         options: {
+            legend: {
+                labels: {
+                    fontColor: 'purple'
+                },
+            },
             scales: {
                 y: {
                     beginAtZero: true,
