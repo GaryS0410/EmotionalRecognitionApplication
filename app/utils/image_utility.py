@@ -6,37 +6,30 @@ import numpy as np
 
 from app.utils import bp 
 
-# PRE-PROCESSING A CAPTURED IMAGE
-def preprocess_image(webcam_image):
+def crop_face(image):
     face_classifier = cv2.CascadeClassifier('app\static\ml_models\haarcascade_frontalface_default.xml')
-
-    webcam_image = Image.open(BytesIO(webcam_image))
-    grey_image = cv2.cvtColor(np.array(webcam_image), cv2.COLOR_BGR2GRAY)
-
-    try: 
-        face = face_classifier.detectMultiScale(grey_image, scaleFactor=1.3, minNeighbors=5)
-
+    try:
+        face = face_classifier.detectMultiScale(image, scaleFactor = 1.3, minNeighbors = 5)
         x, y, w, h = face[0]
-
-        face_image = grey_image[y:y+h, x:x+w]
-
-        face_image = cv2.resize(face_image, (48, 48))
-        face_image = face_image.astype('float32')
-        face_image /= 255.0
-
-        face_image = np.expand_dims(face_image, axis = 0)
-        face_image = np.expand_dims(face_image, axis = -1)
-
-        return face_image
+        image = image[y:y+h, x:x+w]
+        return image
     except:
-        grey_image = cv2.resize(grey_image, (48, 48))
-        grey_image = grey_image.astype('float32')
-        grey_image /= 255.0
+        return image
 
-        grey_image = np.expand_dims(grey_image, axis = 0)
-        grey_image = np.expand_dims(grey_image, axis = -1)
+def preprocess_image(image):
+    image = Image.open(BytesIO(image))
+    image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
 
-        return grey_image
+    image = crop_face(image)
+    image = cv2.resize(image, (48, 48))
+    
+    image = image.astype('float32')
+    image /= 255.0
+
+    image = np.expand_dims(image, axis = 0)
+    image = np.expand_dims(image, axis = -1)
+
+    return image
     
 # PREDICTING ON IMAGES FUNCTIONS
 def predict_emotions(image_list, is_therapy):

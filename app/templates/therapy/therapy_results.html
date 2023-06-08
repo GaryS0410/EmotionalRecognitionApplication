@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row mt-3">
         <div class="col-6 ">
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-header text-center">
                     <h2> Therapy Session Details </h2>
                 </div>
@@ -19,7 +19,6 @@
                         <div class="col-6">
                             <p> Session Start Time: {{ session_start_time.strftime('%H:%M') }} </p>
                             <p> Session End Time: {{ session_end_time.strftime('%H:%M') }} </p>
-                            <p> Total Length of Session: {{ time_difference }}</p>
                         </div>
                     </div>
                 </div>
@@ -40,7 +39,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart_container d-flex justify-content-center" style="height: 475px; width: 100%;">
-                        <canvas id="pieChartCanvas"></canvas>
+                        <canvas id="emotions_chart"></canvas>
                     </div>
                 </div>
             </div>
@@ -55,7 +54,7 @@
 <script src="{{ url_for('static', filename='js/visualisations/pie_chart.js')}}"></script>
 
 <script>
-    var ctx = document.getElementById('pieChartCanvas').getContext('2d');
+    var ctx = document.getElementById('emotions_chart').getContext('2d');
     var emotionData = {{ emotions | tojson }};
 
     createPieChart(ctx, emotionData);

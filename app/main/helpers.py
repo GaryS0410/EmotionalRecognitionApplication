@@ -88,3 +88,4 @@ def get_time_difference(start_time, end_time):
     minute_difference = time_difference.total_seconds() // 60
 
     print(f"Time difference is: {minute_difference}")
+    return time_difference

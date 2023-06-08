@@ -54,7 +54,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart_container d-flex justify-content-center" style="height: 400px; width: 100%">
-                        <canvas id="emotions_distribution"></canvas>
+                        <canvas id="emotions_chart"></canvas>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
 <script src="{{ url_for('static', filename='js/other/datatable.js') }}"></script>
 
 <script>
-    var ctx = document.getElementById('emotions_diimage.pngstribution');
+    var ctx = document.getElementById('emotions_chart');
     var emotion_data = {{ emotion_data | tojson }};
 
     createPieChart(ctx, emotion_data);

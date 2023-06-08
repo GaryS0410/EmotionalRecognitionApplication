@@ -46,7 +46,9 @@ def profile_page(patient_id):
 
 @bp.route('/previous_phq/<int:patient_id>', methods = ['GET'])
 def previous_phq(patient_id):
-    phq9_scores = PHQ9Scores.get_all_scores(current_user.id)
+    patient = Patient.get_patient(patient_id)
+    phq9_scores = PHQ9Scores.get_all_scores(patient.id)
+    most_recent = PHQ9Scores.get_latest_score(patient.id)
 
     graph_labels = []
     score_data = []
@@ -57,7 +59,8 @@ def previous_phq(patient_id):
         score_data.append(i.score)
         emotional_state_data.append(i.emotional_state)
 
-    return render_template('patient_user/previous_phq.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data)
+    return render_template('patient_user/previous_phq.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data,
+                           most_recent = most_recent)
 
 @bp.route('previous_gad/<int:patient_id>', methods = ['GET'])
 def previous_gad(patient_id):
