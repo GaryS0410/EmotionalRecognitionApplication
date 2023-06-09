@@ -89,3 +89,18 @@ def get_time_difference(start_time, end_time):
 
     print(f"Time difference is: {minute_difference}")
     return time_difference
+
+def delete_account_data(patient_id):
+    patient = Patient.get_patient(patient_id)
+    patient_associations = Association.get_patient_association(patient_id)
+
+    for session in patient.session_data:
+        EmotionData.query.filter_by(session_id = session.id).delete()
+
+    SessionData.query.filter_by(session_patient = patient.id)
+
+    for association in patient_associations:
+        db.session.delete(association)
+
+    db.session.delete(patient)
+    db.session.commit()

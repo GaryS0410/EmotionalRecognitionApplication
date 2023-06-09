@@ -94,7 +94,6 @@ def get_questionnaire_image():
             return "Could not capture image."
         
 # Route for predicting on questionnaire images
-@bp.route('/predict_questionnaire_images', methods = ['GET'])
 def predict_questionnaire_images():
     global image_list
     is_therapy = False

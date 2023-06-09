@@ -7,6 +7,7 @@ from app import db
 from app.main import bp
 from app.main.forms import *
 from app.models import *
+from app.main.helpers import delete_account_data
 
 # Landing page route 
 
@@ -128,3 +129,8 @@ def assign_therapist():
 
     flash('Therapist successfully assigned.')
     return redirect(url_for('main.profile_page', patient_id = current_user.id))
+
+@bp.route('/delete_account/<int:patient_id>', methods = ['GET', 'POST'])
+def delete_account(patient_id):
+    delete_account_data(patient_id)
+    return redirect(url_for('main.landing_page'))

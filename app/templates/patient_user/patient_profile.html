@@ -42,6 +42,7 @@
                 <div class="card-footer">
                     <a href="{{ url_for('auth.update_details') }}" class="btn btn-secondary">Change User Details</a>
                     <a href="{{ url_for('main.choose_therapist_page') }}" class="btn btn-secondary">Select/Update Therapist</a>
+                    <a href="{{ url_for('main.delete_account', patient_id = patient.id) }}" class="btn btn-danger"> Delete Account </a>
                 </div>
             </div>
         </div>
