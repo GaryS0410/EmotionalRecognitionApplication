@@ -13,7 +13,8 @@ from app.utils.general_utility import get_therapy_message
 from app.utils.image_utility import preprocess_image, predict_emotions
 
 # image_list = np.zeros((1, 48, 48, 1))
-image_list = np.zeros((1, 48, 48, 1))
+# image_list = np.zeros((1, 48, 48, 1))
+image_list = np.empty([0, 48, 48, 1])
 image_timestamps = []
 
 @bp.route('/therapy_page', methods=['GET'])
@@ -33,9 +34,7 @@ def therapy_results_page():
     global image_list
     global image_timestamps
 
-    is_therapy = True
-
-    emotions_pairs, all_emotions = predict_emotions(image_list, is_therapy)
+    emotions_pairs, all_emotions = predict_emotions(image_list, True)
 
     emotional_state = determine_emotional_state(emotions_pairs)
 
@@ -48,14 +47,13 @@ def therapy_results_page():
 
     start_time, end_time = get_session_times(image_timestamps)
 
-    time_difference = get_time_difference(start_time, end_time)
-
+    
     total_images_captured = len(all_emotions)
-
+    
     save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps, start_time, end_time)
 
     return render_template('therapy/therapy_results.html', emotions = emotions_pairs, total_images_captured = total_images_captured, therapist = current_therapist, 
-                           emotional_state = emotional_state, session_start_time = start_time, session_end_time = end_time, time_difference = time_difference, message = message)
+                           emotional_state = emotional_state, session_start_time = start_time, session_end_time = end_time, message = message)
 
 @bp.route('/get_therapy_image', methods = ['POST'])
 def get_therapy_image():

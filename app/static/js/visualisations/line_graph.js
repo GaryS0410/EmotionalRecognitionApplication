@@ -6,12 +6,20 @@ function createScoreGraph(ctx, labels, data, label_type) {
             datasets: [{
                 label: label_type,
                 data: data,
-                fill: false,
+                backgroundColor: 'rgb(75, 192, 192)',
                 borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                tension: 0
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#66CCCC'
+                    },
+                },
+            },
             scales: {
                 y: {
                     beginAtZero: true,
@@ -32,15 +40,17 @@ function createEmotionalStateGraph(ctx, labels, data) {
             datasets: [{
                 label: "Emotional State Scores",
                 data: data,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                tension: 0.5
             }]
         },
         options: {
-            legend: {
-                labels: {
-                    fontColor: 'purple'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#FF6384'
+                    },
                 },
             },
             scales: {

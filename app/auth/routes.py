@@ -57,7 +57,7 @@ def update_details():
         update_user_details(form.first_name.data, form.surname.data, form.email.data, form.password.data)
         flash('User details successfully updated.')
         if user.is_patient():
-            return redirect(url_for('main.profile_page'))
+            return redirect(url_for('main.profile_page', patient_id = current_user.id))
         elif user.is_therapist():
             return redirect(url_for('therapist.therapist_dash'))
 

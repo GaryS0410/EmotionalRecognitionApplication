@@ -15,7 +15,12 @@ class PHQ9Form(FlaskForm):
     question9 = RadioField('Thoughts that you would be better off dead, or of hurting yourself in some way?', choices=[('0', 'Not at all'), ('1', 'Several days'), ('2', 'More than half the days'), ('3', 'Nearly every day')])
 
     def calculate_score(self):
-        score = int(self.question1.data) + int(self.question2.data) + int(self.question3.data) + int(self.question4.data) + int(self.question5.data) + int(self.question6.data) + int(self.question7.data) + int(self.question8.data) + int(self.question9.data)
+        score = (int(self.question1.data) + int(self.question2.data) + int(self.question3.data) + int(self.question4.data) + 
+                 int(self.question5.data) + int(self.question6.data) + int(self.question7.data) + int(self.question8.data) + 
+                 int(self.question9.data))
+        if score is None:
+            score = 0
+            return score
         return score
 
 # GAD07 Form
@@ -27,7 +32,11 @@ class GAD7Form(FlaskForm):
     question5 = RadioField('Being so restless that it is hard to sit still?', choices=[('0', 'Not at all'), ('1', 'Several days'), ('2', 'More than half the days'), ('3', 'Nearly every day')])
     question6 = RadioField('Becoming easily annoyed or irritable?', choices=[('0', 'Not at all'), ('1', 'Several days'), ('2', 'More than half the days'), ('3', 'Nearly every day')])
     question7 = RadioField('Feeling afraid as if something awful might happen?', choices=[('0', 'Not at all'), ('1', 'Several days'), ('2', 'More than half the days'), ('3', 'Nearly every day')])
-
+    
     def calculate_score(self):
-        score = int(self.question1.data) + int(self.question2.data) + int(self.question3.data) + int(self.question4.data) + int(self.question5.data) + int(self.question6.data) + int(self.question7.data)
+        score = (int(self.question1.data) + int(self.question2.data) + int(self.question3.data) + int(self.question4.data) + 
+                 int(self.question5.data) + int(self.question6.data) + int(self.question7.data))
+        if score is None:
+            score = 0
+            return score
         return score

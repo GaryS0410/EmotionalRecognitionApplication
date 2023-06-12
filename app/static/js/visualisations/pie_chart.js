@@ -30,11 +30,18 @@ function createPieChart(ctx, emotionsData) {
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    },
+                }
+            },
             responsive: true,
             maintainAspectRatio: true,
             legend: {
                 labels: {
-                    fontColor: '#c7c6cd'
+                    color: '#c7c6cd'
                 },
             },
         },

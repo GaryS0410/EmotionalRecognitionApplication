@@ -19,7 +19,11 @@
                     <div class="row">
                         <div class="col-6">
                             <p> <strong> Overall Emotional State: </strong> {{ session.emotional_state }} </p>
+                            {% if current_user.type == "patient" %}
                             <p> <strong> Session Therapist: </strong> {{ session_therapist.first_name + " " + session_therapist.surname }} </p>
+                            {% elif current_user.type == "therapist" %}
+                            <p> <strong> Session Patient: </strong> {{ session_patient.first_name + " " + session_patient.surname }} </p>
+                            {% endif %}
                             <p> <strong> Total Emotion Instances: </strong> {{ total_emotions }} </p>
                         </div>
                         <div class="col-6">

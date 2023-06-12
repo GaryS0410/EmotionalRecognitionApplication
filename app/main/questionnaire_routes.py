@@ -37,6 +37,7 @@ def phq9_questionnaire():
 
     if form.validate_on_submit():
         score = form.calculate_score()
+        print(score)
         
         emotions = predict_questionnaire_images()
         emotional_state = determine_emotional_state(emotions)
@@ -46,6 +47,7 @@ def phq9_questionnaire():
         
         phq_message = get_phq_message(score)
         emotional_state_message = get_questionnaire_message(emotional_state)
+        score = str(score)
 
         return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions, emotional_state = emotional_state, phq_message = phq_message,
                                emotional_state_message = emotional_state_message)

@@ -82,14 +82,6 @@ def get_session_times(image_timestamps):
 
     return session_start_time, session_end_time
 
-def get_time_difference(start_time, end_time):
-    time_difference = end_time - start_time
-
-    minute_difference = time_difference.total_seconds() // 60
-
-    print(f"Time difference is: {minute_difference}")
-    return time_difference
-
 def delete_account_data(patient_id):
     patient = Patient.get_patient(patient_id)
     patient_associations = Association.get_patient_association(patient_id)

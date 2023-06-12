@@ -46,6 +46,7 @@ def profile_page(patient_id):
 # Everything related to viewing questionnaire data
 
 @bp.route('/previous_phq/<int:patient_id>', methods = ['GET'])
+@login_required
 def previous_phq(patient_id):
     patient = Patient.get_patient(patient_id)
     phq9_scores = PHQ9Scores.get_all_scores(patient.id)
@@ -64,6 +65,7 @@ def previous_phq(patient_id):
                            most_recent = most_recent)
 
 @bp.route('previous_gad/<int:patient_id>', methods = ['GET'])
+@login_required
 def previous_gad(patient_id):
     patient = Patient.get_patient(patient_id)
     gad7_scores = GAD7Scores.get_all_scores(patient.id)
@@ -84,17 +86,19 @@ def previous_gad(patient_id):
 # Everything related to therapy sessions
 
 @bp.route('/specific_session/<int:session_id>', methods = ['GET'])
+@login_required
 def specific_session(session_id):
     session = SessionData.query.get(session_id)
     emotion_data = SessionData.get_session_emotions(session)
     session_therapist = Therapist.get_therapist(session.session_therapist)
+    session_patient = Patient.get_patient(session.session_patient)
 
     # Here is where you should retrieve the relevant text for the emotional score and generally what it means
     session_emotions = EmotionData.get_emotion_data(session.id)
     total_emotions = len(session_emotions)
 
     return render_template('patient_user/specific_session_page.html', session = session, total_emotions = total_emotions, emotion_data = emotion_data, 
-                           session_emotions = session_emotions, session_therapist = session_therapist)
+                           session_emotions = session_emotions, session_therapist = session_therapist, session_patient = session_patient)
 
 # Choosing/updating therapist related functionality 
 
@@ -109,6 +113,7 @@ def choose_therapist_page():
     return render_template('patient_user/choose_therapist.html', therapist_list = therapist_list, current_patient = current_user.id)
 
 @bp.route('/assign_therapist', methods = ['POST'])
+@login_required
 def assign_therapist():
     if request.method == 'POST':
         patient = request.form.get('patient')
@@ -131,6 +136,7 @@ def assign_therapist():
     return redirect(url_for('main.profile_page', patient_id = current_user.id))
 
 @bp.route('/delete_account/<int:patient_id>', methods = ['GET', 'POST'])
+@login_required
 def delete_account(patient_id):
     delete_account_data(patient_id)
     return redirect(url_for('main.landing_page'))

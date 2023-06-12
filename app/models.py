@@ -56,13 +56,15 @@ class SessionData(db.Model):
             most_recent_session = SessionData.query.filter_by(session_patient = patient_id).order_by(SessionData.session_start_time.desc()).first()
             return most_recent_session
         except:
-            most_recent_session = None
-            return most_recent_session
+            return None
         
     @staticmethod
     def get_therapist_sessions(therapist_id):
         conducted_sessions = SessionData.query.filter_by(session_therapist = therapist_id).all()
-        return conducted_sessions
+        if len(conducted_sessions) > 0:
+            return conducted_sessions
+        else:
+            return None
     
     @staticmethod
     def get_session_emotions(session):
@@ -75,8 +77,7 @@ class SessionData(db.Model):
                     emotions_count[emotion.emotion_type] = 1
             return emotions_count
         except:
-            emotions_count = None
-            return emotions_count
+            return None
 
 # Model for PHQ9Scores. Used to store the score, emotional_score, time when the 
 # questionnaire was done, etc.
@@ -99,8 +100,7 @@ class PHQ9Scores(db.Model):
             latest_score = all_scores[-1]
             return latest_score
         else:
-            latest_score = None
-            return latest_score
+            return None
 
 # Model for GAD7Scores. Used to store the score, emotional_score, time when the 
 # questionnaire was done, etc.
@@ -123,13 +123,13 @@ class GAD7Scores(db.Model):
             latest_score = all_scores[-1]
             return latest_score
         else:
-            latest_score = None
-            return latest_score
+            return None
 
 # Base user model, used in order to define the base attributes both the
 # therapist and patient should have. These attributes include the names.
 # email, password, etc.
 class User(db.Model, UserMixin):
+    __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key = True)
     first_name = db.Column(db.String(50))
     surname = db.Column(db.String(50))
@@ -152,7 +152,7 @@ class User(db.Model, UserMixin):
 # to the patients that the therpaist currently is associated with
 class Therapist(User):
     __tablename__ = 'Therapist'
-    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    id = db.Column(db.Integer, db.ForeignKey('User.id'), primary_key=True)
 
     therapy_sessions = db.relationship('SessionData')
     patients = db.relationship('Association', foreign_keys=[Association.therapist_id], backref='therapist')
@@ -167,13 +167,18 @@ class Therapist(User):
         
         return all_therapists
     
+    # @staticmethod
+    # def get_therapist(therapist_id):
+    #     if therapist_id == None:
+    #         return None
+    #     else: 
+    #         therapist = Therapist.query.filter_by(id = therapist_id).first()
+    #         return therapist
+
     @staticmethod
     def get_therapist(therapist_id):
-        if therapist_id == None:
-            return None
-        else: 
-            therapist = Therapist.query.filter_by(id = therapist_id).first()
-            return therapist
+        therapist = Therapist.query.get(therapist_id)
+        return therapist
         
 # Model for the patient user. Has various attributes corresponding to mental 
 # health data, such as session_data and self-questionnaire scores. ALso has a
@@ -181,7 +186,7 @@ class Therapist(User):
 # associated with, via the association table
 class Patient(User):
     __tablename__ = 'Patient'
-    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key = True)
+    id = db.Column(db.Integer, db.ForeignKey('User.id'), primary_key = True)
 
     phq9_data = db.relationship('PHQ9Scores')
     gad7_data = db.relationship('GAD7Scores')

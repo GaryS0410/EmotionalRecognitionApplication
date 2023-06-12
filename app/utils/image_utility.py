@@ -35,8 +35,6 @@ def preprocess_image(image):
 def predict_emotions(image_list, is_therapy):
     model = load_model('app\static\ml_models\model.h5')
 
-    image_list = np.array(image_list)
-
     if is_therapy:
         image_list = image_list[1:]
 
@@ -55,7 +53,7 @@ def predict_emotions(image_list, is_therapy):
             emotions_count[i] += 1
         else:
             emotions_count[i] = 1
-    
+
     if is_therapy:
         return(emotions_count, emotion_labels)
     else:
