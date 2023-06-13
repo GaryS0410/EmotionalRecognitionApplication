@@ -12,9 +12,7 @@ from app.models import Therapist, Association
 from app.utils.general_utility import get_therapy_message
 from app.utils.image_utility import preprocess_image, predict_emotions
 
-# image_list = np.zeros((1, 48, 48, 1))
-# image_list = np.zeros((1, 48, 48, 1))
-image_list = np.empty([0, 48, 48, 1])
+image_list = np.empty((1, 48, 48, 1))
 image_timestamps = []
 
 @bp.route('/therapy_page', methods=['GET'])

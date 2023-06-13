@@ -6,9 +6,9 @@ from app.models import User
 
 def test_patient_registration(app, client):
     data = {
-        "first_name": "Logan",
-        "surname": "Roy",
-        "email": "LoganRoy@gmail.com",
+        "first_name": "John",
+        "surname": "Doe",
+        "email": "JohnDoe@gmail.com",
         "password": "helloworld",
         "confirm_password": "helloworld",
         "account_type": "1"
@@ -17,13 +17,13 @@ def test_patient_registration(app, client):
     response = client.post('/register_user', data = data)
 
     with app.app_context():
-        assert User.query.filter_by(email = "LoganRoy@gmail.com").first()
-        patient = User.query.filter_by(email = "LoganRoy@gmail.com").first()
+        assert User.query.filter_by(email = "JohnDoe@gmail.com").first()
+        patient = User.query.filter_by(email = "JohnDoe@gmail.com").first()
         assert patient.type == "patient"
 
 def test_patient_login(app, client):
     response = client.post('login', data = {
-        "email": "LoganRoy@gmail.com",
+        "email": "JohnDoe@gmail.com",
         "password": "helloworld"
     }, follow_redirects = True)
 
@@ -33,24 +33,24 @@ def test_patient_login(app, client):
  
 def test_therapist_registration(app, client):
     data = {
-        "first_name": "Shiv",
-        "surname": "Roy",
-        "email": "ShivRoy@gmail.com",
-        "password": "helloworld",
-        "confirm_password": "helloworld",
+        "first_name": "Jenny",
+        "surname": "Jones",
+        "email": "JennyJones@gmail.com",
+        "password": "worldhello",
+        "confirm_password": "worldhello",
         "account_type": "2"
     }
 
     response = client.post('/register_user', data = data)
 
     with app.app_context():
-        assert User.query.filter_by(email = "ShivRoy@gmail.com").first()
-        therapist = User.query.filter_by(email = "ShivRoy@gmail.com").first()
+        assert User.query.filter_by(email = "JennyJones@gmail.com").first()
+        therapist = User.query.filter_by(email = "JennyJones@gmail.com").first()
         assert therapist.type == "therapist"
 
 def test_therapist_login(app, client):
     data = {
-        "email": "ShivRoy@gmail.com",
+        "email": "JennyJones@gmail.com",
         "password": "helloworld"
     }
 

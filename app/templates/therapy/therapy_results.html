@@ -18,20 +18,20 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <p> Session Therapist: {{ therapist.first_name + " " + therapist.surname}} </p>
-                            <p> Total Images Captured: {{ total_images_captured }}</p>
-                            <p> Session Emotional State: {{ emotional_state }} </p>
+                            <p> <strong> Session Therapist: </strong>{{ therapist.first_name + " " + therapist.surname}} </p>
+                            <p> <strong> Total Images Captured: </strong> {{ total_images_captured }}</p>
+                            <p> <strong> Session Emotional State: </strong> {{ emotional_state }} </p>
                         </div>
                         <div class="col-6">
-                            <p> Session Start Time: {{ session_start_time.strftime('%H:%M') }} </p>
-                            <p> Session End Time: {{ session_end_time.strftime('%H:%M') }} </p>
+                            <p> <strong> Session Start Time: </strong> {{ session_start_time.strftime('%H:%M') }} </p>
+                            <p> <strong> Session End Time: </strong> {{ session_end_time.strftime('%H:%M') }} </p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card mt-5">
                 <div class="card-header text-center">
-                    <h3> Emotional State Information </h3>
+                    <h3> Session Emotional State </h3>
                 </div>
                 <div class="card-body">
                     <p> {{ message }} </p>

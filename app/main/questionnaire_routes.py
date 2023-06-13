@@ -19,7 +19,6 @@ image_list = np.zeros((1, 48, 48, 1))
 @login_required
 def questionnaires_page():
     patient = Patient.get_patient(current_user.id)
-
     if patient.current_therapist:
         therapist = patient.current_therapist.therapist
     else:
@@ -37,7 +36,6 @@ def phq9_questionnaire():
 
     if form.validate_on_submit():
         score = form.calculate_score()
-        print(score)
         
         emotions = predict_questionnaire_images()
         emotional_state = determine_emotional_state(emotions)
