@@ -11,6 +11,7 @@ def register_patient(first_name, surname, email, password):
 
     if patient:
         flash('A user account already exists with this email. Please choose a unique email before registering', category='error')
+        return redirect(url_for('auth.register_user'))
     else:
         new_patient_account = Patient(first_name = first_name, surname = surname, email = email, 
                                     password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))

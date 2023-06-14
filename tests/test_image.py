@@ -2,10 +2,10 @@ import cv2
 from PIL import Image
 import numpy as np
 
-from app.utils.image_utility import preprocess_image, predict_emotions
+from app.utils.image_utility import *
 
 def test_preprocess_image():
-    with open("./test_images/happy_man_1.jpg", "rb") as file:
+    with open("./test_images/happy/happy_man_1.jpg", "rb") as file:
         sample_image = file.read()
 
     processed_image = preprocess_image(sample_image)
@@ -15,7 +15,7 @@ def test_preprocess_image():
     assert processed_image.dtype == np.float32
 
 def test_prediction_happy():
-    with open("./test_images/happy_man_1.jpg", "rb") as file:
+    with open("./test_images/happy/happy_man_1.jpg", "rb") as file:
         happy_image = file.read()
 
     processed_image = preprocess_image(happy_image)

@@ -1,7 +1,8 @@
 let canvas = document.getElementById('webcamCanvas');
 let video = document.getElementById('video');
-
 let context = canvas.getContext('2d');
+
+// let sessionDuration = 0;
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
@@ -49,8 +50,9 @@ function clearTherapyImages() {
 // Event listeners and button related functionality
 document.getElementById('start').addEventListener('click', () => {
     toggleStartButton(true);
-    // disableSessionLengthButton(true);
     enableStopButton();
+    // disableSessionLengthButton(true);
+    // sessionStartTime = new Date().getTime();
     takePhoto();
     intervalID = setInterval(takePhoto, 3000);
 })

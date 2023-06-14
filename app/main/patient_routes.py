@@ -40,8 +40,10 @@ def profile_page(patient_id):
     most_recent_phq = PHQ9Scores.get_latest_score(patient.id)
     most_recent_gad = GAD7Scores.get_latest_score(patient.id)
 
-    return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist, all_sessions = all_sessions, most_recent_session = most_recent_session, 
-                           most_recent_session_emotions = most_recent_session_emotions, most_recent_phq = most_recent_phq, most_recent_gad = most_recent_gad)
+    return render_template('patient_user/patient_profile.html', patient = patient, therapist = therapist, 
+                           all_sessions = all_sessions, most_recent_session = most_recent_session, 
+                           most_recent_session_emotions = most_recent_session_emotions, 
+                           most_recent_phq = most_recent_phq, most_recent_gad = most_recent_gad)
 
 # Everything related to viewing questionnaire data
 
@@ -97,8 +99,10 @@ def specific_session(session_id):
     session_emotions = EmotionData.get_emotion_data(session.id)
     total_emotions = len(session_emotions)
 
-    return render_template('patient_user/specific_session_page.html', session = session, total_emotions = total_emotions, emotion_data = emotion_data, 
-                           session_emotions = session_emotions, session_therapist = session_therapist, session_patient = session_patient)
+    return render_template('patient_user/specific_session_page.html', session = session, 
+                           total_emotions = total_emotions, emotion_data = emotion_data, 
+                           session_emotions = session_emotions, session_therapist = session_therapist, 
+                           session_patient = session_patient)
 
 # Choosing/updating therapist related functionality 
 
@@ -111,6 +115,8 @@ def choose_therapist_page():
         therapist_list = None
 
     return render_template('patient_user/choose_therapist.html', therapist_list = therapist_list, current_patient = current_user.id)
+
+    return render_template('patient_user', patient = patient)
 
 @bp.route('/assign_therapist', methods = ['POST'])
 @login_required

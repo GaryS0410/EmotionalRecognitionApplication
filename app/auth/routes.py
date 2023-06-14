@@ -42,7 +42,8 @@ def register_user():
     if form.validate_on_submit():
         if form.account_type.data == '1':
             register_patient(form.first_name.data, form.surname.data, form.email.data, form.password.data)
-            return redirect(url_for('main.profile_page', patient_id = current_user.id))
+            if current_user.is_authenticated:
+                return redirect(url_for('main.profile_page', patient_id = current_user.id))
         elif form.account_type.data == '2':
             register_therapist(form.first_name.data, form.surname.data, form.email.data, form.password.data)
             return redirect(url_for('therapist.therapist_dash'))
