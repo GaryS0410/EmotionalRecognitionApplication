@@ -167,14 +167,6 @@ class Therapist(User):
         
         return all_therapists
     
-    # @staticmethod
-    # def get_therapist(therapist_id):
-    #     if therapist_id == None:
-    #         return None
-    #     else: 
-    #         therapist = Therapist.query.filter_by(id = therapist_id).first()
-    #         return therapist
-
     @staticmethod
     def get_therapist(therapist_id):
         therapist = Therapist.query.get(therapist_id)
