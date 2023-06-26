@@ -24,7 +24,7 @@ def login():
                 elif user.type == "therapist":
                     return redirect(url_for('therapist.therapist_dash'))
             else:
-                flash('Incorrect password Please try again.', category='error')
+                flash('Incorrect password. Please try again.', category='error')
         else:
             flash('Account does not exist. Please register an account before logging in.', category='error')
     return render_template('auth/login.html', form = form)

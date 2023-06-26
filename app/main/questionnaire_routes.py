@@ -47,8 +47,8 @@ def phq9_questionnaire():
         emotional_state_message = get_questionnaire_message(emotional_state)
         score = str(score)
 
-        return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions, emotional_state = emotional_state, phq_message = phq_message,
-                               emotional_state_message = emotional_state_message)
+        return render_template('/questionnaires/PHQ9.html', score = score, emotions = emotions, emotional_state = emotional_state, 
+                               phq_message = phq_message, emotional_state_message = emotional_state_message)
     return render_template('/questionnaires/PHQ9.html', form = form)
 
 @bp.route('/gad7_questionnaire', methods = ['GET', 'POST'])

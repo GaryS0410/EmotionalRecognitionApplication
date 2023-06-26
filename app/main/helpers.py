@@ -4,13 +4,10 @@ from app import db
 
 from app.models import *
 
-# Function for calculating "emotional score metric". This is a holdover from v1 of the application,
-# and therefore is subject to change. Haven't ever been fully happy with how this works, however
-# I am really struggling to think of another way. It's good enough for now.
 def determine_emotional_state(emotions):
     weighted_values = {
         'happy': -1,
-        'surprise': 0,
+        'surprise': 1,
         'disgust': 0.5,
         'neutral': 0,
         'fear': 0.5,
@@ -28,7 +25,7 @@ def determine_emotional_state(emotions):
         overall_score += weighted_values[label] * value
     
     emotion_score = round(overall_score / total_emotion_values, 2)
-
+    
     return emotion_score
 
 def categorise_emotional_state(emotional_state):
@@ -50,7 +47,6 @@ def categorise_emotional_state(emotional_state):
 
     return emotion_overall
 
-# Function for saving a questionnaire attempt 
 def save_questionnaire_data(questionnaire_type, score, emotional_state, patient_id):
     if questionnaire_type == "PHQ":
         new_entry = PHQ9Scores(score = score, emotional_state = emotional_state, patient_id = patient_id)
