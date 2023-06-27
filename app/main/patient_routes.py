@@ -70,6 +70,7 @@ def previous_phq(patient_id):
 @login_required
 def previous_gad(patient_id):
     patient = Patient.get_patient(patient_id)
+    
     gad7_scores = GAD7Scores.get_all_scores(patient.id)
     most_recent = GAD7Scores.get_latest_score(patient.id)
 
@@ -141,7 +142,7 @@ def assign_therapist():
     flash('Therapist successfully assigned.')
     return redirect(url_for('main.profile_page', patient_id = current_user.id))
 
-@bp.route('/delete_account/<int:patient_id>', methods = ['GET', 'POST'])
+@bp.route('/delete_patient_account/<int:patient_id>', methods = ['GET', 'POST'])
 @login_required
 def delete_account(patient_id):
     delete_account_data(patient_id)

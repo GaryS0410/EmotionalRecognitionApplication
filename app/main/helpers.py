@@ -7,7 +7,7 @@ from app.models import *
 def determine_emotional_state(emotions):
     weighted_values = {
         'happy': -1,
-        'surprise': 1,
+        'surprise': 0,
         'disgust': 0.5,
         'neutral': 0,
         'fear': 0.5,
@@ -82,13 +82,15 @@ def delete_account_data(patient_id):
     patient = Patient.get_patient(patient_id)
     patient_associations = Association.get_patient_association(patient_id)
 
+    if patient_associations:
+        db.session.delete(patient)
+    else:
+        pass
+
     for session in patient.session_data:
         EmotionData.query.filter_by(session_id = session.id).delete()
 
     SessionData.query.filter_by(session_patient = patient.id)
-
-    for association in patient_associations:
-        db.session.delete(association)
 
     db.session.delete(patient)
     db.session.commit()

@@ -39,10 +39,10 @@ def phq9_questionnaire():
         
         emotions = predict_questionnaire_images()
         emotional_state = determine_emotional_state(emotions)
+        
         save_questionnaire_data("PHQ", score, emotional_state, current_user.id)
         
         emotional_state = categorise_emotional_state(emotional_state)
-        
         phq_message = get_phq_message(score)
         emotional_state_message = get_questionnaire_message(emotional_state)
         score = str(score)

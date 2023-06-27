@@ -39,3 +39,4 @@ def create_app(config_class = Config):
         return User.query.get(int(id))
     
     return app
+

@@ -44,7 +44,6 @@ def predict_emotions(image_list, is_therapy):
     emotion_types = np.array(['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral'])
     emotion_labels = emotion_types[predicted_classes]
 
-    emotion_types = emotion_types.tolist()
     emotion_labels = emotion_labels.tolist()
 
     emotions_count = {}
