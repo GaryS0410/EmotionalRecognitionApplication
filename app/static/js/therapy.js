@@ -51,8 +51,6 @@ function clearTherapyImages() {
 document.getElementById('start').addEventListener('click', () => {
     toggleStartButton(true);
     enableStopButton();
-    // disableSessionLengthButton(true);
-    // sessionStartTime = new Date().getTime();
     takePhoto();
     intervalID = setInterval(takePhoto, 3000);
 })

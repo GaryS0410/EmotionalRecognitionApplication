@@ -194,3 +194,6 @@ class Patient(User):
     def get_patient(patient_id):
         patient = Patient.query.get(patient_id)
         return patient
+    
+
+    
