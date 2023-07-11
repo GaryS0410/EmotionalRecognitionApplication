@@ -7,7 +7,7 @@ from app import db
 from app.main import bp
 from app.main.forms import *
 from app.models import *
-from app.main.helpers import delete_account_data
+from app.main.helpers import delete_patient_account_data
 
 # Landing page route 
 
@@ -15,13 +15,10 @@ from app.main.helpers import delete_account_data
 def landing_page():
     return render_template('landing_page.html')
 
-# All patient profile related pages/routes. Maybe will let these be accessed by therapist as well? Dunno yet
 @bp.route('/profile_page/<int:patient_id>', methods = ['GET', 'POST'])
 @login_required
 def profile_page(patient_id):
-    # Getting current patient by querying the database with the current user id
     patient = Patient.get_patient(patient_id)
-    
     association = Association.get_patient_association(patient.id)
 
     if association is not None:
@@ -51,7 +48,7 @@ def profile_page(patient_id):
 @login_required
 def previous_phq(patient_id):
     patient = Patient.get_patient(patient_id)
-    phq9_scores = PHQ9Scores.get_all_scores(patient.id)
+    phq9_scores = PHQ9Scores.get_last_ten_scores(patient.id)
     most_recent = PHQ9Scores.get_latest_score(patient.id)
 
     graph_labels = []
@@ -71,7 +68,7 @@ def previous_phq(patient_id):
 def previous_gad(patient_id):
     patient = Patient.get_patient(patient_id)
     
-    gad7_scores = GAD7Scores.get_all_scores(patient.id)
+    gad7_scores = GAD7Scores.get_last_ten_scores(patient.id)
     most_recent = GAD7Scores.get_latest_score(patient.id)
 
     graph_labels = []
@@ -117,8 +114,6 @@ def choose_therapist_page():
 
     return render_template('patient_user/choose_therapist.html', therapist_list = therapist_list, current_patient = current_user.id)
 
-    return render_template('patient_user', patient = patient)
-
 @bp.route('/assign_therapist', methods = ['POST'])
 @login_required
 def assign_therapist():
@@ -144,6 +139,6 @@ def assign_therapist():
 
 @bp.route('/delete_patient_account/<int:patient_id>', methods = ['GET', 'POST'])
 @login_required
-def delete_account(patient_id):
-    delete_account_data(patient_id)
+def delete_patient_account(patient_id):
+    delete_patient_account_data(patient_id)
     return redirect(url_for('main.landing_page'))

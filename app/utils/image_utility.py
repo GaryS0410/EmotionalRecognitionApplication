@@ -33,7 +33,8 @@ def preprocess_image(image):
     
 # PREDICTING ON IMAGES FUNCTIONS
 def predict_emotions(image_list, is_therapy):
-    model = load_model('app\static\ml_models\model.h5')
+    # model = load_model('app\static\ml_models\model.h5')
+    model = load_model('app\static\ml_models\\final_model.h5')
 
     if is_therapy:
         image_list = image_list[1:]

@@ -1,4 +1,4 @@
-from app.models import Association, Patient, SessionData
+from app.models import *
 
 def get_current_patients(therapist_id):
     current_patient_associations = Association.get_therapist_associations(therapist_id)
@@ -22,3 +22,15 @@ def conducted_sessions_information(therapist_id):
         conducted_session_data = zip(conducted_sessions, conducted_session_patients)
         return conducted_session_data
     return None
+
+def delete_therapist_account_data(therapist_id):
+    therapist = Therapist.get_therapist(therapist_id)
+    therapist_associations = Association.get_therapist_associations(therapist_id)
+
+    if therapist_associations:
+        db.session.delete(therapist_associations)
+        db.session.delete(therapist)
+    else: 
+        db.session.delete(therapist)
+
+    db.session.commit()

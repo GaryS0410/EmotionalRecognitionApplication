@@ -22,7 +22,7 @@ def login():
                 if user.type == "patient":
                     return redirect(url_for('main.profile_page', patient_id = current_user.id))
                 elif user.type == "therapist":
-                    return redirect(url_for('therapist.therapist_dash'))
+                    return redirect(url_for('therapist.therapist_dash', therapist_id = current_user.id))
             else:
                 flash('Incorrect password. Please try again.', category='error')
         else:
@@ -46,7 +46,7 @@ def register_user():
                 return redirect(url_for('main.profile_page', patient_id = current_user.id))
         elif form.account_type.data == '2':
             register_therapist(form.first_name.data, form.surname.data, form.email.data, form.password.data)
-            return redirect(url_for('therapist.therapist_dash'))
+            return redirect(url_for('therapist.therapist_dash', therapist_id = current_user.id))
     return render_template('auth/register.html', form=form)
 
 @bp.route('/update_details', methods = ['GET', 'POST'])
@@ -60,6 +60,6 @@ def update_details():
         if user.is_patient():
             return redirect(url_for('main.profile_page', patient_id = current_user.id))
         elif user.is_therapist():
-            return redirect(url_for('therapist.therapist_dash'))
+            return redirect(url_for('therapist.therapist_dash', therapist_id = current_user.id))
 
     return render_template('auth/update_details.html', form = form)

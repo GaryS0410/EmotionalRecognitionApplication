@@ -78,19 +78,20 @@ def get_session_times(image_timestamps):
 
     return session_start_time, session_end_time
 
-def delete_account_data(patient_id):
+def delete_patient_account_data(patient_id):
     patient = Patient.get_patient(patient_id)
     patient_associations = Association.get_patient_association(patient_id)
+    patient_sessions = SessionData.get_all_sessions(patient_id)
 
     if patient_associations:
+        db.session.delete(patient_associations)
         db.session.delete(patient)
+
+        for session in patient_sessions:
+            for emotion in session.emotion_data:
+                db.session.delete(emotion)
+            db.session.delete(session)
     else:
-        pass
+        db.session.delete(patient)
 
-    for session in patient.session_data:
-        EmotionData.query.filter_by(session_id = session.id).delete()
-
-    SessionData.query.filter_by(session_patient = patient.id)
-
-    db.session.delete(patient)
     db.session.commit()

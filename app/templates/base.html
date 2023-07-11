@@ -59,7 +59,8 @@
             </div>
             {% elif current_user.is_authenticated and current_user.type == "therapist" %}
             <div class="navbar-nav">
-                <a class="nav-item nav-link" id="therapist_dash" href="/therapist_dash">Dashboard</a>
+                <a class="nav-item nav-link" id="therapist_dash" href="{{ url_for('therapist.therapist_dash', therapist_id = current_user.id) }}">Therapist Dashboard</a>
+                <!--<a class="nav-item nav-link" id="therapist_dash" href="/therapist_dash">Dashboard</a>-->
             </div>
             <div class="navbar-nav ms-auto">
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>

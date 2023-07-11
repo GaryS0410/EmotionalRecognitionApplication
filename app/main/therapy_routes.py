@@ -45,7 +45,6 @@ def therapy_results_page():
 
     start_time, end_time = get_session_times(image_timestamps)
 
-    
     total_images_captured = len(all_emotions)
     
     save_therapy_data(emotional_state, current_user.id, current_therapist.id, all_emotions, image_timestamps, start_time, end_time)

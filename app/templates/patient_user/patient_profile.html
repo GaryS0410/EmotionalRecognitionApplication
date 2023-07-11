@@ -27,7 +27,7 @@
                 <div class="card-header text-center">
                     <h3> Patient Information </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                     <p> <strong>Patient Name:</strong> {{ patient.first_name + " " + patient.surname }}</p>
                     <p> <strong>Email:</strong> {{ patient.email }} </p>
                     {% if therapist %}
@@ -43,7 +43,7 @@
                     {% if current_user.type == "patient" %}
                     <a href="{{ url_for('auth.update_details') }}" class="btn btn-secondary">Change User Details</a>
                     <a href="{{ url_for('main.choose_therapist_page') }}" class="btn btn-secondary">Select/Update Therapist</a>
-                    <a href="{{ url_for('main.delete_account', patient_id = patient.id) }}" class="btn btn-danger">Delete Account</a>
+                    <a href="{{ url_for('main.delete_patient_account', patient_id = patient.id) }}" class="btn btn-danger">Delete Account</a>
                     {% elif current_user.type == "therapist" %}
                     <button type="button" class="btn btn-secondary" disabled>Change User Details</button>
                     <button type="button" class="btn btn-secondary" disabled>Select/Update Therapist</button>
@@ -134,7 +134,7 @@
                 <div class="card-body">
                     {% if all_sessions %}
                     <table id="sessions_table" class="cell-border">
-                        <thead >
+                        <thead>
                             <tr>
                                 <th> Date of Session </th>
                                 <th> Time of Session </th>

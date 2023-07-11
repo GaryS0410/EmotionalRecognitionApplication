@@ -48,7 +48,8 @@ class SessionData(db.Model):
 
     @staticmethod
     def get_all_sessions(patient_id):
-        return SessionData.query.filter_by(session_patient = patient_id).all()
+        # return SessionData.query.filter_by(session_patient = patient_id).all()
+        return SessionData.query.filter_by(session_patient = patient_id).order_by(SessionData.session_start_time.desc()).all()
 
     @staticmethod
     def get_most_recent_session(patient_id):
@@ -89,10 +90,17 @@ class PHQ9Scores(db.Model):
     time_captured = db.Column(db.DateTime(timezone=True), default=func.now())
     patient_id = db.Column(db.Integer, db.ForeignKey('Patient.id'))
 
-    @staticmethod
+    @staticmethod 
     def get_all_scores(patient_id):
-        return PHQ9Scores.query.filter_by(patient_id = patient_id).order_by(PHQ9Scores.time_captured.asc()).all()
-    
+        all_scores = PHQ9Scores.query.filter_by(patient_id = patient_id).order_by(PHQ9Scores.time_captured.asc()).all()
+        return all_scores
+
+    @staticmethod
+    def get_last_ten_scores(patient_id):
+        all_scores = PHQ9Scores.query.filter_by(patient_id = patient_id).order_by(PHQ9Scores.time_captured.asc()).all()
+        last_ten = all_scores[-10:]
+        return last_ten
+      
     @staticmethod
     def get_latest_score(patient_id):
         all_scores = PHQ9Scores.query.filter_by(patient_id = patient_id).order_by(PHQ9Scores.time_captured.asc()).all()
@@ -116,6 +124,12 @@ class GAD7Scores(db.Model):
     def get_all_scores(patient_id):
         return GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all()
         
+    @staticmethod 
+    def get_last_ten_scores(patient_id):
+        all_scores = GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all()
+        last_ten = all_scores[-10:]
+        return last_ten
+
     @staticmethod 
     def get_latest_score(patient_id):
         all_scores = GAD7Scores.query.filter_by(patient_id = patient_id).order_by(GAD7Scores.time_captured.asc()).all()
@@ -194,6 +208,3 @@ class Patient(User):
     def get_patient(patient_id):
         patient = Patient.query.get(patient_id)
         return patient
-    
-
-    

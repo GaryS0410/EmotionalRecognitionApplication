@@ -21,14 +21,13 @@
 
 <div class="container mt-3">
     <div class="row">
-        <div class="col-6 ">
-            <div class="card me-2 text-center" id="PHQ9">
+        <div class="col-lg-6 col-sm-12 mb-sm-2">
+            <div class="card me-lg-2 text-center" id="PHQ9">
                 <h3 class="card-header">PHQ-9 Questionnaire</h3>
                 <div class="card-body">
                     <p>
                         The PHQ-9 questionnaire is a mental health self-screening questionnaire which is designed to
-                        determine if an indivudal is exhibiting
-                        symptoms consistent with depression disorder.
+                        determine if an indivudal is exhibiting symptoms consistent with depression disorder.
                     </p>
                     <p>
                         The questionnaire will ask 9 different questions about depressive symptoms. Depending on the
@@ -54,8 +53,8 @@
             </div>
         </div>
 
-        <div class="col-6">
-            <div class="card ms-2 text-center" id="GAD7">
+        <div class="col-lg-6 col-sm-12">
+            <div class="card ms-lg-2 text-center" id="GAD7">
                 <h3 class="card-header">GAD-7 Questionnaire</h3>
                 <div class="card-body">
                     <p>
@@ -96,10 +95,10 @@
 {% if not therapist %}
 
 <script>
-    var phq9Buttion = document.getElementById("phq9");
+    var phq9Button = document.getElementById("phq9");
     var gad7Button = document.getElementById("gad7");
 
-    phq9Buttion.classList.add("disabled");
+    phq9Button.classList.add("disabled");
     gad7Button.classList.add("disabled");
 
 </script>

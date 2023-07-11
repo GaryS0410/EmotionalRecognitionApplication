@@ -1,7 +1,20 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+
+<style>
+    .info {
+        background-color: #736980;
+    }
+</style>
+
+{% endblock %}
+
 {% block content %}
 
+<!--
 <div class="flex-container" style="overflow: hidden;">
     <div class="row">
         <div class="col-12">
@@ -13,18 +26,99 @@
         </div>
     </div>
 </div>
+-->
+
+<div class="flex-container" style="overflow: hidden;">
+    <div class="row">
+        <div class="col-12">
+            <header class="info py-5 mt-3">
+                <div class="container px-4 px-lg-5 my-5">
+                    <div class="text-center">
+                        <h1 class="display-4 fw-bolder">Emotional Recognition Mental Health Application</h1>
+                        <p class="lead fw-normal text-white-50 mb-0">Student: Gary Smith - S1821972</p>
+                        <p class="lead fw-normal text-white-50 mb-0">Supervisor: Huaglory Tianfield</p>
+                    </div>
+                    <div class="container px-10 px-lg-10 my-5">
+                        <p class="text-center" style="font-size: 20px">
+                            This application was developed for a Computing (G401) honours project at Glasgow Caledonian
+                            University. The idea of the project revolves around using comptuer vision enabled emotional 
+                            recognition to aid in mental healthcare and mental health disorder diagnosis.
+                        </p>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
         <div class="col-6 mt-3">
-            <h2> The Project </h2>
-            <p> 
-                This project seeks to provide additional insights into a persons mental health by using an 
-                emotional recognition model during psychlogical screening such as therapy sessions and 
-                self-screening questionnaires. 
-            </p>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">The Project</h2>
+                </div>
+                <div class="card-body">
+                    <p> 
+                        This project seeks to provide additional insights into a persons mental health by using an 
+                        emotional recognition model during psychlogical screening such as therapy sessions and 
+                        self-screening questionnaires. 
+                    </p>         
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="piechart_container d-flex justify-content-center" style="height: 475px; width: 100%">
+                        <canvas id="pieChartCanvas"></canvas>
+                    </div>              
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    var pieChartContext = document.getElementById('pieChartCanvas').getContext('2d');
+
+    var data = {
+        labels: ['angry', 'neutral', 'happy', 'fear'],
+        datasets: [{
+            data: [2, 8, 5, 1],
+            backgroundColor: [
+                'red', 'gray', 'yellow', 'black'
+            ],
+            borderColor: 'grey',
+            borderWidth: 1
+        }]
+    };
+
+    var pieChart = new Chart(pieChartContext, {
+        type: 'pie', 
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    },
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+                labels: {
+                    color: '#c7c6cd'
+                },
+            },
+        },
+    });
+
+</script>
 
 {% endblock %}
