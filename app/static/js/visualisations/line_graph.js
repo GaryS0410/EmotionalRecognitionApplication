@@ -8,7 +8,7 @@ function createScoreGraph(ctx, labels, data, label_type) {
                 data: data,
                 backgroundColor: 'rgb(75, 192, 192)',
                 borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                tension: 0.4
             }]
         },
         options: {

@@ -2,7 +2,7 @@ let canvas = document.getElementById('webcamCanvas');
 let video = document.getElementById('video');
 let context = canvas.getContext('2d');
 
-// let sessionDuration = 0;
+let sessionDuration = 0;
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
@@ -15,9 +15,9 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 }
 
 // Upload function to send images to backend
-function upload(file) {
+function upload_image(captured_image) {
     var formdata = new FormData();
-    formdata.append('snap', file);
+    formdata.append('snap', captured_image);
 
     fetch('/get_therapy_image', {
         method: 'POST',
@@ -32,7 +32,7 @@ function upload(file) {
 // Take photo function which draws the image on the canvas.
 function takePhoto() {
     context.drawImage(video, 0, 0, 640, 480);
-    canvas.toBlob(upload, 'image/jpeg', 0.95);
+    canvas.toBlob(upload_image, 'image/jpeg', 0.95);
 }
 
 // Clearing images request

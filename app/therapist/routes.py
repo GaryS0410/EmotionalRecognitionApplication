@@ -6,21 +6,6 @@ from app.therapist.helpers import conducted_sessions_information, get_current_pa
 
 from app.models import *
 
-# @bp.route('/therapist_dash', methods = ['GET'])
-# @login_required
-# def therapist_dash():
-#     if current_user.type == "therapist":
-#         therapist = Therapist.get_therapist(current_user.id)
-
-#         conducted_session_data = conducted_sessions_information(therapist.id)
-
-#         current_patients, patient_count = get_current_patients(therapist.id)
-
-#         return render_template('therapist_user/therapist_dash.html', therapist = therapist, current_patients = current_patients, conducted_sessions_data = conducted_session_data, 
-#                             patient_count = patient_count)
-#     else: 
-#         return redirect(url_for('main.landing_page'))
-
 @bp.route('/therapist_dash/<int:therapist_id>', methods = ['GET'])
 @login_required
 def therapist_dash(therapist_id):
@@ -31,16 +16,7 @@ def therapist_dash(therapist_id):
 
         current_patients, patient_count = get_current_patients(therapist.id)
 
-        print(len(current_patients))
-        print(current_patients)
-
         return render_template('therapist_user/therapist_dash.html', therapist = therapist, current_patients = current_patients, conducted_sessions_data = conducted_session_data, 
                             patient_count = patient_count)
     else: 
         return redirect(url_for('main.landing_page'))
-    
-# @bp.route('/delete_therapist_account/<int:therapist_id>', methods = ['GET', 'POST'])
-# @login_required
-# def delete_therapist_account(therapist_id):
-#     delete_therapist_account_data(therapist_id)
-#     return redirect(url_for('main.landing_page'))

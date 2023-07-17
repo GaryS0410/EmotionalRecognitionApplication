@@ -5,7 +5,7 @@ import numpy as np
 from app import db
 from app.main import bp
 from app.main.forms import *
-from app.main.helpers import save_questionnaire_data, determine_emotional_state, categorise_emotional_state
+from app.main.helpers import save_gad7_data, save_phq9_data, determine_emotional_state, categorise_emotional_state
 from app.models import PHQ9Scores, Patient
 
 from app.utils.general_utility import *
@@ -40,7 +40,7 @@ def phq9_questionnaire():
         emotions = predict_questionnaire_images()
         emotional_state = determine_emotional_state(emotions)
         
-        save_questionnaire_data("PHQ", score, emotional_state, current_user.id)
+        save_phq9_data(score, emotional_state, current_user.id)
         
         emotional_state = categorise_emotional_state(emotional_state)
         phq_message = get_phq_message(score)
@@ -61,7 +61,8 @@ def gad7_questionnaire():
 
         emotions = predict_questionnaire_images()
         emotional_state = determine_emotional_state(emotions)
-        save_questionnaire_data("GAD", score, emotional_state, current_user.id)
+
+        save_gad7_data(score, emotional_state, current_user.id)
 
         emotional_state = categorise_emotional_state(emotional_state)
 

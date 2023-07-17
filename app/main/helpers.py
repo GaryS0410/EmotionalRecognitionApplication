@@ -47,15 +47,15 @@ def categorise_emotional_state(emotional_state):
 
     return emotion_overall
 
-def save_questionnaire_data(questionnaire_type, score, emotional_state, patient_id):
-    if questionnaire_type == "PHQ":
-        new_entry = PHQ9Scores(score = score, emotional_state = emotional_state, patient_id = patient_id)
-        db.session.add(new_entry)
-        db.session.commit()
-    elif questionnaire_type == "GAD":
-        new_entry = GAD7Scores(score = score, emotional_state = emotional_state, patient_id = patient_id)
-        db.session.add(new_entry)
-        db.session.commit()
+def save_phq9_data(score, emotional_state, patient_id):
+    new_entry = PHQ9Scores(score = score, emotional_state = emotional_state, patient_id = patient_id)
+    db.session.add(new_entry)
+    db.session.commit()
+
+def save_gad7_data(score, emotional_state, patient_id):
+    new_entry = GAD7Scores(score = score, emotional_state = emotional_state, patient_id = patient_id)
+    db.session.add(new_entry)
+    db.session.commit()
 
 def save_therapy_data(emotional_state, patient_id, therapist_id, emotion_data, image_timestamps, start_time, end_time):
 

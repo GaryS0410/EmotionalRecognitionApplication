@@ -25,7 +25,7 @@ def register_therapist(first_name, surname, email, password):
     therapist = User.query.filter_by(email = email).first()
 
     if therapist:
-        flash('A user account already exists with this email. Please use a different valid email address for your account.')
+        flash('A user account already exists with this email. Please use a different valid email address for your account.', category='error')
         return redirect(url_for('auth.register_user'))
     else:
         new_therapist_account = Therapist(first_name = first_name, surname = surname, email = email,

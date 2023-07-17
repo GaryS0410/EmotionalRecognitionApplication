@@ -17,9 +17,9 @@ document.getElementById('start-questionnaire').addEventListener('click', functio
     intervalID = setInterval(takePhoto, 10000);
 })
 
-function upload(file) {
+function upload_image(captured_image) {
     var formdata = new FormData();
-    formdata.append('snap', file);
+    formdata.append('snap', captured_image);
 
     fetch('/get_questionnaire_image', {
         method: 'POST',
@@ -36,7 +36,7 @@ function upload(file) {
 
 function takePhoto() {
     context.drawImage(video, 0, 0, 640, 480);
-    canvas.toBlob(upload, 'image/jpeg', 1);
+    canvas.toBlob(upload_image, 'image/jpeg', 1);
 }
 
 function nextQuestion() {

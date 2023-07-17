@@ -56,27 +56,66 @@
         <div class="col-6 mt-3">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="text-center">The Project</h2>
+                    <h2 class="text-center">Simulated Therapy Sessions</h2>
                 </div>
                 <div class="card-body">
                     <p> 
-                        This project seeks to provide additional insights into a persons mental health by using an 
-                        emotional recognition model during psychlogical screening such as therapy sessions and 
-                        self-screening questionnaires. 
-                    </p>         
+                        One of the key features of the application is the ability to utilise the emotional recognition 
+                        model during therapy sessions. The model is used during the session to gather expression data 
+                        and display it at the end of a session. An associated emotional score metric, calcualated based 
+                        off of the expressions captured, is also produced to provide additional insights into a persons 
+                        emotional state.
+                    </p>
+                    <p>
+                        The ability to view this captured data is available to two types of users, patients and therapist. 
+                        Patients are able to look back on their own data whereas therapists are able to look back on the data
+                        of all their assigned patients.
+                    </p>
                 </div>
             </div>
         </div>
         <div class="col-6 mt-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="piechart_container d-flex justify-content-center" style="height: 475px; width: 100%">
+                    <div class="pieChartContainer d-flex justify-content-center" style="height: 325px; width: 100%;">
                         <canvas id="pieChartCanvas"></canvas>
                     </div>              
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="lineGraphContainer d-flex justify-content-center" style="height: 315px; width: 100%;">
+                        <canvas id="lineGraphCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center"> Mental Health Questionnaires </h2>
+                </div>
+                <div class="card-body">
+                    <p>
+                       Another of the key features of the application revolves around the use of psychological
+                       self-screening quesitonnaires GAD-7 and PHQ-9. These questionnaires have proven use 
+                       in psychology for diangosing depression and anxiety. 
+                    </p>
+                    <p>
+                        In addition to being able to take the questionnaires themselves the application will also
+                        capture expression data during the questionnaires and provide an emotional metric, much like 
+                        therapy sessions. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
@@ -87,11 +126,11 @@
     var pieChartContext = document.getElementById('pieChartCanvas').getContext('2d');
 
     var data = {
-        labels: ['angry', 'neutral', 'happy', 'fear'],
+        labels: ['angry', 'neutral', 'happy'],
         datasets: [{
-            data: [2, 8, 5, 1],
+            data: [2, 8, 5],
             backgroundColor: [
-                'red', 'gray', 'yellow', 'black'
+                'red', 'gray', 'yellow',
             ],
             borderColor: 'grey',
             borderWidth: 1
@@ -119,6 +158,39 @@
         },
     });
 
+</script>
+
+<script>
+    var lineGraphContext = document.getElementById('lineGraphCanvas').getContext('2d');
+
+    var data = {
+        labels: ['12/1/2023', '16/1/2023', '19/1/2023', '3/2/2023'],
+        datasets: [{
+            label: 'PHQ-9 Scores',
+            data: [20, 15, 9, 18],
+            fill: false,
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.4
+        }]
+    };
+
+    var lineGraph = new Chart(lineGraphContext, {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            fill: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+        },
+    });
 </script>
 
 {% endblock %}

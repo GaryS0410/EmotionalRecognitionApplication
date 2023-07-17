@@ -6,8 +6,9 @@ from app import db
 
 from app.main import bp
 from app.main.forms import *
-from app.models import *
 from app.main.helpers import delete_patient_account_data
+from app.models import *
+from app.auth.forms import RegisterForm
 
 # Landing page route 
 
@@ -60,8 +61,8 @@ def previous_phq(patient_id):
         score_data.append(i.score)
         emotional_state_data.append(i.emotional_state)
 
-    return render_template('patient_user/previous_phq.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data,
-                           most_recent = most_recent)
+    return render_template('patient_user/previous_phq.html', graph_labels = graph_labels, score_data = score_data, 
+                           emotional_state_data = emotional_state_data, most_recent = most_recent)
 
 @bp.route('previous_gad/<int:patient_id>', methods = ['GET'])
 @login_required
@@ -80,8 +81,8 @@ def previous_gad(patient_id):
         score_data.append(i.score)
         emotional_state_data.append(i.emotional_state)
 
-    return render_template('patient_user/previous_gad.html', graph_labels = graph_labels, score_data = score_data, emotional_state_data = emotional_state_data, 
-                           most_recent = most_recent)
+    return render_template('patient_user/previous_gad.html', graph_labels = graph_labels, score_data = score_data, 
+                           emotional_state_data = emotional_state_data, most_recent = most_recent)
 
 # Everything related to therapy sessions
 
