@@ -32,7 +32,7 @@
                     <p> <strong> Number of Current Patients: </strong> {{ patient_count }} </p>
                 </div>
                 <div class="card-footer text-center">
-                    <button type="button" class="btn btn-secondary">Update User Details</button>
+                    <a href="{{ url_for('auth.update_details') }}" class="btn btn-secondary">Change User Details</a>
                 </div>
             </div>
         </div>

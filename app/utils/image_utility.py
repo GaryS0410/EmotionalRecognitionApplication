@@ -3,6 +3,7 @@ from tensorflow.keras.models import load_model
 from PIL import Image
 from io import BytesIO
 import numpy as np
+import matplotlib.pyplot as plt
 
 from app.utils import bp 
 
@@ -18,6 +19,7 @@ def crop_face(image):
 
 def preprocess_image(image):
     image = Image.open(BytesIO(image))
+
     image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
 
     image = crop_face(image)

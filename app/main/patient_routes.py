@@ -8,7 +8,6 @@ from app.main import bp
 from app.main.forms import *
 from app.main.helpers import delete_patient_account_data
 from app.models import *
-from app.auth.forms import RegisterForm
 
 # Landing page route 
 

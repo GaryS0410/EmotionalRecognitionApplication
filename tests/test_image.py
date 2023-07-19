@@ -14,8 +14,11 @@ def test_preprocess_image():
     assert processed_image.shape == (1, 48, 48, 1)
     assert processed_image.dtype == np.float32
 
-def test_prediction_happy():
-    with open("./test_images/happy/happy_man_1.jpg", "rb") as file:
+def test_prediction():
+    # with open("./test_images/happy/happy_man_1.jpg", "rb") as file:
+    #     happy_image = file.read()
+
+    with open("/app/tests/test_images/happy/happy_man_1.jpg", "rb") as file:
         happy_image = file.read()
 
     processed_image = preprocess_image(happy_image)
