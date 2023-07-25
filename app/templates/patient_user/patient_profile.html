@@ -91,7 +91,7 @@
                     {% endif %}
 
                     {% if most_recent_gad %}
-                    <a href="{{ url_for('main.previous_gad', patient_id = patient.id)}}" class="btn btn-secondary"> View Further GAD-7 Results </a>
+                    <a href="{{ url_for('main.previous_gad', patient_id = patient.id)}}" class="btn btn-secondary"> Further GAD-7 Results </a>
                     {% else %}
                     <button type="button" class="btn btn-secondary" disabled> Further GAD-7 Results </button>
                     {% endif %}

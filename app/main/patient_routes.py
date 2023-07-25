@@ -130,7 +130,6 @@ def assign_therapist():
         patient_therapist_association = Association(patient_id = patient, therapist_id = therapist)
         db.session.add(patient_therapist_association)
         db.session.commit()
-        print(patient_therapist_association)
     else:
         return('Request failed', 400)
 

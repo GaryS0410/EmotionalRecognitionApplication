@@ -8,6 +8,17 @@
 
 {% block content %}
 
+<div class="flex-container" style="overflow: hidden;">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-center">
+                <h1 class="mb-3"> Specific Therapy Session </h1>
+                <h4> Review data from a specific therapy session </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row mt-3">
         <div class="col-lg-6 col-sm-12">
@@ -18,12 +29,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <p> <strong> Overall Emotional State: </strong> {{ session.emotional_state }} </p>
                             {% if current_user.type == "patient" %}
                             <p> <strong> Session Therapist: </strong> {{ session_therapist.first_name + " " + session_therapist.surname }} </p>
                             {% elif current_user.type == "therapist" %}
                             <p> <strong> Session Patient: </strong> {{ session_patient.first_name + " " + session_patient.surname }} </p>
                             {% endif %}
+                            <p> <strong> Overall Emotional State: </strong> {{ session.emotional_state }} </p>
                             <p> <strong> Total Emotion Instances: </strong> {{ total_emotions }} </p>
                         </div>
                         <div class="col-6">

@@ -52,7 +52,7 @@ document.getElementById('start').addEventListener('click', () => {
     toggleStartButton(true);
     enableStopButton();
     takePhoto();
-    intervalID = setInterval(takePhoto, 3000);
+    intervalID = setInterval(takePhoto, 30000);
 })
 
 document.getElementById('stop').addEventListener('click', () => {
