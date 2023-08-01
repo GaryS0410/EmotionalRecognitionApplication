@@ -42,7 +42,7 @@ def predict_emotions(image_list, is_therapy):
         image_list = image_list[1:]
 
     predictions = model.predict(image_list)
-    predicted_classes = np.argmax(predictions, axis =1)
+    predicted_classes = np.argmax(predictions, axis = 1)
 
     emotion_types = np.array(['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral'])
     emotion_labels = emotion_types[predicted_classes]
